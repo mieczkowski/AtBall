@@ -1,0 +1,1734 @@
+% \ref{fig:rysunek} - odniesienie do rysunku, "sec" do rozdzia³u
+% ~\footnote{To jest w³aœnie przypis.}
+%\begin{equation}
+%    \label{eq:rownanie}
+%    i(t) =  \left(i_0 - {E\over R}\right)e^{-(R/L) t} + {E\over R}.
+%\end{equation}
+
+%\part{Wstêp}
+%\label{part:x}
+\newcommand{\code}[1]{\mbox{\textcolor{blue}{\texttt{#1}}}}
+\newcommand{\atbold}[1]{\textbf{#1}}
+\newcommand{\sourceBegin}[2]{\begin{lstlisting}[caption={#1},label={code:#2}]}
+\newcommand{\sourceEnd}{\end{lstlisting}}
+
+
+\definecolor{darkgray}{rgb}{0.95,0.95,0.95}
+\lstset{ %
+language=C++,                % choose the language of the code
+basicstyle=\footnotesize,       % the size of the fonts that are used for the code
+numbers=none,                   % where to put the line-numbers
+backgroundcolor=\color{darkgray},  % choose the background color. You must add \usepackage{color}
+showspaces=false,               % show spaces adding particular underscores
+showstringspaces=false,         % underline spaces within strings
+showtabs=false,                 % show tabs within strings adding particular underscores
+tabsize=2,                % sets default tabsize to 2 spaces
+captionpos=b,                   % sets the caption-position to bottom
+breaklines=true,                % sets automatic line breaking
+breakatwhitespace=false,        % sets if automatic breaks should only happen at whitespace
+keywordstyle=\color{royalblue}\bfseries, %\emph
+escapeinside={\%*}{*)}%,         % if you want to add a comment within your code
+}
+
+% ********** Rozdzia³ 1 - Wstêp **********
+\chapter{Wstêp}
+\label{Wstep}
+Niniejszy rozdzia³ ma formê wstêpu do pozosta³ej czêœci pracy. Zosta³ podzielony na trzy czêœci. Pierwsza czêœæ zawiera wyjaœnienie tematu. Druga przedstawia cel oraz za³o¿enia jakie przyj¹³ autor przygotowuj¹c projekt. Trzecia zawiera konspekt i ogólny podzia³ pracy.
+
+\section{Temat pracy}
+\label{Wstep:Temat}
+Aplikacja komputerowa to program udostêpniaj¹cy u¿ytkownikowi okreœlone funkcje i wykonuj¹cy zadane zadania. Mo¿na je podzieliæ na dwie grupy: \textbf{sterowane zdarzeniami} i \textbf{czasu rzeczywistego}.\\
+
+Aplikacje sterowane zdarzeniami dzia³aj¹ w oparciu o reakcje lub dane wprowadzane przez u¿ytkownika. Dobrym przyk³adem s¹ tutaj dynamiczne serwisy WWW. Generuj¹ one swoj¹ treœæ wynikow¹ na podstawie informacji wprowadzonych przez osobê. Kolejnym przyk³adem s¹ aplikacje do obs³ugi baz danych. U¿ytkownik wprowadza kryteria wyszukiwania, nastêpnie aplikacja po otrzymaniu informacji wykonuje operacje niezbêdne do pobrania konkretnych danych, zwraca je u¿ytkownikowi i czeka na dalsze polecenia.\\
+
+Aplikacje czasu rzeczywistego s¹ rozbudowaniem aplikacji sterowanych zdarzeniami. Mimo ¿e mog¹ reagowaæ na sygna³y zewnêtrzne, wykonuj¹ w tle inne czynnoœci. Idealnym przyk³adem takiej aplikacji jest gra komputerowa, której g³ównym elementem jest pêtla. Wykonuje siê ona nieprzerwanie przez ca³y okres dzia³ania aplikacji. Najczêœciej w jej sk³ad wchodzi:
+\begin{enumerate}
+    \item Pobranie informacji dotycz¹cych interakcji u¿ytkownika
+    \item Uaktualnienie stanu logicznego w zale¿noœci od reakcji u¿ytkownika oraz minionego czasu od poprzedniego cyklu (np. fizyki, dŸwiêku, kamery, pozycji obiektów w scenie)
+    \item Generowanie wynikowego obrazu (wykonanie jednej klatki, na które sk³ada siê przekszta³cenie wierzcho³ków modeli do pozycji docelowej, na³o¿enie tekstur oraz œwiate³, a¿ do wyliczenia docelowego koloru piksela na ekranie)
+\end{enumerate}
+
+Taka iloœæ operacji jest bardzo kosztowna obliczeniowo. Aby zachowaæ p³ynnoœæ gry i animacji aplikacja powinna wyœwietlaæ obraz z prêdkoœci¹ od 15 do 30 FPS~\footnote{ang: Frames Per Second - Klatek na sekundê}, poniewa¿ tyle wystarczy aby oszukaæ ludzki wzrok i przekonaæ o p³ynnoœci. Nale¿y w tym celu po³o¿yæ du¿y nacisk na metody optymalizacyjne takie jak wy³¹czenie obiektów niezawieraj¹cych siê w polu widzenia kamery z procesu renderingu, który jest najbardziej z³o¿ony obliczeniowo.
+
+\section{Cel pracy}
+\label{Wstep:Cel}
+Stworzenie rozbudowanej gry to skomplikowany i d³ugoplanowy proces, w który zaanga¿owanych jest co najmniej kilka osób. Autor z powodu ograniczeñ czasowych oraz ma³ego doœwiadczenia w tworzeniu tego typu aplikacji obra³ sobie za cel zaimplementowanie prostego silnika graficznego, oraz na jego podstawie stworzenie ma³ej gry zrêcznoœciowej.\\
+
+Nacisk zosta³ po³o¿ony na dwa zagadnienia wystêpuj¹ce w ka¿dej wiêkszej produkcji:
+\begin{itemize}
+    \item Realistyczna fizyka. Do tego celu wykorzystany zosta³ silnik fizyczny \textbf{PhysX} firmy \textbf{NVIDIA}.
+    \item U¿ycie zewnêtrznych skryptów do oddzielenia logiki aplikacji od kodu Ÿród³owego silnika. S¹ to  pliki tekstowe, które s¹ interpretowane~\footnote{ka¿da instrukcja jest czytana z pliku i wykonywana} podczas dzia³ania aplikacji. Wybór pad³ na jêzyk skryptowy \textbf{LUA}.
+\end{itemize}
+
+\section{Zakres pracy}
+\label{Wstep:Zakres}
+Praca zosta³a podzielona na 4 g³ówne czêœci.
+\begin{enumerate}
+    \item Wstêp, który ma na celu wprowadzenie czytelnika w temat oraz przedstawia cel pracy
+    \item Czêœæ teoretyczna zawieraj¹ca opis technologii oraz bibliotek, stanowi¹cy swoisty wstêp do czêœci implementacyjnej projektu
+    \item Czêœæ praktyczna opisuj¹ca proces powstawania oraz implementacji silnika graficznego oraz w³aœciwej gry
+    \item Podsumowanie, w którym autor wyci¹ga wnioski odnoœnie ukoñczonej pracy, a tak¿e problemy na jakie natrafi³ podczas procesu implementacji
+\end{enumerate}
+
+
+% ********** Koniec wstêpu **********
+
+% ********** Rozdzia³ 2 - TEORIA **********
+
+\chapter{Teoria}
+\label{Teoria}
+
+% ********** Rozdzia³ 2 - TEORIA - START **********
+
+\section{Wprowadzenie}
+\label{Teoria:Wprowadzenie}
+
+Czêœæ teoretyczna stanowi wprowadzenie teoretyczne do tematu tworzenia gier komputerowych. Zawarte s¹ w niej nastêpuj¹ce informacje:
+\begin{enumerate}
+    \item Definicja, rodzaje, historia oraz proces tworzenia gry komputerowej
+    \item Podstawowe pojêcia oraz definicje zwi¹zane z wyœwietlaniem grafiki w 3D
+    \item Zapoznanie z bibliotek¹ Microsoft DirectX oraz jej elementami
+    \item Omówienie procesu tworzenia jednej klatki obrazu czyli proces renderingu
+    \item Przedstawienie silnika fizycznego NVIDIA PhysX
+    \item Krótkie wprowadzenie w tematykê jêzyków skryptowych na podstawie jêzyka Lua
+\end{enumerate}
+
+\section{Gry komputerowe}
+\label{Teoria:Gry}
+\subsection{Czym jest gra komputerowa?}
+\label{Teoria:Gry:CzymJest}
+\textbf{Gra komputerowa} jest aplikacj¹ komputerow¹, która dostarcza u¿ytkownikowi dawki rozrywki poprzez wykonywanie okreœlonych zadañ wp³ywaj¹c na obiekty oraz ich zachowanie w sztucznie stworzonym œrodowisku. W zale¿noœci od typu gry, zawiera ona cel oraz okreœlone zasady, którymi trzeba siê kierowaæ, aby ukoñczyæ poziom lub ca³¹ grê. Bardziej otwarte produkcje umo¿liwiaj¹ dowoln¹ (nieskoñczon¹) grê w obrêbie wirtualnego œwiata. Przyk³adem takich s¹ symulatory pojazdów (np. poci¹gów) lub internetowe gry wieloosobowe, w których rozrywka toczy siê na bie¿¹co, umo¿liwiaj¹c graczom praktycznie nieskoñczon¹ zabawê.\\
+
+Podaj¹c definicjê gry komputerowej warto wspomnieæ o pojêciu \mbox{\textbf{gry~konsolowej}}. Do jej uruchomienia wymagana jest zewnêtrzna konsola przeznaczona wy³¹cznie do gier, dziêki czemu (w przeciwieñstwie do gry uruchamianej na komputerze) ca³a moc obliczeniowa mo¿e zostaæ wykorzystana na potrzeby gry. Przyk³adem najpopularniejszych konsol do gier s¹ Xbox firmy Microsoft oraz \mbox{PlayStation 3} firmy Sony.\\
+
+Prezentacja g³ównych gatunków gier:
+\begin{itemize}
+    \item \textbf{Platformowe i zrêcznoœciowe} -- Gra polegaj¹ca na kierowaniu postaci¹ lub innym obiektem oraz pokonywanie przeszkód. W przypadku gier zrêcznoœciowych sterowanie najczêœciej wymaga zrêcznoœci i dok³adnoœci w celu ukoñczenia poziomu lub planszy.
+%http://www.pbernert.com/gamesold.htm
+\begin{figure}[h]
+\centering
+\includegraphics[width=50mm]{img/spyro.jpg}
+\caption{Spyro The Dragon}
+%\label{fig:LABEL}
+\end{figure}
+    \item \textbf{Strategiczne} -- Strategie skupiaj¹ siê na odpowiednim planowaniu militarnym w celu efektywnego wykorzystania jednostek do pokonania przeciwnika oraz ekonomicznym gospodarowaniu surowcami. Gatunek ten dzieli siê na \textbf{Strategiczne gry turowe} (TBS~\footnote{ang: TBS -- Turn-based strategy}) oraz \textbf{Strategie Czasu Rzeczywistego} (RTS~\footnote{ang: RTS -- Real-time strategy})
+%http://www.forums.wiaderko.com/gry-strategiczne-i-gry-ekonomiczne/46745-[download]-[pc][rs]-age-empires-ii.html
+\begin{figure}[h]
+\centering
+\includegraphics[width=50mm]{img/age_of_empires.jpg}
+\caption{Age of empires 2}
+%\label{fig:LABEL}
+\end{figure}
+    \item \textbf{RPG~\footnote{ang: Role Playing Games}} -- Po³¹czenie gry platformowej i przygodowej. G³ówny aspekt gier RPG to dbanie o rozwój swojej postaci. Przypisanych jest do niej wiele cech, które s¹ rozwijane w trakcie trwania gry. Oprócz tego w wiêkszoœci gier ka¿da postaæ musi dokonaæ wyboru jednej z profesji np. wojownik, czarodziej, ork, lub innych przewidzianych dla danej fabu³y, które wstêpnie zwiêkszaj¹ wybrane w³aœciwoœci (np mocniejsza magia ale s³absze pos³ugiwanie mieczem). Popularn¹ w ostatnich latach odmian¹ s¹ gry MMORPG~\footnote{ang: Massively Multiplayer Online Role Playing Games}, dziêki którym tysi¹ce graczy z ca³ego œwiata mog¹ siê zmierzyæ w wirtualnym œwiecie.
+%http://www.k-ff.com/phpbb2/viewtopic.php?t=4474
+\begin{figure}[h]
+\centering
+\includegraphics[width=50mm]{img/ff9.jpg}
+\caption{Final Fantasy 9 -- RPG w œwiecie fantasy}
+%\label{fig:LABEL}
+\end{figure}
+    \item \textbf{Logiczne} -- G³ównym celem tych gier s¹ zagadki i ³amig³ówki, które nale¿y rozwi¹zaæ aby ukoñczyæ grê. Równie¿ gry wieloosobowe takie jak szachy i warcaby zaliczane s¹ do tego gatunku.
+%http://www.eliassen.co.uk/2009/04/24/solutions-for-crazy-machines-for-iphone-spoiler/
+\begin{figure}[h]
+\centering
+\includegraphics[width=50mm]{img/crazymachines.jpg}
+\caption{Crazy Machines -- rozwi¹zywanie fizycznych ³amig³ówek}
+%\label{fig:LABEL}
+\end{figure}
+    \item \textbf{Przygodowe (fabularne)} -- Gry, w których zrêcznoœciowe sterowanie jest ograniczone do minimum a g³ówny nacisk po³o¿ony jest na fabu³ê oraz rozwi¹zywanie zagadek.
+%http://www.bit-tech.net/gaming/pc/2007/10/08/how_to_write_an_adventure_game/1
+\begin{figure}[h]
+\centering
+\includegraphics[width=50mm]{img/Fahrenheit.jpg}
+\caption{Fahrenheit -- gra fabularna}
+%\label{fig:LABEL}
+\end{figure}
+    \item \textbf{Sportowe} -- Emuluj¹ tradycyjne gry takie jak pi³ka no¿na, baseball, golf itp. 
+%http://www.nirmaltv.com/2008/07/07/fifa-2009-to-have-over-250-additions-and-enhancements/
+\begin{figure}[h]
+\centering
+\includegraphics[width=50mm]{img/fifa2009.jpg}
+\caption{Fifa 2009 -- pi³ka no¿na}
+%\label{fig:LABEL}
+\end{figure}
+    \item \textbf{Wyœcigowe} -- Popularny gatunek, w którym gracz zasiada za sterami samochodów lub innych pojazdów i bierze udzia³ w wyœcigach, w celu pokonania komputerowych przeciwników, lub w przypadku gry przez internet - innych graczy.
+%http://www.grysamochodowe.net/t/kariera-need-for-speed/
+\begin{figure}[h]
+\centering
+\includegraphics[width=50mm]{img/nfs.jpg}
+\caption{Need For Speed Carbon -- wyœcigi uliczne}
+%\label{fig:LABEL}
+\end{figure}
+    \item \textbf{Symulacyjne} -- Symulatory symuluj¹ œrodowisko, w którym gracz mo¿e cieszyæ siê rzeczywistymi warunkami np. kierowania poci¹giem lub latania samolotem. Niektóre gry symulacyjne dodaj¹ pewne za³o¿enia lub cel wymagany do ukoñczenia gry np. zestrzelenie odpowiedniej iloœci samolotów, podczas gdy inne (np. The~Sims) umo¿liwiaj¹ grê bez ¿adnych ograniczeñ.
+%http://www.kollewin.com/blog/ms-train-simulator/
+\begin{figure}[h]
+\centering
+\includegraphics[width=50mm]{img/train.jpg}
+\caption{Microsoft Train Simulator -- Symulator jazdy poci¹giem}
+%\label{fig:LABEL}
+\end{figure}
+\end{itemize}
+
+\subsection{Historia gier komputerowych}
+\label{Teoria:Gry:Historia}
+Historia gier komputerowych, mimo dynamicznego rozwoju w latach siedemdziesi¹tych, zosta³a zapocz¹tkowana w 1947 roku, kiedy to Thomas T. Goldsmith Jr. i Estle Ray Mann zaprojektowali symulacjê pocisku rakietowego uderzanego w wyznaczony cel na oscyloskopie CRT~\footnote{ang: Cathode-Ray Tube - kineskop z dzia³em elektronowym}. K¹t wystrzelenia pocisku oraz jego prêdkoœæ by³a sterowana odpowiednimi ga³kami. \\
+
+Kolejnym krokiem by³o przeniesienie na ekran monitora gry \mbox{Kó³ko i Krzy¿yk}, a w 1958 roku stworzenie przez Wiliama Higinbothana gry \mbox{Tennis for Two}.
+%http://pl.wikipedia.org/w/index.php?title=Plik:Tennis_for_Two.jpg&filetimestamp=20060916015609
+\begin{figure}[h]
+\centering
+\includegraphics[width=60mm]{img/1stgame.jpg}
+\caption{Tennis for Two - jedna z pierwszych gier komputerowych}
+%\label{fig:LABEL}
+\end{figure}
+
+W 1961 powsta³a pierwsza ogólnodostêpna i wp³ywowa gra \mbox{Spacewar!} zaprojektowana przez grupê studentów z MIT~\footnote{Massachusetts Institute of Technology}, która zosta³a zaprezentowana rok póŸniej podczas MIT Science Open House.\\
+
+W 1969 roku Ralph Baer (dwa lata po stworzeniu pistoletu œwietlnego) stworzy³ prototyp pierwszej konsoli do gier wideo. Po sprzedaniu go firmie Magnavox, wydana zosta³a w 1972 roku pod nazw¹ \mbox{Magnavox Odyssey}. \\
+
+Pocz¹tek lat siedemdziesi¹tych to równie¿ start automatów do gry, które za pieni¹dze umo¿liwia³y zabawê w ró¿ne gry. Mimo braku sukcesu po wydaniu pierwszego modelu umo¿liwiaj¹cego grê w Spacewar! z powodu zbyt du¿ej trudnoœci gry, firma Atari osi¹gnê³a sukces wydaj¹c automat do gry PONG. \\
+
+Prawdziwy wzrost zainteresowania wirtualn¹ rozrywk¹ nast¹pi³ po stworzeniu i rozpowszechnieniu pierwszych komputerów osobistych, dziêki czemu co raz wiêcej osób mog³o cieszyæ siê grami w domu. Przez kolejne lata razem z rozwojem technologii komputerowej, nowych technologii wyœwietlania obrazu oraz bibliotek programistycznych, a tak¿e mo¿liwoœci sprzêtowych takich jak karty graficzne, powstawa³y co raz to nowoczeœniejsze produkcje, zapewniaj¹ce jeszcze bardziej realistyczne efekty wizualne.
+%http://www.cdaction.pl/news-5054/wyniki-sprzedazy-konsol-ps3-w-polsce.html
+\begin{figure}[h]
+\centering
+\includegraphics[width=60mm]{img/ps3.jpg}
+\caption{Konsola Sony PlayStation 3}
+%\label{fig:LABEL}
+\end{figure}
+Koniec XX wieku przyniós³ szybki rozwój konsol wideo. Dominuj¹cymi modelami by³y konsole GameBoy, Playstation, \mbox{Sega Saturn} oraz \mbox{Nintendo 64}. Z pocz¹tkiem XXI wieku nasta³y czasy nowych wersji konsol takich jak \mbox{Playstation 2}, Xbox, Dreamcast, a¿ do dzisiejszych czasów, w których dominuj¹ \mbox{Playstation 3}, Wii oraz \mbox{Xbox 360}.
+
+\subsection{Proces tworzenia gry komputerowej}
+\label{Teoria:Gry:Tworzenie}
+Tworzenie gry komputerowej to bardzo z³o¿ony proces, dlatego podczas produkcji zaanga¿owanych jest od kilku do nawet kilkuset osób. Najczêœciej przyjmowan¹ metod¹ projektow¹ jest poni¿szy schemat:
+\begin{enumerate}
+    \item \textbf{Pomys³} -- Pierwszym krokiem przy tworzeniu gry komputerowej jest decyzja odnoœnie typu gry, analiza zainteresowania wœród docelowych odbiorców oraz ustalenie wstêpnych informacji dotycz¹cych mo¿liwoœci bud¿etowych oraz ludzkich niezbêdnych do pomyœlnego zrealizowania projektu.
+    \item \textbf{Projektowanie} -- W tej fazie tworzy siê dokument zawieraj¹cy informacje o grze. Musi w nim byæ zawarty pomys³ gry, jej cele i fabu³a, gatunek oraz docelowa grupa odbiorców. Kolejnym etapem jest tworzenie dokumentacji projektu~\footnote{tzw. Design Doc}, w którym zawarte s¹ wszystkie informacje o grze. Dokument ten jest podstaw¹ do dalszych prac nad projektem.
+    \item \textbf{Tworzenie prototypu} -- Prototyp jest produktem, który ma pokazaæ ogólne za³o¿enia projektu oraz przyk³adowy wygl¹d. Najczêœciej jest to przyk³adowy poziom gry pokazuj¹cy podstawowe aspekty sterowania i fabu³y. Dziêki takiemu rozwi¹zaniu projektanci mog¹ uzupe³niæ braki w dokumentacji projektowej, oraz zwróciæ uwagê na problemy, które mog¹ wyst¹piæ przy tworzeniu w³aœciwej gry.
+    \item \textbf{Produkcja gry} -- Kiedy Design Doc jest gotowy nastêpuje projektowanie i implementacja w³aœciwego silnika gry. Na tym etapie kierownicy rozdzielaj¹ zadania pomiêdzy zespo³y programistów, grafików i designerów. Po zaimplementowaniu ca³ej funkcjonalnoœci nastêpuje przejœcie do fazy testowania.
+    \item \textbf{Testowanie i usuwanie b³êdów} -- Testowanie jest jednym z najwa¿niejszych etapów tworzenia gry. Od zespo³u testerów oraz wykonanej przez nich pracy zale¿y sukces ca³ego przedsiêwziêcia. Zbyt du¿a liczba krytycznych b³êdów lub niedoci¹gniêæ po wydaniu gry mo¿e negatywnie wp³yn¹æ na recenzje produktu oraz zraziæ odbiorców do kupna.
+    \item \textbf{Wydanie i marketing} -- Ka¿dy projekt ma wyznaczane kamienie~milowe~\footnote{ang: Milestone}, które okreœlaj¹ planowane ukoñczenie poszczególnych czêœci projektu. W przypadku pozytywnego wyniku testów firmy wypuszczaj¹ wersje koñcowe. Czasami jednak termin koñcowy zostaje przekroczony z powodu du¿ej iloœci b³êdów i nienad¹¿ania zespo³u naprawiaj¹cego je, dlatego udostêpnia siê wersjê beta w¹skiej grupie docelowych u¿ytkowników, którzy zg³aszaj¹ poprawki i uwagi, tak aby koñcowy produkt mia³ jak najmniej wad. Czêstym przypadkiem po oficjalnym wydaniu gry jest znalezienie krytycznych b³êdów przez koñcowych u¿ytkowników, dlatego szybk¹ reakcj¹ firmy musi byæ wydanie patch'a~\footnote{dodatek do wydanej gry poprawiaj¹cy b³êdy lub dodaj¹cy nowe funkcje} poprawiaj¹cego go, poniewa¿ ka¿da usterka mo¿e spowodowaæ niekorzystny dla firmy spadek wizerunku oraz zainteresowania produktem.
+\end{enumerate}
+
+
+\section{Podstawowe pojêcia dotycz¹ce wyœwietlania grafiki w 3D}
+\label{Teoria:Pojecia}
+Przed przejœciem do omawiania bibliotek programistycznych oraz procesu renderingu niezbêdne jest wyjaœnienie najwa¿niejszych pojêæ stosowanych w przekszta³caniu i wyœwietlaniu grafiki 3D.
+\subsection{Wektor}
+\label{Teoria:Pojecia:Wektor}
+Wektory w grafice 3D maj¹ dwa zastosowania. Pierwszym jest reprezentacja punktu w przestrzeni. Przyk³adowo na dwuwymiarowej osi liczbowej punkt ma wspó³rzêdne $x=2.5$ i $x=-5$. Wektor reprezentuj¹cy pozycjê wygl¹da nastêpuj¹co: $\vec{pos} = (2.5, -5)$. W grafice trójwymiarowej dodatkow¹ osi¹ jest g³êbia (oœ Z). Przyjmuj¹c $z=12$, przyk³adowy wektor otrzymuje postaæ: $\vec{pos} = (2.5, -5, 12)$.\\
+
+Drugim zastosowaniem wektorów jest identyfikacja kierunku. Wektor taki ma postaæ linii w uk³adzie wspó³rzêdnych o zdefiniowanym punkcie pocz¹tkowym (startu) i koñcowym (koñca) wizualnie zakoñczonym strza³k¹. Mimo, ¿e pocz¹tek wektora nie musi znajdowaæ siê w pocz¹tku uk³adu wspó³rzêdnych, znacz¹co u³atwia to wszelkie operacje i obliczenia, poniewa¿ w tym wypadku wystarcz¹ jedynie wspó³rzêdne punktu koñcowego, który okreœla kierunek wektora.\\
+
+Oprócz standardowych operacji dodawania, odejmowania i mno¿enia wektorów, wyró¿niamy w grafice komputerowej trzy szczególne dzia³ania:
+\begin{enumerate}
+    \item \textbf{Normalizacja} -- Znormalizowany wektor otrzymuje siê przez podzielenie wszystkich elementów wektora przez jego d³ugoœæ. Otrzymany wektor ma ten sam kierunek, zwrot i d³ugoœæ równ¹ 1. U³atwia to obliczenia i uniezale¿nia wynik od d³ugoœci wektorów.
+    \item \textbf{Iloczyn skalarny} -- Operacja najczêœciej stosowana w obliczeniach grafiki komputerowej. 
+$$
+\vec{a} \circ \vec{b} = \vec{a} \cdot \vec{b} \cdot cos\alpha
+$$
+Dziêki powy¿szemu równaniu mo¿na otrzymaæ k¹t $\alpha$ miêdzy dwoma znormalizowanymi wektorami. Przydaje siê on najczêœciej do obliczania natê¿enia œwiat³a padaj¹cego na element.
+    \item \textbf{Iloczyn wektorowy} -- Wynikiem iloczynu wektorowego jest wektor prostopad³y do dwóch podanych wektorów. Przyk³adowy wynik tej operacji jest pokazany na rysunku \ref{img:iloczyn}
+%http://help.adobe.com/pl_PL/AS3LCR/Flash_10.0/flash/geom/Vector3D.html
+\begin{figure}[h]
+\centering
+\includegraphics[width=60mm]{img/crossproduct.jpg}
+\caption{Iloczyn wektorowy}
+\label{img:iloczyn}
+\end{figure}
+\end{enumerate}
+
+\subsection{Macierz}
+\label{Teoria:Pojecia:Macierz}
+\begin{equation}
+M = \begin{bmatrix} M_{11}&M_{12}&M_{13}\\ M_{21}&M_{22}&M_{23}\\ M_{31}&M_{32}&M_{33} \end{bmatrix}
+\end{equation}
+
+Macierz, w przeciwieñstwie do wektora (tablicy jednowymiarowej), jest tablic¹ wielowymiarow¹. Do jej elementów mo¿na siê odwo³ywaæ poprzez podanie numeru wiersza oraz kolumny. \\
+
+W grafice komputerowej najwa¿niejsz¹ rol¹ macierzy s¹ przekszta³cenia. Operacje translacji, rotacji i skalowania za pomoc¹ macierzy zostan¹ dok³adnie omówione w rozdziale \ref{Teoria:Rendering:Przeksztalcanie} poœwiêconemu procesowi renderingu.
+
+\subsection{Kwaternion}
+\label{Teoria:Pojecia:Quaternion}
+Kwaternion~\footnote{ang: Quaternion} to wektor czteroelementowy, którego pierwsze trzy elementy oznaczaj¹ oœ, a czwarty wartoœæ obrotu wyra¿onego w radianach wed³ug danej osi. \\
+
+W grafice komputerowej kwaterniony znacz¹co u³atwiaj¹ obracanie elementów, g³ównie dziêki operacji kompozycji: 
+$$Q_w = Q_1 \cdot Q_2$$
+Dla $Q_1 = (x_1, y_1, z_1, \alpha)$ i $Q_2 = (x_2, y_2, z_2, \beta)$, $Q_w$ oznacza obrót wokó³ osi $x_1, y_1, z_1$ o k¹t $\alpha$, a nastêpnie wokó³ osi $x_2, y_2, z_2$ o k¹t $\beta$. \\
+
+Drug¹ wa¿n¹ operacj¹ jest interpolacja, dziêki której mamy mo¿liwoœæ obliczania poœrednich wartoœci obrotów w danym czasie. Umo¿liwia ona tworzenie p³ynnych animacji np. kamery.
+
+\subsection{Wierzcho³ek}
+\label{Teoria:Pojecia:Wierzcholek}
+Wierzcho³ek~\footnote{ang: Vertex} jest to punkt w przestrzeni 3D zawieraj¹cy pozycjê jednego punktu. Dwa wierzcho³ki ³¹cz¹ siê w krawêdŸ, a trzy krawêdzie w trójk¹t - podstawowy budulec modeli trójwymiarowych. Wierzcho³ki mog¹ zawieraæ dodatkowe informacje wymagane przy procesie renderingu takie jak:
+\begin{itemize}
+    \item \textbf{Koordynaty UV} -- Okreœlaj¹ wspó³rzêdne punktu na p³aszczyŸnie tekstury
+    \item \textbf{Wektor normalny} -- Wektor prostopad³y do powierzchni trójk¹ta
+    \item \textbf{Kolor} -- Kolor wierzcho³ka
+    \item \textbf{Tangent i binormal} -- Wartoœci przydatne przy efektach takich jak mapowanie wypuk³oœci
+\end{itemize}
+
+\section{Technologia DirectX}
+\label{Teoria:Directx}
+Rozdzia³ przedstawia technologiê Microsoft DirectX, jej historiê oraz podzia³ na g³ówne elementy.
+
+\subsection{Historia}
+\label{Teoria:Directx:Historia}
+DirectX jest zestawem bibliotek wspomagaj¹cych generowanie grafiki dwu i trójwymiarowej. Pierwotnie dostêpna by³a biblioteka WinG, która rozszerza³a mo¿liwoœci WinAPI~\footnote{Application Programming Interface}, jednak brak bezpoœredniego dostêpu do warstwy sprzêtowej bardzo ogranicza³ ówczesne programowanie gier. \\
+
+Pierwsze wydanie pojawi³o siê w roku 1995 wraz z wydaniem systemu operacyjnego Windows~95. G³ówn¹ ró¿nic¹ miêdzy WinG a bibliotek¹ DirectX by³ bezpoœredni dostêp do warstwy sprzêtowej, dziêki czemu programiœci nie musieli ju¿ tworzyæ w³asnych systemów generowania i wyœwietlania grafiki 3D tylko mogli skupiæ siê na logice aplikacji. \\
+
+Wraz z nowymi wersjami bibliotek rozszerzane by³y one o nowe mo¿liwoœci i funkcje, jednak dopiero wersje 6.1 i 7 wydane w 1999 roku udostêpni³y obs³ugê potoków renderuj¹cych. Wersja 8.0 wprowadzi³a programowalny model przetwarzania - Vertex i Pixel Shader. Dziêki temu programista móg³ zaprogramowaæ w jêzyku podobnym do asemblera sposób wykonywania obliczeñ na wierzcho³kach i pikselach bezpoœrednio na karcie graficznej.\\ 
+
+Ostatni¹ wersj¹ przeznaczon¹ dla systemu Windows XP jest DirectX 9.0c, w której do pisania shaderów zosta³ przygotowany jêzyk HLSL~\footnote{High Level Shader Language} ze sk³adni¹ zbli¿on¹ do jêzyka C. Za pomoc¹ tego narzêdzia mo¿liwe sta³o siê tworzenie efektów niemo¿liwych do wykonania za pomoc¹ standardowych procedur.\\
+
+Wraz z premier¹ systemu Windows Vista zosta³a udostêpniona nowa wersja biblioteki DirectX oznaczona numerem 10.0. G³ówn¹ cech¹, która odró¿nia j¹ od poprzednich wersji jest brak kompatybilnoœci wstecz. Powodem jest przepisanie ca³ej biblioteki na nowo, dziêki czemu zoptymalizowano kod i przystosowano tylko do najnowszych kart graficznych. Zmniejszono te¿ narzut interfejsu API na proces tworzenia grafiki, czyli moc obliczeniow¹ CPU~\footnote{Central Processing Unit - Procesor}, który wykorzystywa³ oko³o 40\% cykli w wersji 9.0c, do 20\% w wersji 10.0. Dziêki temu g³ówna jednostka obliczeniowa zyska³a wiêcej czasu na zaawansowane obliczenia AI~\footnote{Artificial intelligence - Sztuczna inteligencja} lub odwzorowywanie fizyki.\\
+
+Z powodów ograniczeñ sprzêtowych autor w dalszej czêœci pracy oraz projekcie bêdzie opieraæ siê na wersji 9.0c.\\
+
+DirectX jest komponentem, który stanowi wspólne œrodowisko dla czterech g³ównych us³ug: graphics, input, audio i play.
+\subsection{DirectX Graphics}
+\label{Teoria:Directx:Graphics}
+DirectDraw jest czêœci¹ DirectX odpowiedzialn¹ za wyœwietlanie grafiki 2D. Z powodu dynamicznego rozwoju grafiki 3D, zosta³ on po³¹czony z Direct3D tworz¹c wspólny pakiet DirectX Graphics.\\
+
+Dirct3D odpowiada za wyœwietlanie grafiki trójwymiarowej. Umo¿liwia wykorzystywanie akceleracji sprzêtowej oraz zaawansowanych mo¿liwoœci kart graficznych:
+\begin{itemize}
+    \item \textbf{Obs³uga i filtrowanie tekstur} -- Przyk³adowa technika o nazwie MipMapping (dok³adniejszy opis w rozdziale \ref{Teoria:Techniki:Teksturowanie:Filtrowanie}) umo¿liwia poprawê jakoœci wyœwietlanej tekstury w zale¿noœci od odleg³oœci wyœwietlanego obiektu od pozycji kamery
+    \item \textbf{Z-Bufor} -- Przechowywanie informacji odnoœnie odleg³oœci (g³êbi) wyœwietlanych pikseli
+    \item \textbf{Oœwietlenie} -- Wbudowana obs³uga cieniowania p³askiego oraz Gouraud'a (wiêcej o oœwietleniu w rozdziale \ref{Teoria:Techniki:Oswietlenie})
+    \item \textbf{Alfa blending} --Technika pozwalaj¹ca na tworzenie przezroczystych obiektów
+    \item \textbf{Anti-aliasing} -- Poprawianie jakoœci obrazu
+    \item \textbf{Vertex/Pixel shaders} -- Obs³uga shaderów
+    \item ... i wiele innych
+\end{itemize}
+
+DirectX Graphics wspomaga pisanie aplikacji graficznych nie tylko na platformy Windows, ale równie¿ konsole Xbox i Xbox 360 firmy Microsoft.
+
+\subsection{DirectX Input}
+\label{Teoria:Directx:Input}
+DirectX Input jest komponentem odpowiedzialnym za obs³ugê urz¹dzeñ wejœciowych takich jak mysz, klawiatura czy urz¹dzenia przystosowane do gier typu joystick, gamepad itp. Mo¿e on pracowaæ w dwóch trybach:
+\begin{enumerate}
+    \item \textbf{Bezpoœredni} -- W tym trybie odczytywany jest aktualny stan wejœciowy. Jest on najszybszy, jednak niesie za sob¹ powa¿n¹ wadê: miêdzy dwoma odczytami stan urz¹dzenia mo¿e siê zmieniæ wielokrotnie (np. wciœniêcie i zwolnienie klawisza), przez co taka operacja zostanie pominiêta.
+    \item \textbf{Buforowany} -- Uzupe³nia tryb bezpoœredni o buforowanie zmian stanu urz¹dzenia, dziêki czemu ka¿da zmiana zostanie zarejestrowana i mo¿e zostaæ obs³u¿ona. Jest to najdok³adniejsza metoda, dlatego jest najczêœciej wykorzystywana w grach komputerowych.
+\end{enumerate}
+
+Ogromn¹ zalet¹ biblioteki DirectX Input jest tzw. Action Mapping umo¿liwiaj¹cy przypisanie akcji do konkretnych przycisków. Dziêki takiemu rozwi¹zaniu po przypisaniu konkretnej akcji, np. ruch do przodu strza³ce na klawiaturze i przyciskowi "w górê" na gamepadzie, w aplikacji otrzymujemy komunikat wyst¹pienia danej akcji - niezale¿nie od tego jakie urz¹dzenie j¹ wygenerowa³o. 
+
+\subsection{DirectX Audio}
+\label{Teoria:Directx:Audio}
+G³ównym elementem DirectX Audio jest biblioteka DirectSound, umo¿liwiaj¹ca szybki dostêp do karty dŸwiêkowej i odtwarzanie/nagrywanie dŸwiêków. Dodatek DirectSound3D zapewnia obs³ugê dŸwiêku trójwymiarowego.\\
+
+DirectMusic, mimo ¿e wykorzystuje wewnêtrznie DirectSound, jest du¿o bardziej rozbudowanym komponentem umo¿liwiaj¹cym odtwarzanie wielu formatów takich jak OGG i MP3.
+
+\subsection{DirectX Play}
+\label{Teoria:Directx:Play}
+DirectPlay pozwala na tworzenie aplikacji i gier sieciowych. Umo¿liwia tworzenie dwóch typów sieci:
+\begin{enumerate}
+    \item \textbf{Klient-Serwer} -- Sieæ w której zarz¹dzaniem po³¹czeniami i obs³ug¹ klientów zajmuje siê serwer. Informacje wysy³ane z urz¹dzeñ klienckich trafiaj¹ najpierw do serwera, który nastêpnie rozsy³a dan¹ informacjê do wybranych lub wszystkich uczestników.
+    \item \textbf{Peer to Peer} -- Komunikacja odbywa siê na zasadzie "ka¿dy z ka¿dym" czyli wysy³aj¹c informacjê trafia ona bezpoœrednio do wszystkich uczestników sieci.
+\end{enumerate}
+
+\section{Proces renderingu}
+\label{Teoria:Rendering}
+\subsection{Wstêp}
+\label{Teoria:Rendering:Wstep}
+Proces renderingu jest najbardziej skomplikowanym i czasoch³onnym procesem podczas dzia³ania gry, poniewa¿ musi siê on wykonywaæ w czasie rzeczywistym i w ci¹gu jednej sekundy wywo³aæ co najmniej 15-30 razy, aby zachowaæ p³ynnoœæ wyœwietlanego obrazu. W dawnych czasach du¿a czêœæ operacji by³a wykonywana przez CPU przez co tworzenie zaawansowanych efektów by³o bardzo czasoch³onne i niemo¿liwe w przypadku aplikacji czasu rzeczywistego. Dziêki dynamicznemu rozwojowi uk³adów graficznych wiêkszoœæ obliczeñ zosta³a przeniesiona na procesory GPU karty graficznej. \\
+
+Niniejszy rozdzia³ ma na celu przedstawienie procesu renderowania jednej klatki obrazu, od przekszta³cania wierzcho³ków, przez teksturowanie i oœwietlenie, do post-processing'u gotowej klatki.
+
+\subsection{Przekszta³canie wierzcho³ków}
+\label{Teoria:Rendering:Przeksztalcanie}
+
+\subsubsection{Macierz œwiata}
+\label{Teoria:Rendering:Przeksztalcanie:Swiat}
+
+Ka¿dy model reprezentowany jest przez wierzcho³ki. Ich liczba mieœci siê w przedziale od kilku do nawet kilkuset tysiêcy. Ka¿dy z nich ma ustalon¹ pozycjê w lokalnym uk³adzie wspó³rzêdnych, czyli wzglêdem œrodka modelu. \\
+
+Pierwsz¹ operacj¹ jak¹ nale¿y wykonaæ w celu wyœwietlenia modelu na ekranie jest transformacja ka¿dego wierzcho³ka do wspólnego uk³adu wspó³rzêdnych. Tworzy siê w tym celu macierz œwiata, przez któr¹ nale¿y pomno¿yæ pozycjê wierzcho³ka. Poniewa¿ macierze o wymiarach 4x4 s¹ standardem w obliczeniach, mno¿¹c wektor nale¿y dodaæ do niego czwart¹ pozycjê o wartoœci 1):
+
+$$\vec{pos} = (x, y, z, 1)$$
+
+Wyró¿niamy trzy podstawowe operacje przekszta³caj¹ce: translacja, rotacja, skalowanie.
+
+\begin{enumerate}
+    \item \textbf{Translacja} -- Ogólna postaæ macierzy translacji na pozycjê $x_2$, $y_2$, $z_2$ jest nastêpuj¹ca:
+\begin{equation}
+M_{translation} = 
+\begin{bmatrix} 
+1&0&0&0\\
+0&1&0&0\\
+0&0&1&0\\
+x_2&y_2&z_2&1
+\end{bmatrix}
+\end{equation}
+Aby otrzymaæ wektor $\vec{pos} = (5, 2, -3, 1)$ przesuniêty wzglêdem pozycji $x = 4$, $y = 3$, $z = 10$ nale¿y wykonaæ dzia³anie:
+\begin{equation}
+\vec{posT} = [5,2,-3,1] \cdot 
+\begin{bmatrix} 
+1&0&0&0\\
+0&1&0&0\\
+0&0&1&0\\
+4&3&10&1
+\end{bmatrix}
+\end{equation}
+Wynikow¹ pozycj¹ s¹ pierwsze trzy elementy wynikowego wektora.
+
+    \item \textbf{Skalowanie} -- Macierz skalowania przez wartoœci $x_2$, $y_2$, $z_2$ wed³ug odpowiednich osi X, Y i Z prezentuje siê nastêpuj¹co:
+\begin{equation}
+M_{scale} = 
+\begin{bmatrix} 
+x_2&0&0&0\\
+0&y_2&0&0\\
+0&0&z_2&0\\
+0&0&0&1
+\end{bmatrix}
+\end{equation}
+Dzia³anie w wyniku którego otrzymujemy przeskalowany wektor wygl¹da identycznie jak w przypadku operacji translacji - nale¿y przemno¿yæ wektor przez macierz skalowania.
+    \item \textbf{Rotacja} -- Macierz obrotu dla ka¿dej osi X, Y i Z jest inna:
+
+\begin{itemize}
+    \item Wzglêdem osi X:
+\begin{equation}
+M_{rotationX} = 
+\begin{bmatrix} 
+1&0&0&0\\
+0&\cos\alpha&\sin\alpha&0\\
+0&-\sin\alpha&\cos\alpha&0\\
+0&0&0&1
+\end{bmatrix}
+\end{equation}
+    \item Wzglêdem osi Y:
+\begin{equation}
+M_{rotationY} = 
+\begin{bmatrix} 
+\cos\alpha&0&-\sin\alpha&0\\
+0&1&0&0\\
+\sin\alpha&0&\cos\alpha&0\\
+0&0&0&1
+\end{bmatrix}
+\end{equation}
+    \item Wzglêdem osi Z:
+\begin{equation}
+M_{rotationZ} = 
+\begin{bmatrix} 
+\cos\alpha&\sin\alpha&0&0\\
+-\sin\alpha&\cos\alpha&0&0\\
+0&0&1&0\\
+0&0&0&1
+\end{bmatrix}
+\end{equation}
+\end{itemize}
+\end{enumerate}
+
+Mno¿¹c odpowiednie macierze mo¿emy otrzymaæ macierz, która jest po³¹czeniem kilku transformacji. Przyk³adowo chc¹c powiêkszyæ model dwukrotnie, nastêpnie obróciæ go wzglêdem osi X o $25^{\circ}$ i Y o $125^{\circ}$ oraz przemieœciæ wzglêdem punktu $(5, 1, -2)$, nale¿y stworzyæ nastêpuj¹c¹ macierz œwiata:
+
+\begin{equation}
+M_{World} = 
+\begin{bmatrix}
+2&0&0&0\\
+0&2&0&0\\
+0&0&2&0\\
+0&0&0&1
+\end{bmatrix}
+\cdot
+\begin{bmatrix} 
+1&0&0&0\\
+0&\cos{(25^{\circ})}&\sin{(25^{\circ})}&0\\
+0&-\sin{(25^{\circ})}&\cos{(25^{\circ})}&0\\
+0&0&0&1
+\end{bmatrix}
+\cdot
+\end{equation}
+
+$$
+\cdot
+\begin{bmatrix} 
+\cos{(125^{\circ})}&0&-\sin{(125^{\circ})}&0\\
+0&1&0&0\\
+\sin{(125^{\circ})}&0&\cos{(125^{\circ})}&0\\
+0&0&0&1
+\end{bmatrix}
+\cdot
+\begin{bmatrix} 
+1&0&0&0\\
+0&1&0&0\\
+0&0&1&0\\
+5&1&-2&1
+\end{bmatrix}
+$$
+\begin{figure}[h]
+\centering
+\includegraphics{img/world1.jpg}
+\caption{Kolejnoœæ mno¿enia: rotacja * translacja}
+\label{img:world1}
+\end{figure}
+\begin{figure}[h]
+\centering
+\includegraphics{img/world2.jpg}
+\caption{Kolejnoœæ mno¿enia: translacja * rotacja}
+\label{img:world2}
+\end{figure}
+
+Wa¿nym elementem jest kolejnoœæ mno¿enia macierzy. Na rysunku \ref{img:world1} obiekt zosta³ najpierw obrócony wzglêdem pocz¹tku uk³adu, a nastêpnie przesuniêty. Rysunek \ref{img:world2} pokazuje odwrotne mno¿enie: obiekt najpierw zosta³ przesuniêty, a nastêpnie obrócony wzglêdem pocz¹tku uk³adu. Mimo, ¿e taka sytuacja najczêœciej jest niepo¿¹dana, ma swoje zastosowanie w rysowaniu obiektów, których pozycja zale¿y od innego obiektu. Dobrym przyk³adem jest uk³ad planet. Rysuj¹c ksiê¿yc ziemi najpierw obracamy go o pewien k¹t, nastêpnie przesuwamy w odpowiedni¹ stronê od planety. Jako ¿e ziemia jest równie¿ obiektem, który kr¹¿y wokó³ s³oñca, ma swoj¹ macierz œwiata, przez któr¹ musimy pomno¿yæ macierz ksiê¿yca. Dziêki temu pozycja ksiê¿yca zostaje przekszta³cona wzglêdem nowej pozycji ziemi.
+
+\subsubsection{Macierz widoku}
+\label{Teoria:Rendering:Przeksztalcanie:widok}
+Kolejnym etapem jest przekszta³cenie wierzcho³ków z globalnej przestrzeni do przestrzeni obserwatora (kamery). W tym celu nale¿y zbudowaæ macierz widoku i pomno¿yæ przez ni¹ macierz œwiata obiektu. Pozycjê kamery okreœlaj¹ nastêpuj¹ce wektory:
+\begin{itemize}
+    \item $\vec{Pos}$ -- Pozycja kamery w globalnej przestrzeni
+    \item $\vec{Up}$ -- Kierunek w górê
+    \item $\vec{Right}$ -- Kierunek w prawo
+    \item $\vec{LookAt}$ -- Kierunek patrzenia kamery
+\end{itemize}
+Wektory $\vec{Up}$, $\vec{Right}$ i $\vec{LookAt}$ s¹ znormalizowane i prostopad³e do siebie. Maj¹c te dane mo¿na zbudowaæ macierz (funkcja $Dot$ oblicza iloczyn skalarny miêdzy dwoma wektorami):
+\begin{equation}
+M_{View} = 
+\begin{bmatrix}
+Right.x & Up.x & LookAt.x & 0\\
+Right.y & Up.y & LookAt.y & 0\\
+Right.z & Up.z & LookAt.z & 0\\
+-Dot(Pos, Right) & -Dot(Pos, Up) & -Dot(Pos, LookAt) & 1
+\end{bmatrix}
+\end{equation}
+
+\subsubsection{Macierz projekcji}
+\label{Teoria:Rendering:Przeksztalcanie:projekcja}
+%http://viz.aset.psu.edu/gho/sem_notes/color_3d/html/rendering.html
+\begin{figure}[h]
+\centering
+\includegraphics[width=100mm]{img/frustrum.jpg}
+\caption{Budowa bry³y obcinania}
+\label{img:frustrum1}
+\end{figure}
+Zadaniem macierzy projekcji jest przeniesienie obrazu trójwymiarowego na ekran dwuwymiarowy monitora zapewniaj¹c wra¿enie trójwymiarowoœci (g³êbi) obiektów. Biblioteka DirectX umo¿liwia stworzenie gotowej macierzy projekcji za pomoc¹ funkcji\\
+\code{D3DXMatrixPerspectiveFovLH()}. Parametry jakie przyjmuje to:
+\begin{enumerate}
+    \item K¹t widzenia, najczêœciej $45^{\circ}$
+    \item Stosunek d³ugoœci oraz szerokoœci ekranu
+    \item Odleg³oœæ od obserwatora do Near~Clipping~Plane i Far~Clipping~Plane (patrz rys. \ref{img:frustrum1})
+\end{enumerate}
+
+Powsta³a na obrazku \ref{img:frustrum1} bry³a pokazuje nie tylko proces przekszta³cania obrazu z 3D na 2D, ale równie¿ jest bry³¹ obcinania tzn. wierzcho³ki które wychodz¹ poza ni¹ nie s¹ uwzglêdniane.
+
+\subsection{Fixed-function/Programmable Pipeline}
+W dawnych czasach (przed DirectX 8.0) dostêpna by³a jedynie ustalona kolejnoœæ wykonywania operacji w procesie przekszta³cania wierzcho³ków na piksele przez kartê graficzn¹ (tzw. fixed-function pipeline):
+\begin{enumerate}
+    \item Przekszta³cenie œwiata
+    \item Przekszta³cenie widoku
+    \item Przekszta³cenie projekcji
+    \item Obcinanie~\footnote{ang: Culling}
+\end{enumerate}
+Macierze podawa³o siê poprzez odpowiednie wywo³ania funkcji. Wszelkie modyfikacje i efekty musia³y byæ umieszczane w kodzie aplikacji, przez co modyfikacja pojedynczych wierzcho³ków by³a niemo¿liwa. Œwiat³a oraz teksturowanie równie¿ by³y ograniczone do mo¿liwoœci u¿ywanej biblioteki. \\
+
+Wraz z wprowadzeniem z wersj¹ 8.0 programowalnego vertex shadera to ograniczenie zniknê³o. Programista zyska³ pe³n¹ kontrolê nad procesem przekszta³cania wierzcho³ków przy pomocy ma³ych programów zwanych shaderami uruchamianych na procesorach vertex~shader na karcie graficznej. Takich procesorów jest przewa¿nie od kilku do kilkunastu, dziêki czemu karta graficzna mo¿e równolegle wykonywaæ obliczenia zmniejszaj¹c tym samym czas potrzebny na wygenerowanie klatki. \\
+
+Pierwsza wersja udostêpnia³a doœæ skomplikowany i niewygodny jêzyk przypominaj¹cy asemblera. Dopiero w wersji 9.0 wprowadzono jêzyk HLSL, który sk³adni¹ przypomina jêzyk C. Program wykonuje siê dla ka¿dego wierzcho³ka przyjmuj¹c na wejœcie informacje takie jak pozycja, koordynaty tekstury czy wektor normalny, a nastêpnie zwraca przekszta³con¹ pozycjê oraz inne informacje, które s³u¿¹ w kolejnych krokach renderingu.
+Przyk³adowy kod wykonuj¹cy przekszta³cenie jednego wierzcho³ka zosta³ zamieszczony poni¿ej.
+
+\begin{lstlisting}[language=C,caption={Przykladowy Vertex Shader}]
+float4x4 WVP;
+float4x4 World;
+float4x4 View;
+float4x4 Projection;
+struct VS_Input{
+	float4 Pos		: POSITION;
+	float3 Normal	: NORMAL0;
+	float2 Tex0		: TEXCOORD0;
+};
+struct VS_Output{
+	float4  Pos     : POSITION;
+	float2  Tex0    : TEXCOORD0;
+	float3 Normal   : TEXCOORD1;
+};
+VS_Output VertexShader(VS_Input In){
+	VS_Output Out = (VS_Output) 0;
+	Out.Pos		=	mul(In.Pos,WVP);
+	Out.Tex0	=	In.Tex0;
+	Out.Normal  =   mul(float4(In.Normal, 1),World);
+	return Out;
+}
+technique Sample{
+	pass P0{
+		VertexShader = compile vs_2_0 VertexShader();
+	}
+}
+\end{lstlisting}
+
+Powy¿szy kod wskazuje wyraŸnie na pe³n¹ kontrolê i swobodê w wykonywaniu operacji, dziêki czemu mo¿liwe jest implementowanie interesuj¹cych efektów takich jak deformacja obiektu w czasie rzeczywistym.
+
+\subsection{Rasteryzacja}
+\label{Teoria:Rendering:Rasteryzacja}
+G³ównym celem procesu rasteryzacji jest jak najwierniejsze przedstawienie p³askiej figury na urz¹dzeniu rastorowym dysponuj¹cym ograniczon¹ rozdzielczoœci¹ (iloœci¹ pikseli na ekranie). Rasteryzator przygotowuje dane dla kolejnego etapu renderingu: pixel shadera. Na zasadzie interpolacji liniowej opartej na informacjach o wierzcho³kach trójk¹ta generuje pozycjê, kolor, koordynaty tekstury, i inne wartoœci, które nastêpnie s¹ przekazywane do programu obliczaj¹cego wynikowy kolor ka¿dego pixela.
+%http://code.google.com/intl/pl-PL/apis/o3d/docs/programmablepipeline.html
+\begin{figure}[h]
+\centering
+\includegraphics{img/rasteryzacja1.jpg} %[width=100mm]
+\caption{Trójk¹t przed rasteryzacj¹}
+\label{img:rasteryzacja1}
+\end{figure}
+Rysunek \ref{img:rasteryzacja1} pokazuje trójk¹t z³o¿ony z trzech wierzcho³ków, w których zapisana jest informacja o pozycji, wektorze normalnym i kolorze.
+\begin{figure}[h]
+\centering
+\includegraphics{img/rasteryzacja2.jpg} %[width=100mm]
+\caption{Trójk¹t i wyznaczone piksele po procesie rasteryzacji}
+\label{img:rasteryzacja2}
+\end{figure}
+Po procesie rasteryzacji na rysunku \ref{img:rasteryzacja2} pokazane s¹ wyznaczone piksele wewn¹trz trójk¹ta. Ka¿demu z nich przypisana jest interpolowana wartoœæ ka¿dej sk³adowej wierzcho³ka.
+
+\subsection{Pixel shader}
+\label{Teoria:Rendering:Pixel}
+Pixel shader, podobnie jak vertex shader, jest procesorem na karcie graficznej. O ile vertex shader operuje na pojedynczych wierzcho³kach, pixel shader zajmuje siê wyliczeniem koñcowego koloru dla ka¿dego piksela na ekranie. Program pixel shader przyjmuje na wejœcie wartoœci wyliczone podczas etapu rasteryzacji i na ich podstawie wylicza koñcowy kolor u¿ywaj¹c wartoœci koloru przekazanego na wejœcie lub mapuj¹c kolor tekstury za pomoc¹ przekazanych koordynatów UV.
+
+
+
+\begin{lstlisting}[language=C,caption={Przykladowy Pixel Shader}] %,stepnumber=1,tabsize=1
+
+(...)
+struct VS_Output{
+	float4  Pos     : POSITION;
+	float2  Color    : COLOR;
+	float3 Normal   : TEXCOORD0;
+};
+struct PS_Output{
+	float4 Color : COLOR;
+};
+VS_Output VertexShader(VS_Input In){
+	(...) /* Przekszta³cenie wierzcho³ków */
+}
+PS_Output PixelShader(VS_Output In){
+	PS_Output Out = (PS_Output) 0;
+	Out.Color = In.Color;
+}
+technique Sample{
+	pass P0{
+		VertexShader = compile vs_2_0 VertexShader();
+		PixelShader  = compile ps_2_0 PixelShader();
+	}
+}
+\end{lstlisting}
+Pixel shader dziêki pe³nej kontroli nad wyliczaniem wynikowego koloru daje mo¿liwoœæ implementacji oœwietlenia, teksturowania, i wielu innych zaawansowanych technik.
+
+\subsection{Post-Processing}
+\label{Label:Rendering:postprocessing}
+Ostatnim elementem, aczkolwiek nieobowi¹zkowym, wystêpuj¹cym w procesie renderingu s¹ efekty nak³adane na obraz po wyrenderowaniu klatki wideo. Zapisuj¹c wygenerowany obraz do tekstury, mo¿emy na³o¿yæ na niego ró¿ne filtry zaimplementowane za pomoc¹ kolejnego wywo³ania programu pixel shader. Taki shader przyjmuje na wejœcie koordynaty tekstury dla ka¿dego piksela i zwraca nowy obliczony kolor.
+\begin{figure}[h]
+\centering
+\includegraphics[width=150mm]{img/post.jpg}
+\caption{Przyk³adowe filtry post-processing'owe}
+\label{img:post}
+\end{figure}
+Rysunek \ref{img:post} pokazuje przyk³adowe dzia³anie filtrów. Na pierwsze dwa zdjêcia zosta³ na³o¿ony filtr \mbox{rozmazuj¹cy/rozmywaj¹cy}. Dwa pozosta³e to efekt starego uszkodzonego filmu oraz efekt sepii.
+
+\subsection{Optymalizacja}
+\label{Label:Rendering:optymalizacja}
+Wspó³czesne karty graficzne pozwalaj¹ na wykonanie wszystkich opisanych powy¿ej czynnoœci w odpowiednim czasie. Czasem jednak ta moc nie wystarcza, dlatego istotnym elementem procesu renderingu obrazu s¹ techniki optymalizacyjne. Autor prezentuje poni¿ej dwie z nich: Frustrum Culling oraz Occlusion Culling.
+
+\subsubsection{Frustrum Culling}
+\label{Label:Rendering:optymalizacja:frustrum}
+Frustrum Culling to technika obcinania bry³¹ widzenia. Jest wykonywana w kodzie aplikacji, jeszcze przed rozpoczêciem procesu renderingu. Pierwszym etapem jest okreœlenie p³aszczyzn buduj¹cych bry³ê widzenia powsta³¹ podczas tworzenia macierzy projekcji.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=50mm]{img/frustrum2.jpg}
+\caption{Budowa bry³y obcinania}
+\label{img:frustrum2}
+\end{figure}
+
+Przed renderowaniem obiektu nale¿y sprawdziæ czy zawiera siê on wewn¹trz powsta³ej figury (lub przecina j¹). Poniewa¿ sprawdzanie prawdziwych modeli by³oby bardzo nieefektywne, dla ka¿dego tworzy siê bry³ê otaczaj¹c¹: szeœcian lub kulê. 
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=90mm]{img/frustrum3.jpg}
+\caption{Wykrywanie widocznych obiektów}
+\label{img:frustrum3}
+\end{figure}
+
+Na rysunku \ref{img:frustrum3} pokazano 3 obiekty podlegaj¹ce sprawdzeniu. Model maskotki w ca³oœci zawiera siê w bryle. Szeœcian otaczaj¹cy sto¿ek przecina przedni¹ p³aszczyznê bry³y widzenia, wiêc równie¿ zostanie wyœwietlony. Pi³ka natomiast jest poza zasiêgiem widzenia i zostanie odrzucona.
+
+\subsubsection{Occlusion Culling}
+\label{Label:Rendering:optymalizacja:occlusion}
+Frustrum culling daje zadowalaj¹cy efekt w postaci odrzucenia wiêkszoœci otaczaj¹cych efektów. Istniej¹ jednak sytuacje, w których to nie wystarcza. Prostym przyk³adem jest scena, na której przed kamer¹ stoi du¿y dom, a za nim ci¹gnie siê pasmo drzew, budynków i innych szczegó³owych obiektów. Renderowanie ich zajê³o by du¿o czasu, podczas gdy na wynikowym obrazie nie by³yby widoczne. Rozwi¹zaniem tego problemu jest Occlusion Culling, czyli obcinanie niewidocznych obiektów. Aby tego dokonaæ nale¿y wyrenderowaæ bry³y otaczaj¹ce do tymczasowego obrazu, a nastêpnie sprawdziæ iloœæ widocznych pikseli ka¿dego obiektu. Jeœli ich suma wynosi zero, obiekt mo¿na wy³¹czyæ z procesu renderingu. Rysunek \ref{img:culling} przedstawia scenê przed i po obcinaniu.
+\begin{figure}[h]
+\centering
+\includegraphics[width=150mm]{img/culling.jpg}
+\caption{A: Frustrum Culling, B: Occlusion Culling}
+\label{img:culling}
+\end{figure}
+
+\section{Techniki wyœwietlania obrazu}
+\label{Teoria:Techniki}
+Niniejszy rozdzia³ przedstawia techniki uatrakcyjniaj¹ce wyœwietlanie obrazu. Pierwsz¹ z nich jest obs³uga œwiate³ w przestrzeni 3D i ich nak³adanie na powierzchniê modelu. Zostan¹ opisane trzy podstawowe metody cieniowania, jak i ró¿ne typy Ÿróde³ œwiat³a. Drugim etapem jest nak³adanie tekstury oraz przedstawienie informacji dotycz¹cych filtrowania tekstur i efektu mapowania wypuk³oœci.
+
+\subsection{Oœwietlenie}
+\label{Teoria:Techniki:Oswietlenie}
+\subsubsection{Wstêp}
+\label{Teoria:Techniki:Oswietlenie:Wstep}
+Najwa¿niejszym zadaniem programistów grafiki jest zapewnienie jak najwiêkszego realizmu prezentowanego obrazu. Aby to zapewniæ implementuje siê modele oœwietlenia. Zaawansowane techniki œwietlne takie jak raytracing~\footnote{Metoda œledzenia promieni} s¹ zbyt z³o¿one obliczeniowo, aby mo¿na je by³o stosowaæ w aplikacjach czasu rzeczywistego. W grach komputerowych najczêœciej stosuje siê metody cieniowania: p³askie, Gouranda i Phonga. Ró¿ni¹ siê one iloœci¹ obliczeñ, odpowiednio dla trójk¹tów, wierzcho³ków i pojedynczych pikseli.
+
+\subsubsection{ród³a œwiat³a}
+\label{Teoria:Techniki:Oswietlenie:Zrodla}
+Wyró¿niamy dwa typy Ÿróde³ œwiat³a:
+\begin{enumerate}
+    \item \textbf{Otaczaj¹ce} -- Obiekt jest oœwietlony ze wszystkich stron jednoczeœnie. Œwiat³o to nie posiada kierunku ani pozycji, jedynie kolor oraz natê¿enie z jakim pada na obiekt.
+    \item \textbf{Kierunkowe} -- Œwiat³o posiadaj¹ce okreœlony kierunek i pozycjê, choæ czasami ma znaczenie tylko jedno z nich. Przyk³adowe warianty:
+\begin{itemize}
+    \item ¯arówka jest przyk³adem œwiat³a punktowego~\footnote{ang: point light} (rysunek \ref{img:point}). Posiada pozycjê oraz œwieci we wszystkie strony, dlatego kierunek mo¿e byæ wyliczany dynamicznie jako wektor o pocz¹tku: pozycji œwiat³a i koñcu: pozycji obiektu.
+\begin{figure}[h]
+\centering
+\includegraphics[width=50mm]{img/point.jpg}
+\caption{Point light}
+\label{img:point}
+\end{figure}
+    \item Latarnia uliczna lub latarka w praktyce jest ¿arówk¹ (œwiat³o punktowe), które odbija siê od zwierciad³a, kieruj¹c promieñ œwiat³a w okreœlon¹ stronê. Obliczenia towarzysz¹ce temu zjawisku s¹ zbyt czasoch³onne w przypadku aplikacji czasu rzeczywistego, dlatego stosuje siê œwiat³o reflektorowe (rysunek \ref{img:reflect}), które zawiera pozycjê i kierunek, a czasami te¿ k¹t, który okreœla zakres œwiat³a (jego granicê, po której przekroczeniu na obiekt nie padaj¹ ju¿ promienie).
+\begin{figure}[h]
+\centering
+\includegraphics[width=50mm]{img/reflect.jpg}
+\caption{Reflect light}
+\label{img:reflect}
+\end{figure}
+    \item S³oñce, mimo ¿e jest przyk³adem œwiat³a punktowego, w praktyce jest tak du¿e, ¿e przyjmuje siê sta³y kierunek padania promieni s³onecznych, ignoruj¹c jego pozycjê. Dziêki temu ka¿dy obiekt oœwietlany jest pod takim samym k¹tem.
+\end{itemize}
+\end{enumerate}
+
+Maj¹c okreœlone Ÿród³o œwiat³a nale¿y nim odpowiednio potraktowaæ oœwietlany obiekt. Proces ten nazywamy cieniowaniem.
+
+\subsubsection{Cieniowanie p³askie}
+\label{Teoria:Techniki:Oswietlenie:Plaskie}
+Cieniowanie p³askie to najprostsza metoda cieniowania. Polega na obliczeniu jasnoœci powierzchni jednego trójk¹ta w zale¿noœci od k¹ta zawartego miêdzy wektorem normalnym danej powierzchni oraz wektorem œwiat³a. Mimo ¿e obliczenia s¹ szybkie, poniewa¿ s¹ wykonywane raz dla ka¿dego trójk¹ta, nie daj¹ satysfakcjonuj¹cych efektów. Powa¿n¹ wad¹ jest jeden odcieñ ka¿dej œcianki i widoczne przejœcia (krawêdzie) miêdzy kolorami.
+
+\subsubsection{Cieniowanie Gourauda}
+\label{Teoria:Techniki:Oswietlenie:Gouraud}
+W przeciwieñstwie do cieniowania p³askiego, cieniowanie Gourauda wymaga policzenia natê¿enia œwiat³a dla trzech wierzcho³ków ka¿dego trójk¹ta. Nastêpnie na zasadzie interpolacji liniowej wyliczane s¹ wynikowe kolory pikseli, które miesza siê z w³aœciwym kolorem fragmentu obiektu. Dziêki temu zyskuje siê p³ynny obraz przejœcia miêdzy kolorami.
+
+\subsubsection{Cieniowanie Phonga}
+\label{Teoria:Techniki:Oswietlenie:Phong}
+Cieniowanie Phonga jest najlepsz¹ z trzech metod cieniowania, ale te¿ najbardziej z³o¿on¹ obliczeniowo. O ile dwie poprzednie operowa³y na \mbox{trójk¹tach/wierzcho³kach} (obliczenia wykonywane przez vertex shader), ta oblicza natê¿enie œwiat³a wykorzystuj¹c interpolowany wektor normalny dla ka¿dego piksela (pixel shader). Dziêki temu otrzymujemy dok³adne odwzorowanie efektów takich jak odbicie œwiat³a, które w przypadku cieniowania Gouraud bywa zniekszta³cone lub niewyraŸne.\\
+
+Rysunek \ref{img:cieniowanie} przedstawia wszystkie 3 metody cieniowania.
+\begin{figure}[h]
+\centering
+\includegraphics[width=100mm]{img/shading.jpg}
+\caption{Od lewej: cieniowanie p³askie, Gourauda, Phonga}
+\label{img:cieniowanie}
+\end{figure}
+
+\subsection{Teksturowanie}
+\label{Teoria:Techniki:Teksturowanie}
+\subsubsection{Nak³adanie tekstur}
+\label{Teoria:Techniki:Teksturowanie:Nakladanie}
+Mimo, ¿e oœwietlenie daje pewn¹ dawkê realizmu, dopiero teksturowanie zapewnia rzeczywisty wygl¹d. Tekstura jest plikiem graficznym, który jest nak³adany na model wed³ug ustalonych na ka¿dym wierzcho³ku koordynatów UV. S¹ to wspó³rzêdne X i Y tekstury, które mieszcz¹ siê w przedziale od 0 do 1, pocz¹wszy od punktu $(0,0)$ w lewym górnym rogu i $(1,1)$ w prawym dolnym (rysunek \ref{img:textureuv}). W procesie rasteryzacji koordynaty s¹ interpolowane, okreœlaj¹c które fragmenty tekstury przypadaj¹ na poszczególne piksele.
+\begin{figure}[h]
+\centering
+\includegraphics[width=80mm]{img/texture.jpg}
+\caption{Uk³ad koordynatów UV tekstury}
+\label{img:textureuv}
+\end{figure}
+
+Dziêki wspó³rzêdnym tekstury dla bardzo z³o¿onych modeli mo¿na przygotowaæ jedn¹ teksturê i za pomoc¹ odpowiednio ustawionych koordynatów "wyci¹gaæ" poszczególne fragmenty z jednego pliku graficznego.
+
+\subsubsection{Filtrowanie tekstur}
+\label{Teoria:Techniki:Teksturowanie:Filtrowanie}
+Rzadko siê zdarza, ¿e wielkoœæ tekstury odpowiada dok³adnej wielkoœci obiektu na który jest ona nak³adana. W takim przypadku obraz trzeba powiêkszyæ lub pomniejszyæ. Proces ten jest nazywany filtrowaniem.
+
+Poni¿ej zosta³y opisane 3 sposoby filtrowania:
+\begin{enumerate}
+    \item \textbf{Point (próbkowanie punktowe)} -- Jest to najprostsza metoda zmiany rozmiaru tekstury, jednak najmniej dok³adna i najrzadziej u¿ywana. Obraz jest zwyczajnie rozci¹gany lub zmniejszany. Przy zwiêkszaniu np. czterokrotnym ka¿dy piksel tekstury zajmuje cztery teksele~\footnote{Najmniejszy punkt tekstury wyœwietlany na ekranie} tekstury wyjœciowej. Przy zmniejszaniu czterokrotnym zostaje brany pod uwagê co czwarty piksel. Próbkowanie punktowe czêsto powoduje efekt pikselozy, czyli widoczne pojedyncze teksele tekstury i brak ³agodnych przejœæ miêdzy nimi.
+    \item \textbf{Linear (filtrowanie liniowe)} -- W tej metodzie podczas rozci¹gania lub zmniejszania obrazu dla ka¿dego piksela obliczana jest œrednia z czterech przylegaj¹cych pikseli. Dziêki temu zyskuje siê ³agodne przejœcie miêdzy kolorami i nie wystêpuje efekt pikselozy. Mniejsze obrazy staj¹ siê rozmazane, jednak jest to lepszy efekt od ostrych w przypadku próbkowania punktowego.
+    \item \textbf{MipMapping} -- Mipmapping to technika polegaj¹ca na tworzeniu mniejszych lub wiêkszych wersji tekstury w zale¿noœci od odleg³oœci obiektu od obserwatora. Przyk³adowo obiekt maj¹cy wymiary 13x15 wymaga tekstury o wymiarach 16x16, a wiêkszy, którego wymiary to 34x54 potrzebuje tekstury 64x64. Dla obu przypadków odwo³ywanie siê do najwy¿szej tekstury nie ma sensu, poniewa¿ spora czêœæ pikseli i tak nie zostanie wyœwietlona. Zalet¹ mipmappingu jest wstêpne usuwanie zak³óceñ skalowanych tekstur (np metod¹ filtrowania liniowego) oraz zwiêkszenie prêdkoœci teksturowania. Wad¹ jest wiêksza iloœæ pamiêci potrzebnej do przechowywania skalowanych wersji tekstury. Mipmapping jest podstaw¹ dla dwóch kolejnych metod filtrowania:
+\begin{itemize}
+    \item \textbf{Trójliniowe} -- Jest to rozszerzenie filtrowania liniowego, polegaj¹ce na uwzglêdnieniu mipmap oraz zamazywaniu granic miêdzy nimi przez interpolacjê miêdzy kolejnymi poziomami mniejszych lub wiêkszych wersji tekstury w zale¿noœci od odleg³oœci.
+    \item \textbf{Anizotropowe} -- O ile filtrowanie trójliniowe jest z powodzeniem wykorzystywane w wiêkszoœci przypadków - nie sprawdza siê np. przy wyœwietlaniu oteksturowanego p³askiego terenu ci¹gn¹cego siê wg³¹b ekranu. Filtrowanie anizotropowe rozwi¹zuje ten problem uwzglêdniaj¹c (oprócz pozycji) k¹t patrzenia kamery. Dziêki temu filtrowanie jest intensywniejsze w g³¹b ekranu.
+\end{itemize}
+\end{enumerate}
+
+\subsubsection{Mapowanie normalnych}
+\label{Teoria:Techniki:Teksturowanie:Normalne}
+Tworzenie bardzo szczegó³owych modeli, mimo ¿e nadaj¹ one wiêkszego realizmu grze, w wiêkszoœci przypadków jest k³opotliwe, poniewa¿ znacz¹co zwiêkszaj¹ czas renderingu i utrudniaj¹ np. wykrywanie kolizji (lub nie s¹ do tego wymagane). Mapowanie normalnych~\footnote{Normal Mapping} jest technik¹, która umo¿liwia sztuczn¹ wizualizacjê wypuk³oœci lub wklês³oœci na powierzchni przy u¿yciu odpowiedniej gry œwiate³. Rysunek \ref{img:normalmapping} pokazuje dzia³anie tego efektu. Obie kule s¹ reprezentowane przez ten sam model. Dziêki technice mapowania normalnych na prawej zosta³y sztucznie wymodelowane wypuk³oœci.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=80mm]{img/normalmapping.jpg}
+\caption{Model przez i po mapowaniu}
+\label{img:normalmapping}
+\end{figure}
+
+Technika ta polega na zastêpowaniu wektorów normalnych prostopad³ych do powierzchni wektorami zapisanymi na tzw. normal mapie, czyli pliku graficznym, którego ka¿da sk³adowa koloru RGB odpowiada wspó³rzêdnym nowego wektora normalnego. Nale¿y zaznaczyæ, ¿e cieniowanie obiektu musi odbywaæ siê w pixel shaderze, w którym oprócz pobranego koloru tekstury pobiera siê kolor z normal mapy, a nastêpnie wykorzystuj¹c nowy wektor wykonywane s¹ pozosta³e obliczenia.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=80mm]{img/normalmapping2.jpg}
+\caption{Przyk³ad tekstury i normal mapy}
+\label{img:normalmapping}
+\end{figure}
+
+\section{Fizyka w grach komputerowych - biblioteka PhysX}
+\label{Teoria:Fizyka}
+Niniejszy rozdzia³ ma na celu przedstawienie silnika fizycznego PhysX firmy NVIDIA, s³u¿¹cego do tworzenia œrodowiska fizycznego, zapewniaj¹cego grom komputerowym zbli¿onej do rzeczywistoœci dynamiki obiektów.
+
+\subsection{Wstêp}
+\label{Teoria:Fizyka:Wstep}
+Gry komputerowe z roku na rok staj¹ siê ³adniejsze, wykorzystuj¹ najnowsze mo¿liwoœci kart graficznych, zapewniaj¹c graczom jak najwierniejsze odwzorowanie rzeczywistego wygl¹du. Wa¿nym elementem, obok grafiki, jest dynamika gry. Sk³adaj¹ siê na ni¹ g³ównie:
+
+\begin{itemize}
+    \item \textbf{Sterowanie} -- Sposób poruszania postaci¹
+    \item \textbf{Dynamika obiektów} -- Dzia³anie na obiekty si³ fizycznych takich jak grawitacja, wiatr, tarcie itp.
+    \item \textbf{Wykrywanie kolizji} -- Wykrywanie kolizji obiektów oraz odpowiednie reagowanie w przypadku wyst¹pienia zderzenia
+\end{itemize}
+
+Wszystkie te trzy elementy sprowadzaj¹ siê do implementacji praw fizyki w grach komputerowych. Dok³adne odwzorowanie zjawisk fizycznych jest trudne i bardzo z³o¿one obliczeniowo. Dla ka¿dego obiektu posiadaj¹cego w³asnoœci fizyczne takie jak masa i wielkoœæ, w zale¿noœci od dzia³aj¹cych na niego si³, nale¿y obliczyæ now¹ pozycjê, prêdkoœæ, kierunek, tarcie, oraz inne wymagane dla danego œrodowiska w³aœciwoœci. Wymaga to wielu zaawansowanych obliczeñ wykonywanych w czasie rzeczywistym.\\
+
+W wiêkszoœci przypadków odpowiedzialnym za obliczenia fizyczne jest procesor CPU. Nie jest on wystarczaj¹co szybki aby dok³adnie odwzorowaæ œrodowisko fizyczne, dlatego stosuje siê uproszczenia wzorów, które znacznie przyœpieszaj¹ obliczenia i jednoczeœnie zmniejszaj¹ realizm dzia³ania gry.\\
+
+Technologia PhysX firmy NVIDIA przenosi obliczenia zwi¹zane z fizyk¹ na jednostki obliczeniowe karty graficznej. Jest to wydajny silnik fizyczny pozwalaj¹cy na tworzenie wirtualnego œrodowiska i symulacjê zjawisk fizycznych dziêki wielordzeniowym procesorom umieszczonym na karcie graficznej, zwiêkszaj¹cy wyk³adniczo moc obliczeniow¹ potrzebn¹ do przetwarzania fizyki.\\
+
+Silnik fizyczny PhysX wykorzystuj¹c sprzêtow¹ akceleracjê karty graficznej umo¿liwia modelowanie realistycznych zjawisk fizycznych takich jak:
+\begin{itemize}
+    \item Wybuchy i eksplozje razem z generowaniem dymu i szcz¹tek rozbitych elementów
+    \item Ciecze, które posiadaj¹ gêstoœæ i objêtoœæ
+    \item Efekty atmosferyczne takie jak realistyczna mg³a, dym, deszcz, które wchodz¹ w interakcje z otoczeniem
+    \item Materia³y, które reaguj¹ na wiatr i czynniki zewnêtrzne (mo¿liwe np. rozdarcie materia³u, deformacja)
+    \item Dodatkowe wsparcie dla kó³ pojazdów, pozwalaj¹ce na tworzenie bardziej realistycznych symulacji samochodowych
+    \item Zaawansowana obs³uga kolizji, wraz z generowaniem zdarzeñ
+\end{itemize}
+
+\subsection{Scena}
+\label{Teoria:Fizyka:Scena}
+Scena jest œrodowiskiem, w którym przeprowadzana jest symulacja fizyczna œrodowiska. Ustawia siê w niej parametry, miêdzy innymi:
+\begin{itemize}
+    \item Grawitacja, najczêœciej 9.8 m/s dla symulacji warunków ziemskich.
+    \item Gruboœæ skóry obiektów, która jest ustawiana dla ka¿dego nowego obiektu sceny. Okreœla ona w jakim stopniu obiektu siê przenikaj¹.
+    \item Typ symulacji, czyli sposób w jaki PhysX bêdzie dokonywaæ obliczeñ: sprzêtowo (wykorzystany bêdzie procesor karty graficznej) i programowo (u¿ycie procesora CPU).
+\end{itemize}
+
+\subsection{Aktorzy}
+\label{Teoria:Fizyka:Aktorzy}
+Aktorem okreœla siê obiekt fizyczny posiadaj¹cy w³aœciwoœci fizyczne takie jak masa, kszta³t, po³o¿enie, materia³ z jakiego jest zbudowany itd. Aktorzy dziel¹ siê na dwie grupy:
+\begin{itemize}
+    \item \textbf{Dynamiczni} -- Na obiekty dynamiczne dzia³aj¹ si³y oraz s¹ wykrywane miêdzy nimi (a tak¿e miêdzy obiektem dynamicznym i statycznym) kolizje. Przyk³ady: pi³ka, deska, samochód.
+    \item \textbf{Statyczni} -- S¹ to obiekty ze sta³¹ pozycj¹, kolizje miêdzy nimi nie s¹ wykrywane. Przyk³ady: budynek, teren.
+\end{itemize}
+
+Pierwszym krokiem w celu stworzenia aktora jest okreœlenie materia³u. Ustawia siê w nim miêdzy innymi nastêpuj¹ce w³asnoœci:
+\begin{itemize}
+    \item \textbf{Restitution (elastycznoœæ)} -- Sk³onnoœæ obiektu do odbijania siê podczas kolizji.
+    \item \textbf{Static Friction (tarcie statyczne)} -- Sposób, w jaki obiekt zachowuje siê po dzia³aniu na niego si³¹. Ustawienie wysokich wartoœci sprawia, ¿e obiekt bêdzie bardziej sk³onny do toczenia siê ani¿eli do przesuwania.
+    \item \textbf{Dynamic Friction (tarcie dynamiczne)} -- Okreœla opór, który stawia obiekt w momencie przesuwania po powierzchni. Wy¿sza wartoœæ powoduje wiêksze zapotrzebowanie na si³ê w trakcie przesuwania.
+\end{itemize}
+
+Kolejnym krokiem jest utworzenie kszta³tu aktora. S³u¿y on do fizycznej reprezentacji obiektu w symulacji. Na podstawie kszta³tów wykrywane s¹ kolizje.
+
+\begin{itemize}
+    \item Prostopad³oœcian, Kula i Kapsu³a to podstawowe kszta³ty. Z nich najczêœciej buduje siê bardziej z³o¿one. Dla przyk³adu z kilku kapsu³ek mo¿na wymodelowaæ rêce, nogi i cia³o cz³owieka, natomiast do reprezentacji g³owy u¿yæ boksa lub kuli.
+    \item P³aszczyzna reprezentuje p³ask¹ przestrzeñ. Najczêœciej jest to "pod³oga" symulacji, która oddziela czêœæ pust¹ (dó³) od pozosta³ej, w której znajduj¹ siê obiekty.
+    \item Convex Mesh s³u¿y do modelowania bardziej z³o¿onych obiektów, których nie da siê w prosty sposób zbudowaæ z wymienionych powy¿ej kszta³tów. Mimo dowolnego wypuk³ego kszta³tu ma on ograniczenie do 256 poligonów.
+\end{itemize}
+Powy¿sze kszta³ty stosuje siê zarówno do dynamicznych jak i statycznych obiektów, poniewa¿ zachodzi miêdzy nimi mo¿liwoœæ wykrycia kolizji. Poni¿sze stosuje siê do modelowania obiektów statycznych, poniewa¿ wykrycie miêdzy nimi kolizji nie jest mo¿liwe:
+\begin{itemize}
+    \item Triangle Mesh pozwala na dok³adn¹ reprezentacjê modelu np. budynku.
+    \item Heightfield jest zoptymalizowany pod k¹tem reprezentacji terenu.
+\end{itemize}
+
+Po utworzeniu kszta³tu obiektu i przypisaniu mu materia³u nale¿y ustawiæ pozosta³e w³aœciwoœci obiektu takie jak: masa (lub gêstoœæ), pozycja oraz orientacja startowa.\\
+
+\subsection{Wykrywanie kolizji}
+\label{Teoria:Fizyka:Kolizje}
+Sprawdzenie kolizji miêdzy obiektami na zasadzie ka¿dy~z~ka¿dym przy du¿ych scenach by³o by zbyt wymagaj¹ce obliczeniowo, a tak¿e w wiêkszoœci przypadków niepotrzebne. PhysX optymalizuje to dziel¹c œwiat na mniejsze przestrzenie, dziêki temu ka¿dy obiekt jest sprawdzany pod k¹tem wyst¹pienia kolizji jedynie z najbli¿szymi obiektami w jego otoczeniu. \\
+
+Po ustaleniu pary obiektów bêd¹cych dostatecznie blisko siebie nastêpuje sprawdzenie typów obiektów (co najmniej jeden z nich musi byæ dynamiczny), a nastêpnie grup kolizyjnych, którymi u¿ytkownik mo¿e kontrolowaæ wykrywanie kolizji miêdzy okreœlonymi obiektami. \\
+
+Po wykryciu kolizji generowane jest zdarzenie (raport), dziêki któremu programista mo¿e obs³u¿yæ wyst¹pienie kolizji. Mo¿na równie¿ zdefiniowaæ zdarzenia, które maj¹ byæ raportowane. Przyk³adowo jeœli chcemy aby PhysX poinformowa³ nas tylko o uderzeniu obiektu w pod³ogê, ustawiamy mu flagê \mbox{NX\_NOTIFY\_ON\_START\_TOUCH}. Pozosta³e zdarzenia, takie jak przesuwanie lub oderwanie od pod³ogi nie bêd¹ zg³aszane.\\
+
+Pewn¹ odmian¹ raportów kolizji s¹ tak zwane \textbf{triggery}. Dzia³aj¹ one na zasadzie generowania informacji o wejœciu w przestrzeñ okreœlonego obiektu, przebywaniu w niej oraz opuszczeniu. Obiektem takim mo¿e byæ dowolny kszta³t opisany w poprzednim rozdziale, zaznaczaj¹c, ¿e obs³uga kolizji convex mesh i triangle mesh, oraz triangle mesh i triangle mesh, nie s¹ obs³ugiwane. Przyk³adowym zastosowaniem triggerów jest tworzenie systemu automatycznego otwierania drzwi po wejœciu na schodek.
+
+\subsection{Sterowanie obiektami}
+\label{Teoria:Fizyka:Sterowanie}
+Sterowanie obiektami ró¿ni siê dla obiektów dynamicznych i statycznych.\\
+
+Obiekty dynamiczne to cia³a fizyczne, dla których w trakcie dzia³ania symulacji nie mo¿na bezpoœrednio zmieniæ pozycji ani orientacji. Dzia³aj¹ na nie si³y fizyczne, dlatego sterowanie polega g³ównie na nadawaniu im si³ z dowolnego punktu i w dowolnym kierunku. Przyk³adem takiego rozwi¹zania jest toczenie kuli. Pocz¹tek si³y zaczepiony jest w œrodku obiektu, natomiast koniec skierowany jest w stronê, w któr¹ kula ma siê przetoczyæ. Wartym dodania jest fakt, ¿e si³ê mo¿na zaczepiæ nie tylko w lokalnym uk³adzie obiektu, ale te¿ w globalnych wspó³rzêdnych œwiata. \\
+
+Obiekty statyczne to obiekty na które nie dzia³aj¹ ¿adne si³y. Daje to mo¿liwoœæ dynamicznej zmiany pozycji i orientacji aktora poprzez odpowiednie wywo³ania funkcji. To rozwi¹zanie stosuje siê do kierowania postaciami, które przez ca³y czas zachowuj¹ pionow¹ postawê, lub w przypadku gier FPP~{First Person Perspective}, w których poruszamy siê po œwiecie ogl¹daj¹c go oczami bohatera (steruj¹c kamer¹). Rêczna implementacja takiego zachowania jest mo¿liwa, jednak wi¹¿e siê z wieloma trudnoœciami. PhysX wychodz¹c na przeciw zapotrzebowaniu udostêpnia narzêdzie, które to u³atwia, czyli Character~Controler. Pozwala on na stworzenie obiektu, który mo¿na w prosty sposób poruszaæ. Udostêpnia równie¿ dwie w³aœciwoœci, które okreœlaj¹ mo¿liwoœci przemieszczania siê obiektu na danym terenie:
+\begin{itemize}
+    \item \textbf{Auto Stepping} -- Umo¿liwia ustawienie ró¿nicy w wysokoœci wybojów, które obiekt pokona bez problemu, a na których siê zatrzyma. Przyk³adem s¹ schody, które postaæ powinna pokonaæ automatycznie, oraz wysoki podest, na który trzeba wskoczyæ.
+    \item \textbf{Walkable Parts} -- Domyœlnie obiekt mo¿na przemieœciæ gdziekolwiek. Nie jest to zgodne z rzeczywistoœci¹. Ta opcja pozwala na ustalenie limitu pochy³oœci w k¹tach, do którego obiekt mo¿e swobodnie poruszaæ siê, a po przekroczeniu dalsze sterowanie w danym kierunku staje siê niemo¿liwe. Przyk³adem jest górzysty i wyboisty teren. Postaæ porusza siê swobodnie po pochy³ych wzniesieniach, których k¹t jest mniejszy od 45 stopni.
+\end{itemize}
+
+\subsection{Debugowanie symulacji}
+\label{Teoria:Fizyka:debug}
+PhysX Visual Debugger jest narzêdziem, które nie tylko pozwala na kontrolowanie symulacji fizycznej, ale tak¿e pomaga w przypadku rozwi¹zywania problemów. G³ówne zalety PVD:
+\begin{itemize}
+    \item Wizualizacja wszystkich obiektów na scenie, si³, kolizji, pól si³owych i innych
+    \item Kontrolowanie obiektów oraz si³ dzia³aj¹cych na nie za pomoc¹ lewego przycisku myszki
+    \item Dostêp do wszystkich informacji i w³aœciwoœci ka¿dego obiektu
+    \item Swobodna kamera umo¿liwiaj¹ca podgl¹d sceny pod ró¿nym k¹tem
+\end{itemize}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=100mm]{img/physxDebugger.jpg}
+\caption{Podgl¹d sceny w programie PhysX Visual Debugger}
+\label{img:normalmapping}
+\end{figure}
+
+\subsection{Podsumowanie}
+\label{Teoria:Fizyka:podsumowanie}
+Fizyka jest niemal¿e obowi¹zkowym elementem ka¿dej gry. Jak najwierniejsze odwzorowanie zjawisk fizycznych jest nie tylko przyjemne dla oka, ale równie¿ odczuwalne podczas sterowania g³ównym obiektem gry. Technologia NVIDIA PhysX pozwala twórcom gier na stworzenie wydajnego œrodowiska fizycznego, dziêki czemu mog¹ siê oni skupiæ g³ównie na logice aplikacji.
+
+
+\section{Logika gry - skrypty}
+\label{Teoria:Skrypty}
+\subsection{Wstêp}
+\label{Teoria:Skrypty:Wstep}
+Ma³e gry ze zdefiniowanym celem i fabu³¹ wykorzystuj¹ niewielk¹ iloœæ modeli i grafik. W takich produkcjach programiœci programuj¹ poziomy bezpoœrednio w kodzie aplikacji. W wiêkszych przedsiêwziêciach zachodzi koniecznoœæ oddzielenia czêœci logicznej od kodu aplikacji z dwóch powodów:
+\begin{itemize}
+    \item Tworzeniem poziomów zajmuje siê oddzielny zespó³, z³o¿ony z cz³onków, którzy najczêœciej nie zajmuj¹ siê programowaniem
+    \item Ka¿da, nawet najmniejsza zmiana fragmentu logiki, wi¹¿e siê z ponown¹ kompilacj¹ ca³ej aplikacji
+\end{itemize}
+
+Wykorzystanie jêzyka skryptowego rozwi¹zuje ten problem. Twórcy gry nie tylko mog¹ umieœciæ w nich budowanie poziomów, ale tak¿e implementowaæ nowe algorytmy AI, oprogramowywaæ GUI~\footnote{ang: Graphical User Interface - Interfejs u¿ytkownika}, i wiele innych aspektów gry, które wymagaj¹ czêstych zmian i szybkiego sprawdzenia w praktyce. \\
+
+Skrypty s¹ pisane w jêzyku interpretowanym. Oznacza to, ¿e instrukcje s¹ czytane po kolei i wykonywane, bez procesu kompilacji. W dawnych czasach jedynym wyjœciem by³a w³asna implementacja jêzyka skryptowego i interpretera. Dzisiaj twórcy gier maj¹ do dyspozycji wiele gotowych. W projekcie praktycznym zosta³ wykorzystany jêzyk Lua, dlatego te¿ w³aœnie on zostanie przedstawiony w niniejszym rozdziale.\\
+
+\subsection{Jêzyk Lua}
+\label{Teoria:Skrypty:Lua}
+
+Lua to jêzyk skryptowy przeznaczony g³ównie do rozszerzania funkcjonalnoœci aplikacji, jednak czêsto jest stosowany jako samodzielny jêzyk. Stworzony zosta³ w 1993 roku przez trzech studentów katolickiego uniwersytetu w Rio de Janeiro.\\
+
+Jêzyk ten zosta³ zaimplementowany w ANSI C jako ma³a, darmowa i przenoœna biblioteka. G³ównymi atutami s¹ prostota i wydajnoœæ. W³aœnie te cechy sprawiaj¹, ¿e jêzyk Lua jest najczêœciej wybieranym jêzykiem dla potrzeb gier komputerowych.\\
+
+\subsection{Sk³adnia jêzyka}
+\label{Teoria:Skrypty:Skladnia}
+Opis ca³ej sk³adni jêzyka wykracza poza ramy tej pracy. Autor przedstawia jedynie podstawowe elementy jêzyka.\\
+
+Kod skryptów Lua przypomina jêzyk Pascal. Zawiera jednak automatyczne mechanizmy zarz¹dzania pamiêci¹, dziêki którym znikaj¹ problemy zwi¹zane z wyciekami pamiêci czy przepe³nieniami buforów. Jest to jêzyk dynamicznych typów, co oznacza, ¿e typ zmiennych oraz ich instancje s¹ tworzone przy pierwszym przypisaniu do nich wartoœci:
+
+\begin{lstlisting}[language=Pascal,caption={Dynamiczna zmiana typu zmiennej}]
+
+--Prosty komentarz
+--[[
+    Wieloliniowy komentarz
+]]--
+zmienna = 5
+zmienna = false
+zmienna = "Hello!"
+\end{lstlisting}
+
+Podstawowe typy danych to: nil, boolean, number, string, funkcja, userdata i tablica. Nil jest typem z jedn¹ wartoœci¹ \texttt{nil}, która reprezentuje brak wartoœci. Typ logiczny jaki reprezentuje Nil to \texttt{false}. Typ userdata jest przydatny podczas komunikacji Lua z innymi jêzykami i mo¿e przechowywaæ dowoln¹ wartoœæ. Tablice s¹ dynamicznym asocjacyjnym zbiorem danych, który mo¿e przechowywaæ dane dowolnego typu, z wyj¹tkiem wartoœci \texttt{nil}. Tablice s¹ podstaw¹ budowania bardziej z³o¿onych typów takich jak mapy, listy, grafy, drzewa itp. Dostêpne s¹ podstawowe instrukcje warunkowe i steruj¹ce: if, while, repeat, repeat-until i for.\\
+
+Wyró¿niamy dwa rodzaje zmiennych: globalne i lokalne. Zmienne globalne s¹ domyœlne i dostêpne w ca³ym kodzie. Zmienne lokalne wymagaj¹ poprzedzenia deklaracji s³owem \texttt{local} i ograniczaj¹ siê jedynie do zakresu bloku, w którym siê znajduj¹:
+\begin{lstlisting}[language=Pascal,caption={Zasiêg zmiennych}]
+zmiennaGlobalna = 5
+if zmiennaGlobalna == 5 then
+    local zmiennaLokalna = 25
+end
+print zmiennaGlobalna -- Wyœwietli wartoœæ 5
+print zmiennaLokalna -- B³¹d, zmienna nie istnieje
+\end{lstlisting}
+
+Funkcje w jêzyku Lua mog¹ przyjmowaæ i zwracaæ wiele wartoœci ró¿nego typu. Parametry funkcji, którym nie zostanie podana wartoœæ, przyjmuj¹ wartoœæ \texttt{nil}:
+\begin{lstlisting}[language=Pascal,caption={Parametry funkcji}]
+function s(a, b)
+   if a > 2 then
+      return a+b, a*b
+   else
+      return a-b, a/b
+   end
+end
+e,f, g = s(3, 1)
+-- e = 4, f = 3, g = nil
+h = s(1, 3)
+-- h = -2
+\end{lstlisting}
+
+Jêzyk Lua nie ma wbudowanej obs³ugi obiektów i klas. Jedyn¹ struktur¹ danych jest Tabela, jednak u¿ywa siê jej do implementowania innych typów za pomoc¹ \mbox{meta-tablic}~\footnote{ang: metatable}. Umo¿liwiaj¹ one zmianê zachowania tablic. Prostym przyk³adem mo¿e byæ tablica przechowuj¹ca wektor 3d, maj¹cy trzy pola reprezentuj¹ce wspó³rzêdne. Podczas operacji dodawania dwóch takich obiektów Lua sprawdza, czy istnieje \mbox{meta-metoda} o nazwie \_\_add, któr¹ programista mo¿e zaimplementowaæ w celu obs³u¿enia dodawania dwóch wektorów.
+
+\subsection{Integracja z jêzykiem C++}
+\label{Teoria:Skrypty:Integracja}
+
+Biblioteka Lua umo¿liwia wymianê informacji oraz wywo³ywanie funkcji Lua w kodzie C++ i odwrotnie. Podczas wymiany informacji tworzony jest wirtualny stos, na którym umieszczane s¹ parametry funkcji i wartoœci zwracane. Dla ka¿dego wywo³ania tworzony jest oddzielny stos. Dziêki temu wywo³uj¹c z poziomu C++ funkcjê Lua, która w swoim ciele wywo³uje inn¹ funkcjê C++, mamy za ka¿dym razem dostêp do osobnego stosu ka¿dego z wywo³añ i mo¿emy je obs³u¿yæ bez ¿adnych kolizji. Do wartoœci przechowywanych na stosie mo¿emy odwo³aæ siê u¿ywaj¹c dwóch sposobów: indeksy dodatnie pobieraj¹ wartoœci od do³u (od najstarszego elementu), indeksy ujemne pobieraj¹ wartoœci od góry. Proces wywo³ania funkcji ze skryptu sk³ada siê z:
+\begin{enumerate}
+    \item Umieszczenia parametrów funkcji na stosie
+    \item Wywo³ania funkcji ze skryptu
+    \item Pobrania zwracanych przez funkcjê wartoœci ze stosu
+\end{enumerate}
+Z poziomu C++ mo¿emy równie¿ uzyskaæ dostêp do wszystkich zmiennych globalnych w skrypcie. \\
+
+Wywo³ywanie funkcji jêzyka C++ w skrypcie jest mo¿liwe poprzez rejestracjê statycznej metody poœrednicz¹cej. Jej parametrem jest wskaŸnik do obiektu, za pomoc¹ którego mamy dostêp do metod umieszczaj¹cych i pobieraj¹cych informacje ze stosu.\\
+
+£¹czenie skryptów Lua z jêzykiem C++ jest niekiedy trudnym zadaniem, dlatego stworzone zosta³y zewnêtrzne biblioteki wspomagaj¹ce wymianê informacji, a tak¿e wprowadzaj¹ce ulepszenia takie jak obs³uga programowania obiektowego oraz dostêpu do klas i obiektów kodu C++ z poziomu skryptu.
+
+\subsubsection{ToLua++}
+\label{Teoria:Skrypty:ToLua}
+ToLua++ jest bibliotek¹, która umo¿liwia eksportowanie klas z C++ za pomoc¹ definicji klasy umieszczonej w osobnym pliku. W skrypcie mo¿na korzystaæ z tych klas tak jakby by³y fizycznie klasami Lua. Obs³ugiwany jest polimorfizm obiektów i klas, a tak¿e dziedziczenie jednokrotne i wielodziedziczenie. Mo¿liwe jest tak¿e przeci¹¿anie funkcji i operatorów.
+
+\subsubsection{LuaBind}
+\label{Teoria:Skrypty:LuaBind}
+O ile ToLua++ jest jedynie narzêdziem wspomagaj¹cym integracjê Lua z C++, \mbox{LuaBind} jest oddzieln¹ wersj¹ jêzyka, która rozszerza jego mo¿liwoœci, jednoczeœnie zapewniaj¹c wygodn¹ formê rejestrowania klas i metod. G³ówn¹ zalet¹ \mbox{LuaBind} jest uniezale¿nienie od stosu jêzyka Lua, dziêki czemu mo¿liwe jest wywo³ywanie bezpoœrednich metod jêzyka C++ bez potrzeby implementowania funkcji poœrednicz¹cych.
+
+% ********** Koniec rozdzia³u **********
+
+% ********** Rozdzia³ 3 - PRAKTYKA **********
+\chapter{Praktyka}
+\label{Praktyka}
+Czêœæ praktyczna pracy opisuje proces tworzenia projektu. Zosta³a podzielona na dwie czêœci:
+\begin{enumerate}
+    \item \textbf{Architektura silnika} -- Opis architektury i dzia³ania silnika graficznego, na podstawie którego tworzona bêdzie gra, oraz zewnêtrznych narzêdzi wykorzystanych przy procesie tworzenia.
+    \item \textbf{Tworzenie gry AtBall} -- Proces tworzenia w³aœciwej gry.
+\end{enumerate}
+
+\section{Architektura silnika}
+\label{Praktyka:Architektura}
+
+\subsection{Wstêp}
+\label{Praktyka:Architektura:Wstep}
+Pierwszym krokiem podczas tworzenia projektu by³o stworzenie silnika graficznego, który umo¿liwia³by przygotowywanie prostych gier platformowych. Autor zdecydowa³ siê na jak najdok³adniejsze oddzielenie procesu kreowania gry od kodu Ÿród³owego aplikacji. W tym celu zosta³ wykorzystany zewnêtrzny edytor œwiata, w którym twórca gry przygotowuje scenê ustawiaj¹c pozycjê, orientacjê i skalê obiektów, a tak¿e ustawia tekstury. Maj¹c gotowy uk³ad modeli nastêpuje przygotowanie odpowiednich skryptów, które okreœlaj¹ zachowanie obiektów podczas gry. G³ówn¹ funkcj¹ jest mo¿liwoœæ obs³ugi kolizji obiektów, dziêki czemu budowanie fabu³y gry staje siê ³atwe i przyjemne.
+
+\subsubsection{Narzêdzia}
+\label{Praktyka:Architektura:Wstep:Narzedzia}
+Proces tworzenia projektu wymaga³ wykorzystania nastêpuj¹cych narzêdzi oraz bibliotek:
+
+\begin{itemize}
+    \item \textbf{Microsoft Visual Studio} -- Zintegrowane œrodowisko programistyczne umo¿liwiaj¹ce tworzenie, testowanie i debugowanie zaawansowanych aplikacji (tak¿e aplikacji sieciowych oraz serwisów internetowych).
+    \item \textbf{Visual Assist X} -- Dodatek do Visual Studio poprawiaj¹cy i rozszerzaj¹cy wybrane funkcje œrodowiska. G³ówn¹ cech¹ jest lepsza obs³uga IntelliSense~\footnote{Podpowiadanie sk³adni} i kolorowania sk³adni. Dodatkowo u³atwia utrzymywanie porz¹dku w kodzie Ÿród³owym za pomoc¹ refractoringu~\footnote{Dynamiczna zmiana wybranych nazw zmiennych, klas, metod itd.}.
+    \item \textbf{Microsoft DirectX} -- Biblioteka wspomagaj¹ca wyœwietlanie grafiki na ekranie.
+    \item \textbf{NVIDIA PhysX} -- Silnik fizyczny firmy NVIDIA umo¿liwiaj¹cy stworzenie wirtualnej sceny, zapewniaj¹cej obiektom fizyczne oddzia³ywanie miêdzy sob¹.
+    \item \textbf{IrrEdit} -- Darmowy edytor œwiata, umo¿liwiaj¹cy tworzenie scen zawieraj¹cych nie tylko modele 3D, ale równie¿ kamery, œwiat³a i dynamicznie generowane tereny. Wygenerowan¹ scenê mo¿na zapisaæ w wygodnym formacie XML.
+    \item \textbf{IrrXML} -- Darmowa biblioteka umo¿liwiaj¹ca parsowanie plików XML.
+    \item \textbf{Lua} -- Biblioteka zapewniaj¹ca obs³ugê skryptów napisanych w jêzyku Lua.
+\end{itemize}
+
+\subsection{Inicjalizacja}
+\label{Praktyka:Architektura:Inicjalizacja}
+Niniejszy rozdzia³ zawiera ogólnikow¹ prezentacjê procesu inicjalizacji oraz dzia³ania silnika. Wybrane klasy i mechanizmy zostan¹ omówione dok³adniej w dalszej czêœci pracy.
+
+\subsubsection{Game - g³ówny obiekt gry}
+\label{Praktyka:Architektura:Inicjalizacja:CGame}
+Klasa \code{CGame} jest j¹drem ca³ego silnika. Odpowiada za inicjalizacjê poszczególnych modu³ów, obs³ugê g³ównej pêtli oraz zarz¹dzanie stanami gry. Wykorzystuje ona wzorzec projektowy \textbf{Singleton} (wydruk \ref{code:singleton}):
+
+\begin{lstlisting}[caption={Singleton},label={code:singleton}]
+class CGame{
+private:
+	CGame();
+public:
+	~CGame();
+	static CGame& GetInstance(){
+		static CGame inst;
+		return inst;
+	}
+(...) //pozosta³e metody
+}
+#define Game CGame::GetInstance()
+\end{lstlisting}
+
+Zapewnia on dostêp tylko do jednej instancji obiektu za pomoc¹ metody \code{GetInstance()}, która zwraca referencjê na obiekt. Konstruktor jest prywatny, tak wiêc rêczne stworzenie obiektu klasy \code{CGame} jest niemo¿liwe. Instrukcja preprocesora \code{\#define} tworzy alias, dziêki któremu za pomoc¹ nazwy \code{Game} mo¿emy wywo³ywaæ poszczególne metody klasy \code{CGame}.\\
+
+Uruchomienie aplikacji polega na wywo³aniu metody \code{CGame::Run()} (wydruk \ref{code:cgame}). 
+
+\begin{lstlisting}[caption={Uruchomienie gry},label={code:cgame}]
+int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nShowCmd){
+	int result = Game.Run(hInstance,nShowCmd);
+	return result;
+}
+\end{lstlisting}
+
+Metoda ta wykonuje dwie operacje. Pierwsz¹ z nich jest zainicjowanie poszczególnych komponentów wymaganych do dalszego funkcjonowania silnika. W praktyce sprowadza siê to do wykonania metody \code{X::Init()}, gdzie \code{X} jest aliasem do klasy, która jest singletonem, zbudowanym na wzór klasy \code{CGame}.\\
+
+Proces inicjalizacji przebiega nastêpuj¹co:
+\begin{enumerate}
+    \item Za³adowanie skryptu konfiguracyjnego, który zawiera wybran¹ rozdzielczoœæ oraz nazwê pierwszego poziomu gry.
+    \item Inicjalizacja obiektu \code{Window}, który tworzy okno programu.
+    \item Inicjalizacja obiektu \code{DirectX} tworz¹cego obiekty urz¹dzeñ wykorzystywanych w procesie renderingu. £adowane s¹ równie¿ trzy pliki efektów (shadery): normalny, z efektem mapowania wypuk³oœci (normal mapping) i dla SkyBox'a.
+    \item Inicjalizacja systemu wejœcia \code{Input} odpowiedzialnego za wykrywanie operacji wejœciowych z klawiatury i myszy.
+    \item Inicjalizacja obiektów \code{PhysX} oraz \code{Scene} odpowiedzialnych za obs³ugê silnika NVIDIA PhysX, oraz zarz¹dzanie obiektami w scenie.
+    \item Inicjalizacja pozosta³ych sk³adników: \code{SoundMgr} odpowiedzialny za obs³ugê dŸwiêku, \code{Gui} zajmuj¹cy siê wyœwietlaniem grafiki 2D (interfejs u¿ytkownika, komunikaty itp.) oraz \code{SkyBox} ³aduj¹cy teksturê szeœcienn¹ i wyœwietlaj¹cy j¹ imituj¹c sztuczne t³o œwiata.
+\end{enumerate}
+
+\subsubsection{Stany}
+\label{Praktyka:Architektura:Inicjalizacja:Stany}
+Stan okreœla sposób dzia³ania aplikacji, reakcji na operacje wejœciowe u¿ytkownika, oraz wyœwietlanie obrazu na ekranie.
+
+\begin{itemize}
+    \item \textbf{start1, start2} -- Odpowiedzialne za wyœwietlenie dwóch pocz¹tkowych obrazów bezpoœrednio po uruchomieniu aplikacji.
+    \item \textbf{mainMenu} -- Wyœwietlenie menu gry oraz reakcja na zmianê i wybór konkretnej pozycji.
+    \item \textbf{instructions} -- Wyœwietlenie obrazu zawieraj¹cego informacje na temat gry oraz sterowania.
+    \item \textbf{loading, loading2} -- Stan \textbf{loading} powoduje wyœwietlenie ekranu informuj¹cego o procesie ³adowania poziomu oraz zmianê na stan \textbf{loading2}, który wywo³uje metodê \code{CGame::NextLevel()} ³aduj¹c¹ nowy poziom.
+    \item \textbf{game} -- Symulacja obiektów na scenie oraz wyœwietlenie ich na ekranie.
+    \item \textbf{pause, softPause} -- Pauza gry, w której nastêpuje zatrzymanie symulacji i sterowania obiektami. W stanie \textbf{pause} dodatkowo obraz sceny zastêpowany jest przez obraz informuj¹cy o zatrzymaniu gry.
+    \item \textbf{endGame, closing} -- Stany odpowiedzialne za wyœwietlenie informacji o zamykaniu aplikacji oraz usuwanie obiektów i koñczenie dzia³ania programu. 
+    \item \textbf{error} -- Wyœwietlenie komunikatu o b³êdzie oraz zamykanie programu.
+\end{itemize}
+
+Przejœcia miêdzy stanami zachodz¹ w trzech przypadkach:
+\begin{enumerate}
+    \item Po up³ywie okreœlonego czasu. Przyk³adem jest droga: start1 $\shortrightarrow$ start2 $\shortrightarrow$ mainMenu, w której stan zmieniany jest na kolejny po up³ywie okreœlonej liczby sekund.
+    \item Po akcji u¿ytkownika np. wciœniêcie przycisku ENTER przy wybranej opcji menu.
+    \item Rêczna zmiana stanu poprzez wywo³anie metody \code{CGame::ChangeStatus(nowyStan)}.
+\end{enumerate}
+
+\subsubsection{Pêtla gry}
+\label{Praktyka:Architektura:Inicjalizacja:Petla}
+Po utworzeniu wymaganych urz¹dzeñ i przygotowaniu obiektów nastêpuje uruchomienie pêtli czasu rzeczywistego. Wykonuje siê ona przez ca³y okres dzia³ania aplikacji. Przerwanie jej powoduje wywo³anie metody \code{CGame::Clear()}, która jest odpowiedzialna za bezpieczne usuwanie urz¹dzeñ i obiektów.\\
+
+Pêtlê mo¿na podzieliæ j¹ na cztery czêœci:
+\begin{enumerate}
+    \item Sprawdzenie, czy nie zosta³ ustawiony stan \textbf{closing}. Jeœli tak -- pêtla jest przerywana.
+    \item Domyœle obs³u¿enie zdarzeñ przez system operacyjny (np. maksymalizacja lub zmiana rozmiaru okna).
+    \item Uaktualnienie logiki aplikacji.
+    \item Wyœwietlenie grafiki.
+\end{enumerate}
+
+Dwie ostatnie operacje mog¹ spowodowaæ b³¹d, z powodu którego dalsze poprawne dzia³anie aplikacji mo¿e staæ siê niemo¿liwe. W takim przypadku równie¿ pêtla jest przerywana (wydruk \ref{code:petla}):
+
+\begin{lstlisting}[caption={Pêtla gry},label={code:petla}]
+int CGame::Run(...){
+	(..) //inicjalizacja silnika
+	MSG msg;
+	while (true){
+		if(status == closing) break; //zamykanie aplikacji
+		if (PeekMessage( &msg, NULL, 0, 0, PM_REMOVE)){
+			if(msg.message == WM_QUIT) break;
+			TranslateMessage(&msg);	DispatchMessage(&msg);
+		}
+		if(Update() == false) break; //b³¹d logiki - przerywanie
+		if(Render() == false) break; //b³¹d wyœwietlania - przerywanie
+	}
+	Clear(); return 0;
+}
+\end{lstlisting}
+
+\subsubsection{Uaktualnianie logiki}
+\label{Praktyka:Architektura:Inicjalizacja:Logika}
+Proces uaktualniania logiki sk³ada siê z dwóch g³ównych operacji:
+\begin{enumerate}
+    \item Wywo³anie metody \code{Update()} dla poszczególnych obiektów g³ównych.
+    \item Reakcja na zdarzenia wygenerowane przez u¿ytkownika.
+\end{enumerate}
+
+Pierwsz¹ czynnoœci¹ jest uaktualnienie obiektów niezale¿nych od aktualnego stanu gry:
+\begin{itemize}
+    \item \textbf{FPSCounter} odpowiada za obliczanie ró¿nicy czasu miêdzy dwiema iteracjami pêtli gry oraz wyliczanie wartoœci FPS.
+    \item \textbf{SoundMgr} uaktualnia system dŸwiêku (wiêcej o obs³udze dŸwiêku w rozdziale \ref{Praktyka:Architektura:Dzwiek}).
+    \item \textbf{TimerMgr} zajmuje siê uaktualnianiem czasu zegarów, oraz wykonywanie okreœlonych akcji (wiêcej o zarz¹dzaniu czasem w rozdziale \ref{Praktyka:Architektura:Timery}).
+    \item \textbf{Input} pobiera aktualny stan urz¹dzeñ wejœciowych.
+\end{itemize}
+
+Nastêpnie w zale¿noœci od ustawionego stanu gry nastêpuje sprawdzenie wciœniêtych klawiszy. \\
+
+Dla stanu \textbf{game} sprawdzane jest wybranie pauzy gry oraz restartu poziomu. W zale¿noœci od tego czy u¿ytkownik wybra³ ¿¹dane dzia³anie, stan gry jest zmieniany na \textbf{pause} lub \textbf{loading}. Dodatkowo sprawdzana jest reakcja na przycisk ESC, który powoduje przejœcie do stanu \textbf{mainMenu} oraz spacji, której wciœniêcie jest sygnalizowane poprzez wywo³anie metody w skrypcie danego poziomu.\\
+
+W przypadku stanu \textbf{instructions} po wciœniêciu klawisza ESC nastêpuje powrót do stanu \textbf{mainMenu}.\\
+
+Kolejnym krokiem jest uaktualnienie graficznego interfejsu u¿ytkownika (który zostanie opisany w rozdziale \ref{Praktyka:Architektura:Gui}) uwzglêdniaj¹c ustawiony stan gry.\\
+
+Jeœli aktualnym stanem gry jest \textbf{loading}, nastêpuje przejœcie do stanu \textbf{loading2}, który przy kolejnej iteracji pêtli gry za³aduje nowy poziom.\\
+
+Po wykonaniu powy¿szych operacji, jeœli stan gry dalej jest ustawiony na \textbf{game}, nastêpuje symulacja obiektów na scenie oraz uaktualnienie pozycji kamery.
+
+\subsubsection{Wyœwietlanie obrazu}
+\label{Praktyka:Architektura:Inicjalizacja:Grafika}
+Wyœwietlenie obrazu sprowadza siê do wywo³ania metody \code{CDirectx::Render()}. Na pocz¹tku nastêpuje sprawdzenie czy urz¹dzenie s³u¿¹ce do wyœwietlania obrazu nie zosta³o stracone. Taka sytuacja mo¿e wyst¹piæ np. przy minimalizacji pe³noekranowej aplikacji. Jeœli tak, dokonywana jest próba odzyskania urz¹dzenia. W przypadku powodzenia proces renderingu jest kontynuowany. Jeœli urz¹dzenie dalej jest stracone, dalsze wykonywanie metody zostaje wstrzymane. Mo¿e zaistnieæ równie¿ sytuacja, w której urz¹dzenia nie da siê odzyskaæ, wtedy dzia³anie aplikacji zostaje zakoñczone.\\
+
+Status \textbf{game} oznacza renderowanie ekranu gry. Pierwszym krokiem jest wyœwietlenie skybox'a otaczaj¹cego ca³¹ scenê. Tym zadaniem zajmuje siê klasa \code{CSkyBox}, która przy inicjalizacji silnika ³aduje teksturê z pliku DDS (rysunek \ref{img:skybox}) oraz tworzy model szeœcianu. Nastêpnie podczas renderowania nak³adana jest na niego za³adowana tekstura tworz¹c szeœcian otaczaj¹cy ca³¹ scenê. \\
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=80mm]{img/skybox.jpg}
+\caption{Tekstura mapuj¹ca sztuczne t³o œwiata}
+\label{img:skybox}
+\end{figure}
+
+Nastêpnie wyœwietlane s¹ obiekty ze sceny. Dla ka¿dego typu shadera (normalny i mapowanie wypuk³oœci) wywo³ywana jest metoda \code{CScene::Render(typ)} podaj¹c jako parametr typ shadera. Szczegó³owy proces renderowania sceny oraz poszczególnych obiektów zostanie opisany w kolejnych rozdzia³ach.\\
+
+Ca³a scena renderowana jest do tekstury w celu na³o¿enia efektów takich jak sepia, rozmycie lub zamiana kolorów na czarno-bia³e. Zostaje ona na³o¿ona na kwadratowy model, który jest wyœwietlany na powierzchni ca³ego ekranu. Nazwa efektu, któr¹ mo¿na ustawiæ za pomoc¹ metody \code{CDirectx::SetPostProcessingEffect()}, jest nazw¹ techniki zaimplementowanej w pliku \textbf{post.fx}.\\
+
+Ostatnim etapem jest wywo³anie metody \code{CGui::Render()}, która w zale¿noœci od aktualnego stanu gry wyœwietla odpowiednie elementy interfejsu u¿ytkownika.\\
+
+
+
+\subsection{Grafika 2D - Interfejs u¿ytkownika}
+\label{Praktyka:Architektura:Gui}
+Wa¿nym aspektem ka¿dej gry, oprócz wyœwietlanej grafiki 3D, s¹ elementy dwuwymiarowe. Najczêœciej s¹ to okna (np. z wiadomoœci¹), przyciski (np. menu g³ówne gry) i grafiki pe³noekranowe (zawieraj¹ce informacje o ³adowaniu poziomu lub pauzie gry). Za wyœwietlanie obrazów odpowiada klasa \code{CGame}. Wykorzystuje do tego obiekt typu \code{ID3DXSprite}, który dodatkowo umo¿liwia rysowanie z uwzglêdnieniem g³êbi oraz przezroczystoœci.\\
+
+Podczas inicjalizacji silnika ³adowane s¹ wszystkie wymagane tekstury. Rozmiar obrazów pe³noekranowych jest ustawiany na wysokoœæ i szerokoœæ okna (aktualna rozdzielczoœæ). Nastêpnie wybrane z nich s¹ wyœwietlane w zale¿noœci od ustawionego stanu gry.
+
+\subsubsection{G³ówne menu}
+\label{Praktyka:Architektura:Gui:PelenWymiar}
+
+Menu g³ówne gry (rysunek \ref{img:gui}) sprowadza siê do narysowania nastêpuj¹cych elementów:
+\begin{enumerate}
+    \item Obraz pe³noekranowy stanowi¹cy t³o.
+    \item Ramka menu.
+    \item Przyciski.
+\end{enumerate}
+
+Wymiary ramki s¹ skalowane wed³ug proporcji, uwzglêdniaj¹c rzeczywisty wymiar tekstury, aktualn¹ i maksymaln¹ rozdzielczoœæ ekranu aplikacji. Pozycja oraz œrodek obiektu (wymagane przy pozycjonowaniu obrazka na ekranie) s¹ wyliczane uwzglêdniaj¹c obliczone wczeœniej nowe wymiary obrazka (wydruk \ref{code:gui}).
+
+\begin{lstlisting}[caption={Proporcjonalne skalowanie obrazków},label={code:gui}]
+menuBackgroundX = (900 * Window.GetWidth()) / 1920;
+menuBackgroundY = (774 * Window.GetHeight()) / 1200;
+menuBackgroundPos = D3DXVECTOR3(Window.GetWidth()/2,Window.GetHeight()/2,0.0f);
+menuBackgroundCen = D3DXVECTOR3(menuBackgroundX/2,menuBackgroundY/2,0.0f);
+\end{lstlisting}
+
+Pozycja i wymiar przycisków jest wyliczany analogicznie, jednak brana jest pod uwagê równie¿ wartoœæ przesuniêcia obiektów w górê i w dó³.\\
+
+Dzia³anie ka¿dego przycisku okreœla klasa \code{CGuiButton}. Zawiera informacje takie jak:
+\begin{enumerate}
+    \item Wyœwietlany tekst na przycisku.
+    \item Informacja o zaznaczeniu. Wyró¿niamy dwa stany:
+\begin{itemize}
+    \item Wciœniêty - przycisk jest rysowany nieprzezroczysty.
+    \item Zwolniony - dodawana jest przezroczystoœæ.
+\end{itemize}
+    \item Akcja, która zostanie wykonana w przypadku wciœniêcia ENTER na wybranym przycisku. W praktyce jest to po prostu zmiana stanu gry. Dostêpne s¹ cztery mo¿liwoœci:
+\begin{itemize}
+    \item \textbf{START} -- Stan \textbf{loading}.
+    \item \textbf{RESUME} -- Stan \textbf{game}.
+    \item \textbf{INSTRUCTIONS} -- Stan \textbf{instructions}.
+    \item \textbf{EXIT} -- Stan \textbf{endGame}.
+\end{itemize}
+\end{enumerate}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=90mm]{img/gui.jpg}
+\caption{Menu g³ówne gry}
+\label{img:gui}
+\end{figure}
+
+Metoda \code{CGame::Update()} sprawdza czy aktualnym stanem gry jest \textbf{mainMenu}. Jeœli tak, nastêpuje sprawdzenie wciœniêcia klawiszy "strza³ka w górê" i "strza³ka w dó³", które umo¿liwiaj¹ wybór opcji w menu. Po wykryciu wciœniêtego klawisza ENTER nastêpuje wykonanie akcji przypisanej do wybranego przycisku.
+
+\subsubsection{Okno wiadomoœci}
+\label{Praktyka:Architektura:Gui:Okno}
+Okno wiadomoœci jest wyœwietlane w stanie \atbold{game} i \atbold{softPause}. Jego treœæ jest ustawiana za pomoc¹ metody \code{CGui::SetMessage()}. Proces rysowania polega na wyœwietleniu przezroczystego ekranu okienka, oraz na³o¿enia tekstu wiadomoœci (rysunek \ref{img:gui2}). W przypadku ustawienia pustej wiadomoœci rysowanie okna zostaje pominiête.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=90mm]{img/message.jpg}
+\caption{Okno wiadomoœci w trakcie gry}
+\label{img:gui2}
+\end{figure}
+
+\subsection{Zasoby}
+\label{Praktyka:Architektura:Zasoby}
+Model siatki wierzcho³ków (mesh) jest przechowywany w klasie \code{CMesh}. Zawiera ona wskaŸnik na w³aœciwy model \code{ID3DXMesh}. Oprócz ³adowania modelu z pliku wykonuje tak¿e dodatkowe operacje, takie jak wyliczanie wektorów normalnych dla modelu i optymalizacja wierzcho³ków. Dostêpne s¹ równie¿ metody przygotowuj¹ce kszta³t aktora triangle mesh i convex mesh, oraz funkcja skaluj¹ca model.\\
+
+Klasa \code{CTexture} odpowiada za przechowywanie obiektu \code{IDirect3DTexture9} zawieraj¹cego za³adowan¹ teksturê.
+
+\subsubsection{Mened¿er zasobów}
+\label{Praktyka:Architektura:Zasoby:Menedzer}
+Tworzeniem oraz zarz¹dzaniem modelami i teksturami zajmuje siê klasa \code{CMedia}. Wykorzystuje ona wzorzec singleton, dziêki czemu jej instancja jest dostêpna w dowolnym miejscu programu. Zwiera dwie mapy przechowuj¹ce wskaŸniki do obiektów \code{CMesh} i \code{CTexture}. Indeksowane s¹ za pomoc¹ ci¹gu znaków, dziêki czemu istnieje mo¿liwoœæ nadawania unikalnych nazw dla poszczególnych elementów.\\
+
+G³ównymi zadaniami mened¿era zasobów s¹:
+\begin{itemize}
+    \item Dodawanie obiektów (lub ich automatyczne tworzenie po podaniu nazwy pliku).
+    \item Usuwanie obiektów.
+    \item Pobieranie obiektów (np. w celu wyœwietlenia ich na ekranie).
+    \item Czyszczenie pamiêci zajmowanej przez obiekty (wykonywane przy koñczeniu dzia³ania aplikacji).
+\end{itemize}
+
+\subsection{Obiekty w grze}
+\label{Praktyka:Architektura:Obiekty}
+Ka¿dy widzialny obiekt wystêpuj¹cy na scenie musi implementowaæ interfejs \code{IRenderable}, który wymusza przedefiniowanie metod \code{Render()}, \code{Update()} oraz \code{GetPosition()}. Zawiera równie¿ podstawowe dane dotycz¹ce obiektu: nazwê, widocznoœæ (która okreœla czy dany obiekt ma byæ wyœwietlany) oraz typ (zwyk³y lub wykorzystuj¹cy efekt mapowania wypuk³oœci).
+
+\subsubsection{Podstawowy obiekt - CEntity}
+\label{Praktyka:Architektura:Obiekty:Podstawowy}
+Podstawow¹ klas¹ reprezentuj¹c¹ obiekt w przestrzeni 3D jest \code{CEntity}. Przechowuje ona niezbêdne wartoœci wymagane do uaktualniania stanu oraz wyœwietlania modelu takie jak:
+\begin{itemize}
+    \item WskaŸnik do obiektu \code{CMesh}.
+    \item WskaŸnik do tekstury obiektu (klasa \code{CTexture}).
+    \item Macierze pozycji, rotacji i skalowania.
+    \item Wektor rotacji (animacji obiektu) dziêki któremu mo¿emy obiekt wprawiæ w rotacjê.
+    \item Tekstura zawieraj¹ca wektory normalne (normal mapa) w przypadku obiektów wykorzystuj¹cych efekt mapowania normalnych.
+    \item Bry³a otaczaj¹ca wykorzystywana w metodzie optymalizacyjnej Frustrum Culling. Jest ona reprezentowana przez obiekt klasy \code{CFrustrumShape} która na podstawie ustawionego mesha generuje otaczaj¹cy j¹ boks lub kulê.
+\end{itemize}
+
+Uaktualnianie stanu obiektu za pomoc¹ metody \code{Update()} polega na wyliczeniu nowych wartoœci rotacji obiektu na podstawie ustawionych wczeœniej wartoœci animacji. Jeœli s¹ one ustawione na 0 obiekt nie zmienia orientacji.\\
+
+Proces wyœwietlania obiektu zosta³ rozdzielony na dwie metody:
+\begin{enumerate}
+    \item \code{Render()} -- Sprawdza, czy obiekt znajduje siê w bryle widzenia obserwatora (wykorzystuj¹c bry³ê otaczaj¹c¹).
+    \item \code{RenderEx()} -- Ustawia odpowiednie parametry pliku efektu i rysuje model. Ta metoda wywo³ywana jest wewn¹trz metody \code{Render()}.
+\end{enumerate}
+
+
+\subsubsection{Aktor w symulacji sceny PhysX - CEntityEx}
+\label{Praktyka:Architektura:Obiekty:Aktor}
+W celu dodania obiektu do symulacji fizycznej nale¿y stworzyæ aktora oraz ustawiæ jego fizyczne w³aœciwoœci. Wykorzystywana jest do tego rozszerzona klasa \code{CEntityEx} odpowiedzialna za przygotowanie kszta³tu aktora i dodania go do symulacji. Zawiera (oprócz podstawowych z klasy bazowej \code{CEntity}) nastêpuj¹ce dodatkowe wartoœci:
+\begin{itemize}
+    \item Obiekt typu \code{NxActor} przechowuj¹cy wskaŸnik do aktora na scenie.
+    \item Kszta³t obiektu w symulacji.
+\end{itemize}
+
+Opcjonalne wartoœci:
+\begin{itemize}
+    \item Obiekt klasy \code{CForceField} przypisuj¹cy pole si³owe do danego aktora o okreœlonej sile i rozmiarze.
+    \item Obiekt sterowania aktorem. 
+    \item Obiekt klasy \code{CTrigger} (wiêcej w rozdziale \ref{Praktyka:Architektura:Obiekty:Kolizje}).
+\end{itemize}
+
+\subsubsection{Sterowanie}
+\label{Praktyka:Architektura:Obiekty:Sterowanie}
+Sterowanie obiektem jest mo¿liwe po utworzeniu obiektu klasy implementuj¹cej interfejs \code{IUpdateable}, zawieraj¹cego metodê \code{Update()} wywo³ywan¹ przy ka¿dym uaktualnieniu obiektu, a nastêpnie przypisaniu go do docelowego obiektu.\\
+
+Przyk³adow¹ klas¹ obs³uguj¹c¹ sterowanie obiektem klasy \code{CEntityEx} jest \code{CStoneControl}. Proces uaktualniania pozycji jest nastêpuj¹cy:
+\begin{enumerate}
+    \item Sprawdzenie stanu gry: tylko stan \atbold{game} umo¿liwia sterowanie obiektem.
+    \item Pobranie pozycji aktora i kamery.
+    \item Wyliczenie kierunku obiektu:
+$$\vec{Direction} = \vec{cameraPosition} - \vec{entityPosition}$$
+Odwrócenie wektora:
+$$\vec{Direction} = \vec{Direction} * (-1)$$
+Wyzerowanie wartoœci Y (nadawanie si³ odbywa siê jedynie w kierunku osi X i Z)
+$$\vec{Direction.y} = 0$$
+Normalizacja wynikowego wektora:
+$$normalize(\vec{Direction})$$
+	\item Ewentualne obs³u¿enie ¿¹dania wyzerowania si³. Odbywa siê to w dwóch krokach:
+\begin{itemize}
+    \item Uœpienie aktora za pomoc¹ metody \code{NxActor::putToSleep()}.
+    \item Obudzenie aktora za pomoc¹ jednorazowego nadania minimalnej wartoœci si³y w dowolnym kierunku.
+\end{itemize}
+    \item Reakcja na wciœniête klawisze strza³ek na klawiaturze i ewentualnie nadanie si³ w okreœlonym kierunku:
+\begin{itemize}
+    \item Góra: kierunek do przodu wyliczony z powy¿szego wzoru
+    \item Dó³: kierunek odwrócony
+    \item Lewo, Prawo: wektor kierunkowy jest obracany o +/- $90^\circ$
+\end{itemize}
+\end{enumerate}
+
+\subsubsection{Obs³uga kolizji}
+\label{Praktyka:Architektura:Obiekty:Kolizje}
+Klasa \code{CEntityEx} zawiera mapy procedur skryptowych wykonywanych w wypadku wyst¹pienia kolizji sprawdzanego obiektu z innym.
+\begin{lstlisting}[caption={Kontenery zawieraj¹ce nazwy metod do obs³ugi kolizji},label={code:mapyMetod}]
+map<NxContactPairFlag, string> callbackProcedures;
+map<NxShapeFlag, string> triggerProcedures;
+\end{lstlisting}
+
+Wyró¿niamy dwa typy kolizji:
+\begin{enumerate}
+    \item Proste kolizje zachodz¹ce miêdzy obiektami. Za ich obs³ugê odpowiada klasa \\ \code{CCollisionResponse}, która w przypadku wyst¹pienia kolizji sprawdza ustawienie procedury odpowiedzialnej za dany typ kolizji (np. \code{NX\_NOTIFY\_ON\_START\_TOUCH}). Jeœli taka jest ustawiona, nastêpuje jej wywo³anie.
+    \item Wejœcie w okreœlony obszar (a tak¿e opuszczenie go lub pozostawanie w jego wnêtrzu). Taki obszar mo¿e byæ przypisany do konkretnego aktora za pomoc¹ obiektu klasy \code{CTrigger}, która generuje prostopad³oœcian o okreœlonych wymiarach i ustawia go na pozycji obiektu. Obs³ug¹ zdarzeñ generowanych poprzez kontakt obiektów z danym obszarem zajmuje siê klasa \code{CTriggerCallback}, która, podobnie jak w przypadku prostych kolizji, sprawdza istnienie przypisanej metody i wywo³uje j¹.
+\end{enumerate}
+
+\subsubsection{£¹czenie obiektów}
+\label{Praktyka:Architektura:Obiekty:Laczenie}
+Czêsto wystêpuje sytuacja, w której istnieje potrzeba stworzenia obiektu dynamicznego ze skomplikowanego modelu. Poniewa¿ takie modele najczêœciej zawieraj¹ wklês³e fragmenty i s¹ z³o¿one z wiêkszej liczby trójk¹tów - wygenerowanie convex mesha nie jest mo¿liwe. Problem ten zosta³ rozwi¹zany przy pomocy ³¹czenia obiektów.\\
+
+Klasa \code{CEntityEx} zawiera opcjonalne pole zawieraj¹ce wskaŸnik do obiektu typu prostego (\code{CEntity}). Proces ³¹czenia wygl¹da nastêpuj¹co (przyjmuj¹c, ¿e obiekt \atbold{A} jest typu \code{CEntity}, a obiekt \atbold{B} typu \code{CEntityEx}):
+\begin{enumerate}
+    \item Stworzenie obiektu widzialnego \atbold{A} (w³aœciwy wyœwietlany model).
+    \item Stworzenie obiektu \atbold{B}, w którym modelem jest przygotowany wczeœniej model reprezentuj¹cy wypuk³y kszta³t kolizyjny w symulacji (niewyœwietlany na ekranie).
+    \item Przypisanie obiektowi \atbold{B} obiektu ³¹cz¹cego \atbold{A}. Po tej operacji obiekt \atbold{A} jest usuwany ze sceny.
+\end{enumerate}
+
+Wyœwietlanie modelu polega na pobraniu nowej pozycji i orientacji z obiektu \atbold{B}, który istnieje w scenie oraz podlega symulacji fizycznej, a nastêpnie przekazaniu jej do metody \code{CEntity::RenderEx()} obiektu \atbold{A}, która rysuje widzialny obiekt na wskazanej pozycji i ze wskazan¹ orientacj¹.
+
+\subsubsection{Zarz¹dzanie obiektami}
+\label{Praktyka:Architektura:Obiekty:Zarzadzanie}
+Przechowywaniem obiektów zajmuje siê mened¿er obiektów. Podobnie jak mened¿er zasobów zawiera on mapê obiektów typu \code{CEntity} (oraz klas pochodnych), umo¿liwiaj¹c dodawanie, usuwanie i pobieranie jednostek. Umo¿liwia równie¿ wyczyszczenie mapy jednoczeœnie usuwaj¹c wszystkie obiekty.
+
+\subsection{Scena}
+\label{Praktyka:Architektura:Scena}
+Przechowywaniem widocznych na scenie obiektów oraz wykonywaniem symulacji fizycznej zajmuje siê klasa \code{CScene}. Umo¿liwia ona dodawanie oraz usuwanie obiektów. Czyszczenie sceny usuwa jedynie informacje o przechowywanych obiektach. W³aœciwym usuwaniem obiektów zajmuj¹ siê opisane w poprzednich rozdzia³ach mened¿ery obiektów i zasobów. Wyró¿niamy dwa rodzaje scen:
+\begin{itemize}
+    \item Symulacja fizyczna
+    \item Wyœwietlanie obiektów
+\end{itemize}
+
+\subsubsection{Symulacja fizyczna}
+\label{Praktyka:Architektura:Scena:Symulacja}
+Podczas inicjalizacji silnika tworzona jest wirtualna scena. Ustawiana jest grawitacja, rejestrowane s¹ klasy reakcji na zdarzenia kolizji oraz tworzona jest dolna p³aszczyzna, która odgranicza przestrzeñ pust¹ od zawieraj¹cej obiekty.\\
+
+Wydruk \ref{code:symulacja} przedstawia instrukcje, które s¹ wykonywane w celu dokonania pojedynczej symulacji. Pierwszym krokiem jest wywo³anie metody \code{NxScene::simulate()}, która dokonuje symulacji ka¿dego obiektu, sumuj¹c wszystkie si³y dzia³aj¹ce na obiekty dynamiczne i odpowiednio je przemieszczaj¹c, a tak¿e wykrywa kolizje miêdzy obiektami. Nastêpn¹ operacj¹ jest pobranie wyników symulacji. Uaktualnia ona wszystkich aktorów na scenie, dziêki czemu posiadaj¹ zaktualizowan¹ pozycjê oraz orientacjê.
+
+\begin{lstlisting}[caption={Wykonanie symulacji fizycznej},label={code:symulacja}]
+scene->simulate(1.0f/60.0f);
+scene->flushStream();
+scene->fetchResults(NX_RIGID_BODY_FINISHED, true);
+\end{lstlisting}
+
+\subsubsection{Wyœwietlanie obiektów}
+\label{Praktyka:Architektura:Scena:Wyswietlanie}
+Klasa \code{CScene} zawiera dwie mapy obiektów typu \code{IRenderable} dla ka¿dego typu obiektu (zwyk³y i normal mapping). Zmiana pliku efektu podczas renderowania jest kosztowna obliczeniowo. Wprowadzony podzia³ zapewnia tylko jedn¹ zmianê w czasie przygotowywania klatki obrazu.\\
+
+Metoda \code{CScene::Update()}, poza symulacj¹ sceny fizycznej, wywo³uje dla ka¿dego obiektu metodê \code{IRenderable::Update()}, która w przypadku obiektów typu \code{CEntityEx} uaktualnia now¹ pozycjê oraz orientacjê. Wyœwietlanie obiektów dokonuje siê poprzez wywo³anie metody \code{IRenderable::Render()} iteruj¹c po mapie aktualnie u¿ywanego shadera.
+
+
+\subsection{Kamera}
+\label{Praktyka:Architektura:Kamera}
+Kamera jest obiektem w przestrzeni 3D, który okreœla pozycjê obserwatora. Klasa \code{CCamera} zawiera nastêpuj¹ce parametry:
+\begin{itemize}
+    \item Wspó³rzêdne punktu reprezentuj¹cego pozycjê kamery.
+    \item Punkt patrzenia. Mo¿liwe jest równie¿ pobranie kierunku kamery u¿ywaj¹c wzoru:
+$$\vec{direction} = normalize(\vec{lookAt} - \vec{position})$$
+    \item Wartoœci wymagane do tworzenia macierzy widoku oraz projekcji.
+\end{itemize}
+
+Dostêpne s¹ dwa tryby kamery, od których zale¿y sposób uaktualniania pozycji: statyczna i dynamiczna.
+
+\subsubsection{Statyczna}
+\label{Praktyka:Architektura:Kamera:Statyczna}
+Kamera statyczna zapewnia swobodne sterowanie kamer¹ w okreœlonych kierunkach. Uaktualnianie pozycji polega na dodawaniu lub odejmowaniu okreœlonej wartoœci liczbowej do poszczególnych sk³adowych wektora pozycji i kierunku patrzenia. Przyk³adowa obs³uga ruchu do przodu zosta³a pokazana na wydruku \ref{code:ruchKameryStatycznej}.
+
+\begin{lstlisting}[caption={Przesuniêcie kamery statycznej do przodu},label={code:ruchKameryStatycznej}]
+float camSpeed = 20.0f;
+if(Input.CameraForward()){
+	position.z += camSpeed * FPSCounter.GetElapsedTime();
+	lookAt.z += camSpeed * FPSCounter.GetElapsedTime();
+}
+\end{lstlisting}
+
+\subsubsection{Dynamiczna}
+\label{Praktyka:Architektura:Kamera:Dynamiczna}
+Kamera dynamiczna umo¿liwia œledzenie pozycji okreœlonego obiektu. Wydruk \ref{code:ruchKameryDynamicznej} pokazuje przemieszczenie kamery wzglêdem pozycji obiektu. Dodatkowo uwzglêdniana jest odleg³oœæ od obiektu w poziomie (\code{distance}), odleg³oœæ w pionie (\code{distanceUp}) i rotacja (\code{rotation}).
+
+\begin{lstlisting}[caption={Uaktualnienie pozycji kamery dynamicznej},label={code:ruchKameryDynamicznej}]
+lookAt = followedObject->GetPosition();
+float x = lookAt.x - sin(rotation)*distance;
+float y = lookAt.y + distanceUp;
+float z = lookAt.z - cos(rotation)*distance;
+\end{lstlisting}
+
+Sterowanie kamer¹ ogranicza siê do obracania pozycji wokó³ obiektu. Wykonywane jest to za pomoc¹ ruchu myszy w lewo i prawo. Ró¿nica w odleg³oœci miêdzy kolejnymi uaktualnieniami pozycji kursora jest mno¿ona przez sta³¹ prêdkoœæ kamery i dodawana lub odejmowana do wartoœci zmiennej \code{rotation}. Mo¿liwa jest równie¿ zmiana wysokoœci kamery za pomoc¹ ruchów do przodu i do ty³u przy wciœniêtym lewym przycisku myszy. W tym przypadku okreœlona wartoœæ jest dodawana do obu zmiennych \code{direction} i \code{directionUp}.\\
+
+\subsection{Obs³uga dŸwiêku}
+\label{Praktyka:Architektura:Dzwiek}
+Do obs³ugi dŸwiêku zosta³a wykorzystana darmowa wieloplatformowa biblioteka \mbox{irrKlang} obs³uguj¹ca wiele formatów takich jak:  WAV, MP3, OGG, FLAC, MOD, XM, IT, S3M. Zarz¹dzaniem i odgrywaniem dŸwiêków zajmuje siê klasa \code{CSoundMgr}. G³ówne zadania mened¿era dŸwiêku:
+\begin{itemize}
+    \item Tworzenie unikalnych aliasów do plików.
+    \item £adowanie i odtwarzanie dŸwiêków 2D i 3D.
+\end{itemize}
+
+Klasa \code{CSoundMgr} umo¿liwia odtworzenie dŸwiêku jeden raz lub w nieskoñczonej pêtli. W celu zachowania referencji do dŸwiêku, przydatnej do wstrzymania lub wczeœniejszego zakoñczenia odtwarzania, tworzony jest obiekt klasy \code{CSound}, któremu przypisana zostaje unikalna nazwa. Dodawany jest on do mapy obiektów. Krótkie dŸwiêki, które s¹ wywo³ywane czêsto (np. odg³os uderzenia obiektu lub zmiana opcji w menu) nie wymagaj¹ zachowywania referencji. D³u¿sze, takie jak podk³ad muzyczny, odgrywane najczêœciej w nieskoñczonej pêtli, powinny mieæ konkretn¹ nazwê i pozycjê w mapie. Niepo¿¹dan¹ sytuacj¹ jest ustawienie zapêtlonego dŸwiêku muzycznego bez stworzenia obiektu, poniewa¿ odgrywa³by siê on a¿ do zamkniêcia aplikacji.\\
+
+Operacje dostêpne w klasie \code{CSound} to:
+\begin{itemize}
+    \item Wstrzymanie/wznowienie odgrywania
+    \item Zakoñczenie odtwarzania
+    \item Zatrzymanie pêtli odtwarzania
+    \item Sprawdzenie stanu odtwarzania (gra lub zosta³ zakoñczony)
+\end{itemize}
+
+Metoda \code{CSoundMgr::Update()} iteruje po wszystkich dostêpnych obiektach. Najpierw usuwa obiekty, które zakoñczy³y odtwarzanie. Na pozosta³ych obiektach wykonywana jest metoda \code{CSound::Update()}. 
+
+\subsubsection{DŸwiêk 3D}
+\label{Praktyka:Architektura:Dzwiek:3D}
+Klasa \code{CSound3D} jest rozszerzeniem klasy \code{CSound}. Odpowiada za obs³ugê dŸwiêków 3D. Istniej¹ dwie mo¿liwoœci odgrywania:
+\begin{itemize}
+    \item Sta³a pozycja w przestrzeni 3D. Mo¿liwe jest równie¿ odtworzenie takiego dŸwiêku bez koniecznoœci tworzenia obiektu \code{CSound3D}.
+    \item Pozycja dynamiczna pobierana z przypisanego obiektu. W tym przypadku jedyn¹ mo¿liwoœci¹ jest stworzenie obiektu \code{CSound3D}, który podczas uaktualniania pobiera pozycjê obiektu i uaktualnia ustawienie dŸwiêku w przestrzeni.
+\end{itemize}
+
+\subsection{Zarz¹dzanie czasem - Timery}
+\label{Praktyka:Architektura:Timery}
+Wa¿nym elementem ka¿dej gry jest wykonywanie pewnych operacji po up³ywie okreœlonego czasu. Przyk³adem jest zmiana stanu gry \atbold{start1} $\shortrightarrow$ \atbold{start2} po up³ywie 4 sekund. Tak¿e w samej grze wystêpuj¹ sytuacje, w których np. po wyœwietleniu okna z informacj¹ zostaje ono automatycznie zamkniête po up³ywie kilku sekund. 
+
+\subsubsection{Tworzenie}
+\label{Praktyka:Architektura:Timery:Tworzenie}
+Pojedynczy timer reprezentowany jest za pomoc¹ obiektu klasy \code{CTimer}. Zawiera ona niezbêdne metody odpowiedzialne za wstrzymanie, wznowienie i sprawdzenie stanu timera. Najwa¿niejszymi polami s¹ czas startu oraz koñca.\\ 
+
+Wyró¿niamy dwa typy timerów:
+\begin{itemize}
+    \item \textbf{Prosty (\code{CTimerSimple})} wykonuje wskazan¹ akcjê po up³ywie ustawionego czasu.
+    \item \textbf{Odliczaj¹cy (\code{CTimerCounting})} jest rozszerzeniem timera prostego. Ró¿nic¹ w stosunku do poprzedniego, w którym akcja wykonywana jest tylko raz, jest ci¹g³e wykonywanie akcji, a¿ do momentu przekroczenia ustawionego czasu.
+\end{itemize}
+
+Przechowywaniem i uaktualnianiem timerów zajmuje siê mened¿er \code{CTimerMgr}. Poza metodami pozwalaj¹cymi na dodawanie, usuwanie i pobieranie obiektów, umo¿liwia te¿ wstrzymanie i wznowienie wszystkich timerów.\\
+
+Metoda \code{CTimer::Update()} wywo³ywana podczas uaktualniania logiki wykonuje dwie operacje:
+\begin{enumerate}
+    \item Wykrycie timerów zakoñczonych i usuwanie ich z mapy obiektów.
+    \item Sprawdzenie pozosta³ych w celu ewentualnego wykonania ustalonej akcji.
+\end{enumerate}
+
+\subsubsection{Wykonywanie akcji}
+\label{Praktyka:Architektura:Timery:Akcje}
+Ustawienie akcji wykonywanej podczas dzia³ania lub zakoñczenia timera polega na stworzeniu obiektu klasy \code{CCallback} i przypisaniu go do obiektu timera. Istniej¹ dwa warianty do wyboru:
+\begin{itemize}
+    \item Wykonanie akcji systemowej (\code{CCallbackEngine}). Umo¿liwia ona wykonanie metody \code{CGame::NextStatus()}, który zmienia stan gry w zale¿noœci od poprzedniego, lub uaktualnienie czasu licznika gry (a tak¿e wywo³anie odpowiednich metod w skrypcie poziomu, wiêcej w rozdziale \ref{Praktyka:Tworzenie}).
+    \item Wywo³anie funkcji w skrypcie Lua (\code{CCallbackLua}).
+\end{itemize}
+
+\subsubsection{Timery systemowe}
+\label{Praktyka:Architektura:Timery:Systemowe}
+Timery wewnêtrzne, dodawane przez silnik, zaczynaj¹ siê od przedrostka "SYSTEM". Wykorzystywane s¹ do mechanizmów poprawiaj¹cych dzia³anie aplikacji:
+\begin{itemize}
+    \item Reakcja na wciœniêcie przycisku strza³ki w górê lub w dó³ w stanie \textbf{mainMenu} powoduje zmianê pozycji zaznaczonego elementu. Stan przycisku pobierany jest przy ka¿dej iteracji pêtli g³ównej programu, co powoduje wielokrotne wykonanie zmiany stanu wybranej pozycji w menu w ci¹gu sekundy, poniewa¿ czas wciœniêcia i zwolnienia przycisku na klawiaturze pokrywa siê najczêœciej z kilkoma wykonaniami procesu uaktualniania. Algorytm rozwi¹zuj¹cy omawiany problem jest nastêpuj¹cy:
+\begin{enumerate}
+    \item Sprawdzenie istnienia timera "SYSTEM~GUITime". Jeœli istnieje - sprawdzanie zostaje przerwane.
+    \item Jeœli powy¿szy timer nie istnieje, nastêpuje sprawdzenie stanu odpowiednich klawiszy i zmiana stanu elementów menu.
+    \item Ostatnim krokiem jest ustawienie timera "SYSTEM~GUITime" (bez przypisywania ¿adnej akcji) na $\frac{1}{10}$ sekundy, co jest wystarczaj¹cym czasem, w którym u¿ytkownik mo¿e wcisn¹æ i zwolniæ odpowiedni przycisk.
+\end{enumerate}
+    \item Ustawienie stanów \textbf{start1} i \textbf{start2} powoduje dodanie timera, który po up³ywie 4 sekund wywo³a akcje systemow¹, która z kolei wywo³a metodê \code{CGame::NextStatus()} przechodz¹c do kolejnego stanu.
+\begin{lstlisting}[caption={Ustawianie zmiany stanu aplikacji po up³ywie 4 sekund},label={code:timerZmiana}]
+CTimer *timer = new CTimerSimple(4);
+CCallback *callback = new CCallbackEngine(CFT_NEXTSTATUS);
+timer->SetCallback(callback);
+TimerMgr.AddTimer("SYSTEM start", timer);
+\end{lstlisting}
+    \item W grze dostêpny jest licznik czasu, który odlicza czas do koñca poziomu. Na ¿yczenie u¿ytkownika ustawiany jest timer o nazwie "SYSTEM~GameTime", który wywo³uje dwie ustalone metody w skrypcie poziomu:
+\begin{description}
+    \item[TimeoutCounting] -- Wykonywana przez ca³y okres dzia³ania zegara
+    \item[Timeout] -- Wykonywana po up³yniêciu czasu
+\end{description}
+\end{itemize}
+
+\subsection{Obs³uga skryptów}
+\label{Praktyka:Architektura:Skrypty}
+Zewnêtrzne skrypty umo¿liwiaj¹ przeniesienie wykonywania okreœlonych operacji na zewn¹trz kodu Ÿród³owego. Dziêki temu zmiany w konfiguracji aplikacji lub logice poziomów gry mog¹ zostaæ uaktualniane bez koniecznoœci kompilacji ca³ego projektu, a nawet w trakcie dzia³ania programu.\\
+
+£adowaniem oraz obs³ug¹ skryptów Lua zajmuje siê klasa \code{CScript}. Przechowywane s¹, tak jak w przypadku pozosta³ych mened¿erów, w mapie obiektów. Indeksami s¹ nazwy plików (bez rozszerzenia .lua). Dodanie nowego skryptu sprowadza siê do wykonania trzech czynnoœci:
+\begin{enumerate}
+    \item Stworzenie struktury przechowuj¹cej skrypt oraz za³adowanie go do pamiêci
+    \item Dodanie obiektu do kontenera (mapy)
+    \item Rejestracja metod
+\end{enumerate}
+
+Poza standardowymi operacjami dodawania, usuwania i pobierania obiektów, klasa udostêpnia metodê \code{CScript::Reload()}. Umo¿liwia ona wyczyszczenie sceny oraz za³adowanych zasobów, a nastêpnie ponowne uruchomienie skryptu, dziêki czemu konfiguracja aktualnego poziomu zostaje odœwie¿ona.
+
+\subsubsection{Rejestrowanie metod}
+\label{Praktyka:Architektura:Skrypty:Metody}
+Biblioteka Lua umo¿liwia rejestrowanie statycznych metod, tym samym umo¿liwiaj¹c ich wywo³anie w kodzie skryptu. Odbywa siê to poprzez wywo³anie funkcji \code{lua\_register()} (przyk³adowe wywo³anie pokazuje wydruk \ref{code:rejestracja}) przyjmuj¹cej jako parametry: wskaŸnik do struktury skryptu, nazwê metody (dostêpn¹ w skrypcie) oraz adres rejestrowanej funkcji.
+
+\begin{lstlisting}[caption={Rejestracja metody},label={code:rejestracja}]
+lua_register(Lua, "ShowMessage", &LuaGame::ShowMessage);
+\end{lstlisting}
+
+Aplikacja udostêpnia wiele metod pogrupowanych w nastêpuj¹ce kategorie:
+\begin{itemize}
+    \item \textbf{Resource} -- £adowanie modeli i tekstur.
+    \item \textbf{Sound} -- Odtwarzanie dŸwiêków.
+    \item \textbf{Entity} -- Tworzenie i obs³uga obiektów.
+    \item \textbf{Camera} -- Zmiana typu kamery i œledzonego obiektu.
+    \item \textbf{Timer} -- Dodawanie timerów.
+    \item \textbf{Game} -- Pozosta³e funkcje np. Pauza gry.
+\end{itemize}
+
+Ka¿da metoda przyjmuje jako parametr wskaŸnik do skryptu, w którym zarejestrowana funkcja zosta³a wywo³ana. Nastêpnie sprawdzana jest iloœæ parametrów przekazanych do funkcji. Metoda \code{CScript::CheckInput()} po podaniu wskaŸnika do skryptu oraz iloœci oczekiwanych parametrów zwraca \code{true} lub \code{false}. Nastêpnym krokiem jest sprawdzenie typów parametrów za pomoc¹ funkcji \code{lua\_isstring}, \code{lua\_isnumber} itd. Jeœli wszystko siê zgadza nastêpuje pobranie wartoœci parametrów ze stosu i wykonanie pozosta³ych czynnoœci.
+
+\subsubsection{Wywo³ywanie metod skryptowych}
+\label{Praktyka:Architektura:Skrypty:Metody}
+Klasa \code{CScript} umo¿liwia wywo³ywanie funkcji skryptu z poziomu kodu C++. Odbywa siê to w wielu przypadkach takich jak:
+\begin{itemize}
+    \item Zg³oszenie kolizji miêdzy dwoma obiektami
+    \item Wykonanie akcji timera po up³ywie wyznaczonego czasu
+    \item Zmiana stanu gry
+\end{itemize}
+
+Metoda \code{CScript::CallFunction} posiada kilka wariantów, które umo¿liwiaj¹ wywo³anie wybranej funkcji okreœlonego skryptu. Parametry jakie mog¹ byæ przekazane to napis, dwa napisy, liczba, lub wywo³anie bez parametru. Mo¿liwe jest równie¿ pobranie wartoœci zmiennej globalnej za pomoc¹ metody \code{CScript::GetXXXType()}, gdzie \code{XXX} jest jednym z trzech typów:
+\begin{itemize}
+    \item \textbf{String} - Wartoœæ tekstowa
+    \item \textbf{Integer} - Liczba ca³kowita
+    \item \textbf{Float} - Wartoœæ zmiennoprzecinkowa
+\end{itemize}
+W przypadku niepowodzenia lub braku ustawionej wartoœci zmiennej, zwracana jest wartoœæ domyœlna ustawiana.
+
+\section{Tworzenie gry AtBall}
+\label{Praktyka:Tworzenie}
+W celu prezentacji mo¿liwoœci przygotowanego silnika, stworzona zosta³a prosta gra platformowa. Niniejszy rozdzia³ opisuje proces jej powstawania, od opisu pomys³u, do implementacji poszczególnych elementów
+
+\subsection{Opis gry}
+\label{Praktyka:Tworzenie:Opis}
+AtBall to zrêcznoœciowa gra platformowa. Gracz steruje jednym z trzech typów kul:
+\begin{itemize}
+    \item \textbf{Kamieñ} -- Sterowanie jest utrudnione, a w niektórych sytuacjach, takich jak stromy podjazd pod górê, nawet niemo¿liwe. Zalet¹ tego typu kuli jest mo¿liwoœæ ³atwego przesuwania na raz kilku obiektów (np. skrzyñ).
+    \item \textbf{Papier} -- Kula papierowa imituje zgniecion¹ kartkê papieru. Jej lekka waga znacz¹co u³atwia sterowanie, jednak w niektórych przypadkach wymaga du¿ej zrêcznoœci. Przesuwanie ciê¿szych obiektów jest utrudnione lub niemo¿liwe. G³ówn¹ zalet¹ tego typu jest interakcja z wiatrakiem, który umo¿liwia wlatywanie na niedostêpne dla innych typów poziomy.
+    \item \textbf{Drewno} -- Najwygodniejszy w sterowaniu typ kuli. Œrednia waga umo¿liwia proste przesuwanie jednego obiektu, a tak¿e podjazd pod górê.
+\end{itemize}
+
+Typ kuli zmienia siê po najechaniu na odpowiedni¹ platformê. Po³o¿enie tych obiektów jest zale¿ne od aktualnych przeszkód do pokonania lub zadañ do wykonania. Ka¿da platforma ma przypisany jeden docelowy rodzaj kuli.\\
+
+Celem gry jest dotarcie do koñca poziomu, zbieraj¹c przy tym obiekty podobne do trójwymiarowej gwiazdy zwane Aurorami. Nale¿y zebraæ odpowiedni¹ ich iloœæ, aby odblokowaæ mo¿liwoœæ ukoñczenia planszy. Przyk³adowym zadaniem jest zebranie 10 Auror w celu aktywowania wiatraka, dziêki któremu papierowa kula podleci na platformê koñcz¹c¹ poziom.
+
+\subsection{Wstêpna konfiguracja}
+\label{Praktyka:Tworzenie:Konfiguracja}
+\subsubsection{Zmienne konfiguracyjne}
+\label{Praktyka:Tworzenie:Konfiguracja:Zmienne}
+Skrypt \textbf{config.lua} zawiera informacje, które musz¹ zostaæ ustawione przed uruchomieniem aplikacji:
+\begin{itemize}
+    \item \textbf{screenSize} -- Numer wybranej rozdzielczoœci. Dostêpne wartoœci to:
+\begin{description}
+    \item[1] 800x600
+    \item[2] 1024x768
+    \item[3] 1280x800
+    \item[4] 1280x1024
+    \item[5] 1440x900
+    \item[6] 1680x1050
+    \item[7] 1920x1200
+\end{description}
+Preferowanym ustawieniem jest rozdzielczoœæ panoramiczna.
+    \item \textbf{skyboxTexture} -- Œcie¿ka do pliku DDS zawieraj¹cego teksturê t³a sceny.
+\begin{lstlisting}[caption={Ustawienie tekstury SkyBoxa},label={code:skybox}]
+skyboxTexture = "media/textures/skybox/Islands.dds"
+\end{lstlisting}
+    \item \textbf{level} -- Nazwa pliku skryptu pierwszego poziomu (bez rozszerzenia .lua).
+\end{itemize}
+
+\subsubsection{Obs³uga zmiany stanu gry}
+\label{Praktyka:Tworzenie:Konfiguracja:ZmianaStanu}
+W pliku konfiguracyjnym istnieje mo¿liwoœæ wykonania dowolnych czynnoœci podczas zmiany stanu gry. S³u¿¹ do tego metody \code{onEngineStart()}, \code{onScreen1()}, \code{onScreen2()}, \code{onMainMenu()} itd., które przyjmuj¹ jako parametr poprzedni stan gry. Przyk³adowo w metodzie wykonywanej po starcie silnika mo¿na przygotowaæ dŸwiêki takie jak t³o menu, niezale¿nych od konkretnego poziomu, w metodzie \code{onScreen1} rozpocz¹æ odtwarzanie muzyki, a w \code{onLoading} wy³¹czyæ j¹ i pozwoliæ skryptowi poziomu na ustawienie odpowiedniego t³a muzycznego.\\
+
+Przygotowane zosta³y równie¿ metody wykonywane przy zmianie pozycji w menu g³ównym (\code{onMenuChange()}) oraz wybraniu konkretnej pozycji (\code{onMenuEnter()}), które równie¿ umo¿liwiaj¹ odtworzenie odpowiednich dŸwiêków.
+
+\subsection{Tworzenie sceny}
+\label{Praktyka:Tworzenie:Scena}
+Aplikacja udostêpnia odpowiednie metody, s³u¿¹ce do dodawania zasobów oraz tworzenia obiektów na scenie, a tak¿e ustawiania ich w³aœciwoœci.\\
+
+Rêczne tworzenie sceny, zw³aszcza rozbudowanej, jest ma³o wygodne i nieefektywne. Autor zdecydowa³ siê na wykorzystanie darmowego edytora œwiata IrrEdit firmy AMBIERA. Umo¿liwia on dodawanie obiektów, ustawianie ich pozycji, orientacji, skali oraz tekstury. 
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=100mm]{img/irredit.jpg}
+\caption{Edytor œwiata IrrEdit}
+\label{img:irredit}
+\end{figure}
+
+Gotowa scena zapisywana jest w formacie XML~\footnote{Extensible Markup Language}. Aby dodaæ modele do sceny gry nale¿y wywo³aæ funkcjê \code{ResourceParseIrrXML()}, która przyjmuje dwa parametry: œcie¿kê do pliku XML wygenerowanego w programie IrrEdit oraz nazwê metody wywo³ywanej dla ka¿dego obiektu. Metoda ta zawiera 12 parametrów:
+\begin{enumerate}
+    \item Nazwa obiektu
+    \item Nazwa pliku modelu i tekstury
+    \item Po trzy wartoœci dla pozycji, rotacji i skali, odpowiednio dla osi X, Y i Z
+\end{enumerate}
+
+Ka¿de wywo³anie tej metody powinno sprawdzaæ, czy niezbêdne zasoby (model i tekstura) zosta³y za³adowane, lub za³adowaæ je. Nastêpnie nastêpuje dodanie obiektu oraz (na podstawie modelu i tekstury) ustawienie odpowiednich w³aœciwoœci. Wydruk \ref{code:parser} pokazuje przyk³adowe dodanie modelu œmig³a wiatraka.
+\begin{lstlisting}[language=Pascal,caption={Dodawanie obiektu wiatraka},label={code:parser}]
+function IrrXmlParserCallback(name, mesh, texture, posX, posY, posZ, rotX, rotY, rotZ, scaleX, scaleY, scaleZ)
+	(...) -- pominiête sprawdzanie za³adowania modelu i tekstury
+	if mesh == "wiatrak.x" then
+		return CreateWiatrak(name, mesh, texture, posX, posY, posZ, rotX, rotY, rotZ, scaleX, scaleY, scaleZ)
+	end
+	(...) -- sprawdzanie i ewentualne dodanie innych obiektów
+end
+function CreateWiatrak(name, mesh, texture, posX, posY, posZ, rotX, rotY, rotZ, scaleX, scaleY, scaleZ)
+	local name2 = CreateEntity(name, mesh, texture, posX, posY, posZ, rotX, rotY, rotZ, scaleX, scaleY, scaleZ, 0, EntityType.noPhysx, "")
+	EntitySetAnimation(name2, 0, 600.0, 0)
+end
+\end{lstlisting}
+
+\subsection{Poziomy gry}
+\label{Praktyka:Tworzenie:Poziomy}
+Poziomy gry s¹ przygotowywane w osobnych skryptach Lua. Nazwa pierwszego jest ustawiana w pliku konfiguracyjnym. Ka¿dy z kolejnych zawiera informacje o nastêpnym, przechowuj¹c nazwê skryptu w zmiennej \code{NextLevel}. Jeœli taka nie wystêpuje, po zakoñczeniu aktualnego poziomu nastêpuje koniec gry.\\
+
+Twórca poziomu mo¿e ustawiæ czas w sekundach za pomoc¹ funkcji \code{SetTimeout()}, która uruchamia licznik odliczaj¹cy do zera. Jego dzia³anie mo¿e zostaæ obs³u¿one nastêpuj¹cymi metodami wywo³ywanymi przez aplikacjê:
+\begin{itemize}
+    \item \textbf{TimeoutCounting} wywo³ywana ci¹gle, przekazuj¹ca w parametrze czas w milisekundach pozosta³y do koñca odliczania. Mo¿e byæ np. wykorzystana do zmiany t³a muzycznego, jeœli graczowi pozostanie jedna minuta do koñca.
+    \item \textbf{Timeout} wykonywana po dojœciu licznika do zera. Po¿¹dan¹ akcj¹ jest wyœwietlenie informacji o zakoñczeniu poziomu, a nastêpnie wywo³anie funkcji \code{Reset()} która ³aduje poziom od nowa.
+\end{itemize}
+
+\subsection{Elementy rozgrywki}
+\label{Praktyka:Tworzenie:Elementy}
+Rozdzia³ ten zawiera opis implementacji kilku elementów wykorzystywanych w grze AtBall.
+
+\subsubsection{Platforma zmiany typu kuli}
+\label{Praktyka:Tworzenie:Elementy:Platforma}
+Platforma zmiany typu kuli jest reprezentowana przez p³aski kwadratowy model z kulistym wg³êbieniem. Ustawiane s¹ trzy ró¿ne tekstury, które wskazuj¹ na typ, na jaki zostanie zmieniona kula po wjechaniu we wg³êbienie.\\
+\begin{figure}[h]
+\centering
+\includegraphics[width=60mm]{img/zmianaModel.jpg}
+\caption{Model reprezentuj¹cy platformê zmiany kuli}
+\label{img:zmianaModel}
+\end{figure}
+
+Na scenie istniej¹ trzy modele reprezentuj¹ce konkretny rodzaj typu kuli. Jeden jest wyœwietlany i obs³ugiwany przez sterowanie, natomiast dwa pozosta³e s¹ ukryte. Zmiana typu kuli powoduje ukrycie aktualnego obiektu i przeniesienie nowego na pozycjê starego.\\
+
+Proces zmiany wygl¹da nastêpuj¹co:
+\begin{enumerate}
+    \item Wykrycie kolizji kuli z obiektem. Kula docelowo powinna znajdowaæ siê wewn¹trz wg³êbienia, aby mog³a bezw³adnie stoczyæ siê w stronê œrodka. Wykrycie kolizji z ca³ym modelem nie daje satysfakcjonuj¹cego efektu, poniewa¿ znajduj¹ siê tam p³askie elementy. Rozwi¹zaniem tego problemu jest dynamiczne stworzenie obiektu odrobinê mniejszego od w³aœciwego modelu, oraz obs³u¿enie zdarzenia wejœcia w kontakt za pomoc¹ triggerów. Dwie funkcje pokazane na wydruku \ref{code:trigger} tworz¹ obiekt s³u¿¹cy wykrywania kolizji o wymiarach 1.0 x 0.1 x 1.0 (podane wymiary zostan¹ odpowiednio przeskalowane w zale¿noœci od ustawionej skali obiektu), a nastêpnie przypisuj¹ obs³u¿enie zdarzenia kontaktowego w funkcji \code{zmianaTypuKuliStart()}.
+\begin{lstlisting}[language=Pascal,caption={Tworzenie triggera},label={code:trigger}]
+EntitySetTrigger(platforma, 1.0, 0.1, 1.0)
+EntitySetTriggerCallback(name2, "zmianaTypuKuliStart", Trigger.onEnter)
+\end{lstlisting}
+    \item Wyzerowanie si³ dzia³aj¹cych na obiekt oraz dezaktywowanie sterowania. Umo¿liwia to kuli bezw³adne opadniêcie w stronê œrodka wg³êbienia.
+\begin{lstlisting}[language=Pascal,caption={Zerowanie si³},label={code:zerowanie}]
+EntityClearForces(aktualnaKula)
+EntityDisableUpdateObject(aktualnaKula)
+\end{lstlisting}
+    \item Opadniêcie kuli, w zale¿noœci od jej masy, wymaga czasu. W zwi¹zku z tym, po wy³¹czeniu sterowania i dezaktywowaniu si³, dodawany jest timer, który po 4 sekundach wykonuje kolejn¹ funkcjê.
+\begin{lstlisting}[language=Pascal,caption={Dodanie timera zmiany kuli},label={code:timerZmiany}]
+TimerAdd(nazwaTimera, 4.0, TimerType.simple, TimerCallback.Lua, "zmianaTypuKuliEnd")
+\end{lstlisting}
+    \item Po up³ywie czasu nastêpuje zmiana typu. Wykonywane s¹ nastêpuj¹ce operacje:
+\begin{itemize}
+    \item Pobranie pozycji aktualnej kuli i ukrycie obiektu.
+    \item Ustawienie pobranej pozycji obiektowi reprezentuj¹cemu nowy typ kuli, a nastêpnie pokazanie go.
+    \item Uaktualnienie ustawienia kamery (przypisanie nowego obiektu do œledzenia) oraz ustawienie sterowania.
+\end{itemize}
+
+\end{enumerate}
+\subsubsection{Wiatrak}
+\label{Praktyka:Tworzenie:Elementy:Wiatrak}
+Wiatrak symuluj¹cy dzia³anie wiatru wiej¹cego w okreœlonym kierunku jest zbudowany z dwóch niezale¿nych modeli. \\
+
+Pierwszym obiektem jest œmig³o wiatraka, które zostaje umieszczone na scenie jako prosty model (bez tworzenia aktora symulacji fizycznej). W celu nadania rotacji wywo³ana zostaje funkcja \code{EntitySetAnimation()}, która uruchamia prost¹ animacjê obiektu obracaj¹c go wed³ug wskazanych osi i prêdkoœci przypisanej do ka¿dej z nich.\\
+\begin{figure}[h]
+\centering
+\includegraphics[width=100mm]{img/wiatrakModel.jpg}
+\caption{Œmig³o i podstawa wiatraka}
+\label{img:wiatrakModel}
+\end{figure}
+Kratka, która stanowi podstawê wiatraka, reprezentowana jest przez obiekt, umieszczony w odpowiedniej odleg³oœci od œmig³a. W celu dodania pola si³owego, które wprawia obiekt znajduj¹cy siê w jej zasiêgu w ruch, nale¿y wywo³aæ funkcjê \code{EntitySetForceField()}. Oprócz nazwy obiektu, do którego zostanie przypisany efekt, zostaj¹ podane wartoœci wektora, które wskazuj¹ na kierunek dzia³ania si³y. Ostatni parametr okreœla wartoœæ si³y, z jak¹ pole dzia³a na obiekty. Wymiar pola si³owego dostosowuje siê do skali obiektu. Rozszerzany jest nie tylko wymiar podstawy, ale równie¿ wysokoœæ pola, dziêki czemu im wiêkszy wiatrak tym wy¿ej obiekty unios¹ siê wchodz¹c w jego zakres.\\
+
+Docelowym dzia³aniem wiatraka jest oddzia³ywanie wy³¹cznie na kulê papierow¹. Ograniczeniem domyœlnej budowy pola si³owego w bibliotece PhysX jest brak uwzglêdniania masy obiektu, tote¿ na wszystkie obiekty nak³adana jest jednakowa si³a. Aby rozwi¹zaæ ten problem autor zdecydowa³ siê na w³¹czanie wszystkich wiatraków, jeœli typ kuli zostanie zmieniony na papierowy. W przeciwnym wypadku pole si³owe zostaje usuniête. Pozostawienie animacji obracaj¹cego siê œmig³a daje wra¿enie poprawnego dzia³ania wiatraka, jednak najechanie pozosta³ymi typami kul nie powoduje ¿adnej reakcji.
+
+\subsubsection{Zbieranie obiektów}
+\label{Praktyka:Tworzenie:Elementy:Zbieranie}
+Zadaniem gracza jest zebranie odpowiedniej iloœci gwiazdek zwanych Aurorami. Obiekty te wisz¹ w powietrzu jednoczeœnie obracaj¹c siê wokó³ w³asnej osi.\\
+\begin{figure}[h]
+\centering
+\includegraphics[width=50mm]{img/auroraModel.jpg}
+\caption{Model Aurory}
+\label{img:auroraModel}
+\end{figure}
+Dodanie nowego obiektu wymaga u¿ycia ³¹czenia obiektów (rozdzia³ \ref{Praktyka:Architektura:Obiekty:Laczenie}) z dwóch powodów:
+\begin{itemize}
+    \item Dodanie sta³ej animacji rotacji jest dostêpne tylko dla prostych obiektów
+    \item Wykrycie kolizji z obiektem w celu inkrementacji licznika zebranych Auror wymaga stworzenia aktora w symulacji fizycznej
+\end{itemize}
+
+Pierwszym krokiem jest dodanie widzialnego obiektu, oraz ustawienie animacji. Nastêpnie nastêpuje stworzenie obiektu symulacji, tworz¹c kszta³t kulisty aktora. U¿yty zostaje do tego wczeœniej za³adowany model obiektu widzialnego. Ostatni¹ operacj¹ jest po³¹czenie dwóch obiektów w jeden z³o¿ony.
+\begin{lstlisting}[language=Pascal,caption={Tworzenie po³¹czonych obiektów},label={code:laczenieAuror}]
+local nameRender = CreateEntity(name, mesh, texture, posX, posY, posZ, rotX, rotY, rotZ, scaleX, scaleY, scaleZ, 0, EntityType.noPhysx, "")
+EntitySetAnimation(nameRender, 50.0, 200.0, 25.0)
+local namePhysx = CreateEntity(nameRender .. "PhysX", mesh, texture, posX, posY, posZ, rotX, rotY, rotZ, scaleX, scaleY, scaleZ, PhysxShape.sphere, EntityType.physx, "")
+EntityRaiseBodyFlag(namePhysx, BodyFlag.kinematic)
+EntitySetBindObject(namePhysx, nameRender)
+\end{lstlisting}
+
+Algorytm zebrania jednej Aurory prezentuje siê nastêpuj¹co:
+\begin{enumerate}
+    \item Przypisanie zdarzenia wykrywaj¹cego wejœcie w obiekt Aurory poprzez stworzenie dodatkowego obiektu o wymiarach odrobinê wiêkszych od w³aœciwego aktora:
+\begin{lstlisting}[language=Pascal,caption={Przypisanie reakcji na kolizjê z obiektem Aurory},label={code:kolizjaAurora}]
+EntitySetTrigger(namePhysx, 1.1, 1.1, 1.1)
+EntitySetTriggerCallback(namePhysx, "zebranieAurory", Trigger.onEnter)
+\end{lstlisting}
+    \item Obs³u¿enie wywo³anej funkcji \code{zebranieAurory()}, która wykonuje nastêpuj¹ce operacje:
+\begin{itemize}
+    \item Sprawdzenie czy kolizja nast¹pi³a z kul¹.
+    \item Ukrycie obiektu Aurory razem z dezaktywacj¹ obiektu do wykrywania kolizji.
+    \item Zwiêkszenie licznika zebranych Auror o 1 i uaktualnienie nowej wartoœci na ekranie.
+\begin{lstlisting}[language=Pascal,caption={Uaktualnienie licznika zebranych Auror},label={code:uaktualnienieLicznika}]
+ZebraneAurory = ZebraneAurory + 1
+SetStarsCount(ZebraneAurory)
+\end{lstlisting}
+\end{itemize}
+\end{enumerate}
+
+% ********** Koniec rozdzia³u **********
+
+% ********** Rozdzia³ 4 - PODSUMOWANIE **********
+\chapter{Podsumowanie}
+\label{Podsumowanie}
+\section{Ocena projektu}
+\label{Podsumowanie:Ocena}
+G³ównym za³o¿eniem projektu by³o stworzenie silnika graficznego, umo¿liwiaj¹cego oddzielenie warstwy logicznej gry od kodu aplikacji. Cel ten zosta³ osi¹gniêty, czego dowodem jest przygotowana gra komputerowa. Skrypty opisuj¹ce poszczególne poziomy umo¿liwiaj¹ programiœcie budowanie sceny, ustalenie celu ukoñczenia planszy, a tak¿e kreacjê dowolnych zadañ, które musz¹ zostaæ wykonane.\\
+
+Przygotowanie tak rozbudowanej aplikacji jak¹ jest gra komputerowa wymaga³o kilku miesiêcy intensywnej pracy. Zaimplementowanie wszystkich funkcjonalnoœci przewidzianych w procesie planowania okaza³o siê niemo¿liwe. G³ównymi powodami by³y:
+\begin{itemize}
+    \item Ograniczenia czasowe. Zaawansowane gry komputerowe wymagaj¹ nawet kilku lat pracy i du¿ego zespo³u programistycznego. Autor przygotowywa³ pracê w jednoosobowym zespole, tak wiêc koniecznoœci¹ by³a implementacja jedynie najwa¿niejszych elementów aplikacji, skupiaj¹cych siê na g³ównym za³o¿eniu projektu. Z tego powodu pominiête zosta³o rozbudowywanie czêœci graficznej aplikacji, odpowiedzialnej za efekty takie jak system cz¹steczek.
+    \item Niedostateczna wiedza i doœwiadczenie w projektowaniu i implementowaniu du¿ych projektów. Skutkowa³o to czêstym przepisywaniem wielu elementów (a nawet ca³ego projektu) na nowo.
+\end{itemize}
+Mimo wielu napotkanych trudnoœci, autorowi uda³o siê stworzyæ od podstaw funkcjonalny silnik graficzny, przygotowany do dalszego rozwoju poszczególnych elementów, miêdzy innymi:
+\begin{itemize}
+    \item Zarz¹dzanie GUI z poziomu skryptów.
+    \item Dodanie obs³ugi œwiate³, cieni i efektów cz¹steczkowych.
+    \item £¹czenie obiektów za pomoc¹ joint'ów (funkcja dostêpna w bibliotece PhysX).
+\end{itemize}

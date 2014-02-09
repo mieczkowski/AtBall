@@ -1,0 +1,101 @@
+--[[
+x 
+y 
+z 
+
+CreatePlatform("Plat", "platformarog.x", "inne.jpg", 0, 0, 0, -90,45,-45)
+CreatePlatform("Plat2", "platformarog.x", "inne.jpg", 3, 0, 0, 0, 0, 0)
+CreatePlatform("Plat3", "platformarog.x", "inne.jpg", 0, 3, 0, 0, 0, 0)]]--
+--CreateBox("Box1", "boxwciecie.x", "inne.jpg", 0, 0, 0, 0, -90, 0)
+-- X = z
+-- Y = x
+-- Z = -y
+
+-- x = inputY
+-- y = 
+-- z = inputZ * (-1)
+--CreateBox("Box2", "box.x", "inne.jpg", 0, 0, 0, 0, 90, 0)
+--CreateBox("Box3", "box.x", "inne.jpg", 0, 0, -4, 0, 0, 0)
+--CreateKulaKamien("kula1", "kulakamien.x", "kula_kamien.jpg", 0, 5, 0, 0, 0, 0)
+
+
+--[[CreateStoneBall("kula", 0, 5, 0, 0, 0, 0)
+CameraSetFollowingObject("kula")
+CameraSetStatus(Camera.follow)
+EntitySetUpdateObject("kula", "StoneControl")
+CreateBox("box1", 0,0,0,0,-90,0, "Box_Wciecie")
+CreateBox("box2", 1.9,0,0,0,-90,0, "Box_Wciecie")
+]]--
+--[[
+CreatePlane("plane", 0, 0, 0, "planeMesh", "planeTex")
+
+CreateStone("kula", 5, 7, 0, PhysxShape.sphere, "kulaMesh", "stoneTex")
+EntitySetUpdateObject("kula", "StoneControl")
+CameraSetFollowingObject("kula")
+CameraSetStatus(Camera.follow)
+CameraSetCollisionObject("plane")
+]]--
+
+--CreateTerrain("plane", 0, 0, 0, "lokacjaMesh", "planeTex")
+--CreatePlane("plane2", 0, 30, 0, "planeMesh", "planeTex")
+--CameraSetCollisionObject("plane")
+
+--CreateStone("stone", 0, 5, 0, PhysxShape.capsule, "stoneMesh", "stoneTex")
+--CreateStone("stone", 0, 40, 0, PhysxShape.sphere, "kulaMesh", "stoneTex")
+--EntitySetUpdateObject("stone", "StoneControl")
+--CameraSetFollowingObject("stone")
+--CameraSetStatus(Camera.follow)
+
+
+--EntitySetDynamic("plane", EntityType.dynamic)
+--CreateStone("stone", 0, 7, 0, PhysxShape.capsule, "stoneMesh", "stoneTex")
+
+--[[
+
+CreateStone("stone", 5, 10, 0, PhysxShape.capsule, "stoneMesh", "stoneTex")
+CreateStone("kula", 9, 9, 12, PhysxShape.sphere, "kulaMesh", "stoneTex")
+CameraSetFollowingObject("stone")
+CameraSetStatus(Camera.follow)
+CameraSetCollisionObject("lokacja")
+]]--
+--SoundPlay2D("background", "background2File", SoundLoop.once)
+
+
+--CreatePlane("plane", 0, 5, 0, "planeMesh", "planeTex")
+
+
+
+
+--CreateStone("stone2", 0, 10, 0, PhysxShape.capsule, "stoneMesh", "stoneTex")
+--EntitySetCallback("stone", "stoneStartTouch", Callback.onStartTouch)
+
+
+
+--CreateStone("stone3", 1, 7, 5, PhysxShape.box, "stoneMesh", "stoneTex")
+
+--CreateStone("stone", 1, 5, 5, PhysxShape.capsule, "stoneMesh", "stoneTex")
+--CreateStone("stone2", 1.01, 8, 5, PhysxShape.capsule, "stoneMesh", "stoneTex")
+--CreateStone("stone3", 1.03, 12, 5, PhysxShape.capsule, "stoneMesh", "stoneTex")
+--CreateStone("stone4", -0.01, 15, 5, PhysxShape.capsule, "stoneMesh", "stoneTex")
+--SoundPlay3DObject("podazaj", "background1File", SoundLoop.once, "stone", SoundPosition.follow)
+
+--EntitySetUpdateObject("stone", "StoneControl")
+--EntitySetCallback("stone", "stoneStartTouch", Callback.onStartTouch)
+--CameraSetFollowingObject("stone")
+--CameraSetStatus(Camera.follow)
+--[[
+CreateStone("stone2", 1, 7, 5, PhysxShape.box, "stoneMesh", "stoneTex")
+CreateStone("stone3", 2, 9, 10, PhysxShape.capsule, "stoneMesh", "stoneTex")
+CreateStone("stone4", 3, 11, 20, PhysxShape.box, "stoneMesh", "stoneTex")
+CreateStone("stone5", 4, 13, 25, PhysxShape.capsule, "stoneMesh", "stoneTex")
+CreateStone("stone6", 5, 15, 30, PhysxShape.box, "stoneMesh", "stoneTex")
+CreateStone("stone7", 6, 17, 35, PhysxShape.capsule, "stoneMesh", "stoneTex")
+
+
+EntitySetCallback("stone2", "stoneStartTouch", Callback.onStartTouch)
+EntitySetCallback("stone3", "stoneStartTouch", Callback.onStartTouch)
+EntitySetCallback("stone4", "stoneStartTouch", Callback.onStartTouch)
+EntitySetCallback("stone5", "stoneStartTouch", Callback.onStartTouch)
+EntitySetCallback("stone6", "stoneStartTouch", Callback.onStartTouch)
+EntitySetCallback("stone7", "stoneStartTouch", Callback.onStartTouch)
+]]--

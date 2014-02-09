@@ -1,0 +1,754 @@
+Uruchomienie systemu logujacego...
+WinMain: START
+CScript: (Load) Pomyslnie dodano skrypt: config
+SoundMgr: (Init) Pomyslnie zainicjowano system dzwieku! 
+SoundMgr: (Init) Pomyslnie zainicjowano system dzwieku! 
+CWindow: (Init) Pomyslnie zainicjowano okno!
+CDirectx: (Init) Pomyslnie zainicjowano DirectX!
+PhysxMgr: (Init) Pomyslnie zainicjowano PhysxMgr.
+Scene: (Init) Pomyslnie utworzono CScene
+CSkyBox: (Init) Pomyœlnie zainicjowano SkyBox'a!
+Game: (Init) Inicjalizacja silnika zakonczona pomyslnie!
+CScript: (CallFunction) Wywolanie procedury START: onEngineStart
+SoundMgr: (AddFile) Dodaje plik do mapy: media/sound/menuChange.wav
+SoundMgr: (AddFile) Dodaje plik do mapy: media/sound/ballPapierBackground.ogg
+SoundMgr: (AddFile) Dodaje plik do mapy: media/sound/ballStoneBackground.ogg
+SoundMgr: (AddFile) Dodaje plik do mapy: media/sound/ballWoodBackground.ogg
+SoundMgr: (AddFile) Dodaje plik do mapy: media/sound/menuBackground2.ogg
+SoundMgr: (AddFile) Dodaje plik do mapy: media/sound/instructionsBackground.ogg
+SoundMgr: (AddFile) Dodaje plik do mapy: media/sound/loadingBackground.ogg
+SoundMgr: (AddFile) Dodaje plik do mapy: media/sound/timeCounting.ogg
+SoundMgr: (AddFile) Dodaje plik do mapy: media/sound/itemHide.mp3
+SoundMgr: (AddFile) Dodaje plik do mapy: media/sound/animationBackground.ogg
+SoundMgr: (AddFile) Dodaje plik do mapy: media/sound/ballTypeChanged.mp3
+SoundMgr: (AddFile) Dodaje plik do mapy: media/sound/endGame.mp3
+SoundMgr: (AddFile) Dodaje plik do mapy: media/sound/itemTaken1.ogg
+SoundMgr: (AddFile) Dodaje plik do mapy: media/sound/endGame.mp3
+SoundMgr: (AddFile) Dodaje plik do mapy: media/sound/messageOpen.mp3
+SoundMgr: (AddFile) Dodaje plik do mapy: media/sound/messageClose.mp3
+SoundMgr: (AddFile) Dodaje plik do mapy: media/sound/ventStart.mp3
+SoundMgr: (AddFile) Dodaje plik do mapy: media/sound/ventStop.mp3
+CScript: (CallFunction) Wywolanie procedury START: onMenuChange
+CScript: (CallFunction) Wywolanie procedury START: onMenuChange
+CScript: (CallFunction) Wywolanie procedury START: onMenuChange
+CScript: (CallFunction) Wywolanie procedury START: onMenuChange
+CScript: (CallFunction) Wywolanie procedury START: onMenuEnter
+Scene: (Init) Pomyslnie utworzono CScene
+EntityMgr: (Clear) Niszczenie obiektu.
+SoundMgr: (Clear) Czyszczenie obiektu.
+SoundMgr: (Clear) Usuwanie obiektu dzwieku: menuBackground
+MediaMgr: (Clear) Niszczenie obiektu.
+CScript: (CallFunction) Wywolanie procedury START: onLoading
+SoundMgr: (AddFile) Dodaje plik do mapy: media/sound/menuChange.wav
+SoundMgr: (AddFile) Dodaje plik do mapy: media/sound/ballPapierBackground.ogg
+SoundMgr: (AddFile) Dodaje plik do mapy: media/sound/ballStoneBackground.ogg
+SoundMgr: (AddFile) Dodaje plik do mapy: media/sound/ballWoodBackground.ogg
+SoundMgr: (AddFile) Dodaje plik do mapy: media/sound/menuBackground2.ogg
+SoundMgr: (AddFile) Dodaje plik do mapy: media/sound/instructionsBackground.ogg
+SoundMgr: (AddFile) Dodaje plik do mapy: media/sound/loadingBackground.ogg
+SoundMgr: (AddFile) Dodaje plik do mapy: media/sound/timeCounting.ogg
+SoundMgr: (AddFile) Dodaje plik do mapy: media/sound/itemHide.mp3
+SoundMgr: (AddFile) Dodaje plik do mapy: media/sound/animationBackground.ogg
+SoundMgr: (AddFile) Dodaje plik do mapy: media/sound/ballTypeChanged.mp3
+SoundMgr: (AddFile) Dodaje plik do mapy: media/sound/endGame.mp3
+SoundMgr: (AddFile) Dodaje plik do mapy: media/sound/itemTaken1.ogg
+SoundMgr: (AddFile) Dodaje plik do mapy: media/sound/endGame.mp3
+SoundMgr: (AddFile) Dodaje plik do mapy: media/sound/messageOpen.mp3
+SoundMgr: (AddFile) Dodaje plik do mapy: media/sound/messageClose.mp3
+SoundMgr: (AddFile) Dodaje plik do mapy: media/sound/ventStart.mp3
+SoundMgr: (AddFile) Dodaje plik do mapy: media/sound/ventStop.mp3
+CScript: (Load) Pomyslnie dodano skrypt: introduction
+CScript: (CallFunction) Wywolanie procedury START: main
+MediaMgr: (AddMesh) Dodano mesha do mapy , Nazwa: kulakamien.x
+MediaMgr: (AddTexture) Dodano teksture do mapy , Nazwa: kula_kamien.jpg
+MediaMgr: (AddTexture) Dodano teksture do mapy , Nazwa: kula_kamien_nrm.jpg
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: KulaKamien
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: KulaKamien
+MediaMgr: (AddMesh) Dodano mesha do mapy , Nazwa: platformazmiana.x
+MediaMgr: (AddTexture) Dodano teksture do mapy , Nazwa: wood-texture_beiz.jp_l07282.jpg
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: zmianaDrewno2
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: zmianaDrewno2
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: zmianaDrewno1
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: zmianaDrewno1
+MediaMgr: (AddMesh) Dodano mesha do mapy , Nazwa: wiatrak.x
+MediaMgr: (AddTexture) Dodano teksture do mapy , Nazwa: kula_drewno.jpg
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 1smiglo
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 1smiglo
+MediaMgr: (AddMesh) Dodano mesha do mapy , Nazwa: krata.x
+MediaMgr: (AddTexture) Dodano teksture do mapy , Nazwa: metal.jpg
+MediaMgr: (AddTexture) Dodano teksture do mapy , Nazwa: metal_nrm.jpg
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 1wiatrak
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 1wiatrak
+MediaMgr: (AddMesh) Dodano mesha do mapy , Nazwa: kulapapier.x
+MediaMgr: (AddTexture) Dodano teksture do mapy , Nazwa: kula_papier.jpg
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: KulaPapier
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: KulaPapier
+MediaMgr: (AddMesh) Dodano mesha do mapy , Nazwa: kulapapierconvex.x
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: KulaPapierPhysX
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: KulaPapierPhysX
+CScene: (RemoveObject) Usuwam obiekt ! Nazwa: KulaPapier
+MediaMgr: (AddMesh) Dodano mesha do mapy , Nazwa: kuladrewno.x
+MediaMgr: (AddTexture) Dodano teksture do mapy , Nazwa: wood-texture_beiz.jp_s07347.jpg
+MediaMgr: (AddTexture) Dodano teksture do mapy , Nazwa: kula_drewno_nrm.jpg
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: KulaDrewno
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: KulaDrewno
+MediaMgr: (AddMesh) Dodano mesha do mapy , Nazwa: platformabok1.x
+MediaMgr: (AddTexture) Dodano teksture do mapy , Nazwa: inne.jpg
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 1
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 1
+MediaMgr: (AddMesh) Dodano mesha do mapy , Nazwa: platformabok2.x
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 2
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 2
+MediaMgr: (AddMesh) Dodano mesha do mapy , Nazwa: platformarog.x
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 3
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 3
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 4
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 4
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 5
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 5
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 6
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 6
+MediaMgr: (AddMesh) Dodano mesha do mapy , Nazwa: tor.x
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 7
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 7
+MediaMgr: (AddMesh) Dodano mesha do mapy , Nazwa: platforma.x
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 8
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 8
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 9
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 9
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 10
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 10
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: tmpEnd
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: tmpEnd
+MediaMgr: (AddMesh) Dodano mesha do mapy , Nazwa: gwiazda.x
+MediaMgr: (AddTexture) Dodano teksture do mapy , Nazwa: 653c.jpg
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 11
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 11
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 11PhysX
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 11PhysX
+CScene: (RemoveObject) Usuwam obiekt ! Nazwa: 11
+MediaMgr: (AddMesh) Dodano mesha do mapy , Nazwa: boxwcieciestart.x
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 12
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 12
+MediaMgr: (AddMesh) Dodano mesha do mapy , Nazwa: boxwciecie.x
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 13
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 13
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 14
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 14
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 15
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 15
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 16
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 16
+MediaMgr: (AddTexture) Dodano teksture do mapy , Nazwa: 125bc3.jpg
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 17
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 17
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 17PhysX
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 17PhysX
+CScene: (RemoveObject) Usuwam obiekt ! Nazwa: 17
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 18
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 18
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 19
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 19
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 20
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 20
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 21
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 21
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 22
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 22
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 23
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 23
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 24
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 24
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 25
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 25
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 26
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 26
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 27
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 27
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 28
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 28
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: zmianaKamien1
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: zmianaKamien1
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 2wiatrak
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 2wiatrak
+MediaMgr: (AddTexture) Dodano teksture do mapy , Nazwa: fire01.jpg
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 29
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 29
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 29PhysX
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 29PhysX
+CScene: (RemoveObject) Usuwam obiekt ! Nazwa: 29
+MediaMgr: (AddTexture) Dodano teksture do mapy , Nazwa: 128c.jpg
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 30
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 30
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 30PhysX
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 30PhysX
+CScene: (RemoveObject) Usuwam obiekt ! Nazwa: 30
+MediaMgr: (AddMesh) Dodano mesha do mapy , Nazwa: podjazdplaski.x
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 31
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 31
+MediaMgr: (AddMesh) Dodano mesha do mapy , Nazwa: box.x
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 32
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 32
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 33
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 33
+MediaMgr: (AddMesh) Dodano mesha do mapy , Nazwa: boxskoswcieciemaly.x
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 34
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 34
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 35
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 35
+MediaMgr: (AddTexture) Dodano teksture do mapy , Nazwa: alum.jpg
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 36
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 36
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 36PhysX
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 36PhysX
+CScene: (RemoveObject) Usuwam obiekt ! Nazwa: 36
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 37
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 37
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 38
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 38
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 39
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 39
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 40
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 40
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 41
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 41
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 42
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 42
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 43
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 43
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 2smiglo
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 2smiglo
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 44
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 44
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 45
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 45
+MediaMgr: (AddTexture) Dodano teksture do mapy , Nazwa: inne2.jpg
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 46
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 46
+MediaMgr: (AddMesh) Dodano mesha do mapy , Nazwa: skrzynia.x
+MediaMgr: (AddTexture) Dodano teksture do mapy , Nazwa: skrzynia.jpg
+MediaMgr: (AddTexture) Dodano teksture do mapy , Nazwa: skrzynia_nrm.jpg
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 47
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 47
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 48
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 48
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 49
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 49
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 50
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 50
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 51
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 51
+MediaMgr: (AddMesh) Dodano mesha do mapy , Nazwa: torswider.x
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 52
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 52
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 53
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 53
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 54
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 54
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 55
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 55
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 56
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 56
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 57
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 57
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 58
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 58
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 59
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 59
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 60
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 60
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 61
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 61
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 62
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 62
+MediaMgr: (AddTexture) Dodano teksture do mapy , Nazwa: 125bc4.jpg
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 63
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 63
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 63PhysX
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 63PhysX
+CScene: (RemoveObject) Usuwam obiekt ! Nazwa: 63
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 64
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 64
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 64PhysX
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 64PhysX
+CScene: (RemoveObject) Usuwam obiekt ! Nazwa: 64
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 65
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 65
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 66
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 66
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 67
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 67
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 68
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 68
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 69
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 69
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 70
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 70
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 71
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 71
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: zmianaPapier2
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: zmianaPapier2
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 72
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 72
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 73
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 73
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 74
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 74
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 75
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 75
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 76
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 76
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 77
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 77
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 78
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 78
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 3wiatrak
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 3wiatrak
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 3smiglo
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 3smiglo
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 79
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 79
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 79PhysX
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 79PhysX
+CScene: (RemoveObject) Usuwam obiekt ! Nazwa: 79
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 80
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 80
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 80PhysX
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 80PhysX
+CScene: (RemoveObject) Usuwam obiekt ! Nazwa: 80
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 81
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 81
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 82
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 82
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 82PhysX
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 82PhysX
+CScene: (RemoveObject) Usuwam obiekt ! Nazwa: 82
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 83
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 83
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 84
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 84
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 85
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 85
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 86
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 86
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 87
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 87
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 88
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 88
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 89
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 89
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 90
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 90
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 91
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 91
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 92
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 92
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 93
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 93
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 94
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 94
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 95
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 95
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 95PhysX
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 95PhysX
+CScene: (RemoveObject) Usuwam obiekt ! Nazwa: 95
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: zmianaDrewno3
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: zmianaDrewno3
+MediaMgr: (AddTexture) Dodano teksture do mapy , Nazwa: inne3.jpg
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: msgKoniec
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: msgKoniec
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 96
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 96
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 97
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 97
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 98
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 98
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 99
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 99
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 100
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 100
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 101
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 101
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 102
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 102
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 103
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 103
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 104
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 104
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 104PhysX
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 104PhysX
+CScene: (RemoveObject) Usuwam obiekt ! Nazwa: 104
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 105
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 105
+MediaMgr: (AddMesh) Dodano mesha do mapy , Nazwa: poreczrog.x
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 106
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 106
+MediaMgr: (AddMesh) Dodano mesha do mapy , Nazwa: porecz1.x
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 107
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 107
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: bariera1
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: bariera1
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: zmianaPapier1
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: zmianaPapier1
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 108
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 108
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 109
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 109
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 110
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 110
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 111
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 111
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 111PhysX
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 111PhysX
+CScene: (RemoveObject) Usuwam obiekt ! Nazwa: 111
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 112
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 112
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 113
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 113
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 114
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 114
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 115
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 115
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 115PhysX
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 115PhysX
+CScene: (RemoveObject) Usuwam obiekt ! Nazwa: 115
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: bariera2
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: bariera2
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 116
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 116
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 117
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 117
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 117PhysX
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 117PhysX
+CScene: (RemoveObject) Usuwam obiekt ! Nazwa: 117
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 118
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 118
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 118PhysX
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 118PhysX
+CScene: (RemoveObject) Usuwam obiekt ! Nazwa: 118
+MediaMgr: (AddTexture) Dodano teksture do mapy , Nazwa: 506c3.jpg
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 119
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 119
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 119PhysX
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 119PhysX
+CScene: (RemoveObject) Usuwam obiekt ! Nazwa: 119
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 120
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 120
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 121
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 121
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 122
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 122
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 123
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 123
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 124
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 124
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 125
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 125
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 126
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 126
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 127
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 127
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 128
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 128
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 129
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 129
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 130
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 130
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 130PhysX
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 130PhysX
+CScene: (RemoveObject) Usuwam obiekt ! Nazwa: 130
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 131
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 131
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 132
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 132
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 133
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 133
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 134
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 134
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 135
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 135
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 136
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 136
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 137
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 137
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 138
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 138
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 139
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 139
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 140
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 140
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 141
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 141
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 142
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 142
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 143
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 143
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 144
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 144
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 145
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 145
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 146
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 146
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 147
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 147
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 148
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 148
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 149
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 149
+EntityMgr: (AddObject) Dodano obiekt do mapy obiektow, Nazwa: 150
+CScene: (AddObject) Dodano obiekt do mapy sceny, Nazwa: 150
+LuaEntity: (SetUpdateObject) Ustawiam obiekt sterowania dla obiektu: KulaKamien
+CScript: (CallFunction) Wywolanie procedury START: InputSpace
+LuaEntity: (SetUpdateObject) Ustawiam obiekt sterowania dla obiektu: KulaDrewno
+LuaEntity: (SetUpdateObject) Ustawiam obiekt sterowania dla obiektu: KulaPapierPhysX
+LuaEntity: (SetUpdateObject) Uaktywniam obiekt sterowania dla obiektu: KulaKamien
+LuaEntity: (SetUpdateObject) Uaktywniam obiekt sterowania dla obiektu: KulaDrewno
+LuaEntity: (SetUpdateObject) Uaktywniam obiekt sterowania dla obiektu: KulaPapierPhysX
+LuaEntity: (SetUpdateObject) Uaktywniam obiekt sterowania dla obiektu: KulaDrewno
+CScript: (CallFunction) Wywolanie procedury START: onMenuEnter
+CScript: (CallFunction) Wywolanie procedury START: onMenuChange
+CScript: (CallFunction) Wywolanie procedury START: onMenuChange
+CScript: (CallFunction) Wywolanie procedury START: onMenuEnter
+CTimerMgr: (Clear) Usuwanie obiektu: OUT_OF_SCENE_ENDING
+CTimerMgr: (Clear) Usuwanie obiektu: SYSTEM endGame
+EntityMgr: (Clear) Niszczenie obiektu.
+EntityMgr: (Clear) Usuwanie obiektu: 1
+EntityMgr: (Clear) Usuwanie obiektu: 10
+EntityMgr: (Clear) Usuwanie obiektu: 100
+EntityMgr: (Clear) Usuwanie obiektu: 101
+EntityMgr: (Clear) Usuwanie obiektu: 102
+EntityMgr: (Clear) Usuwanie obiektu: 103
+EntityMgr: (Clear) Usuwanie obiektu: 104
+EntityMgr: (Clear) Usuwanie obiektu: 104PhysX
+EntityMgr: (Clear) Usuwanie obiektu: 105
+EntityMgr: (Clear) Usuwanie obiektu: 106
+EntityMgr: (Clear) Usuwanie obiektu: 107
+EntityMgr: (Clear) Usuwanie obiektu: 108
+EntityMgr: (Clear) Usuwanie obiektu: 109
+EntityMgr: (Clear) Usuwanie obiektu: 11
+EntityMgr: (Clear) Usuwanie obiektu: 110
+EntityMgr: (Clear) Usuwanie obiektu: 111
+EntityMgr: (Clear) Usuwanie obiektu: 111PhysX
+EntityMgr: (Clear) Usuwanie obiektu: 112
+EntityMgr: (Clear) Usuwanie obiektu: 113
+EntityMgr: (Clear) Usuwanie obiektu: 114
+EntityMgr: (Clear) Usuwanie obiektu: 115
+EntityMgr: (Clear) Usuwanie obiektu: 115PhysX
+EntityMgr: (Clear) Usuwanie obiektu: 116
+EntityMgr: (Clear) Usuwanie obiektu: 117
+EntityMgr: (Clear) Usuwanie obiektu: 117PhysX
+EntityMgr: (Clear) Usuwanie obiektu: 118
+EntityMgr: (Clear) Usuwanie obiektu: 118PhysX
+EntityMgr: (Clear) Usuwanie obiektu: 119
+EntityMgr: (Clear) Usuwanie obiektu: 119PhysX
+EntityMgr: (Clear) Usuwanie obiektu: 11PhysX
+EntityMgr: (Clear) Usuwanie obiektu: 12
+EntityMgr: (Clear) Usuwanie obiektu: 120
+EntityMgr: (Clear) Usuwanie obiektu: 121
+EntityMgr: (Clear) Usuwanie obiektu: 122
+EntityMgr: (Clear) Usuwanie obiektu: 123
+EntityMgr: (Clear) Usuwanie obiektu: 124
+EntityMgr: (Clear) Usuwanie obiektu: 125
+EntityMgr: (Clear) Usuwanie obiektu: 126
+EntityMgr: (Clear) Usuwanie obiektu: 127
+EntityMgr: (Clear) Usuwanie obiektu: 128
+EntityMgr: (Clear) Usuwanie obiektu: 129
+EntityMgr: (Clear) Usuwanie obiektu: 13
+EntityMgr: (Clear) Usuwanie obiektu: 130
+EntityMgr: (Clear) Usuwanie obiektu: 130PhysX
+EntityMgr: (Clear) Usuwanie obiektu: 131
+EntityMgr: (Clear) Usuwanie obiektu: 132
+EntityMgr: (Clear) Usuwanie obiektu: 133
+EntityMgr: (Clear) Usuwanie obiektu: 134
+EntityMgr: (Clear) Usuwanie obiektu: 135
+EntityMgr: (Clear) Usuwanie obiektu: 136
+EntityMgr: (Clear) Usuwanie obiektu: 137
+EntityMgr: (Clear) Usuwanie obiektu: 138
+EntityMgr: (Clear) Usuwanie obiektu: 139
+EntityMgr: (Clear) Usuwanie obiektu: 14
+EntityMgr: (Clear) Usuwanie obiektu: 140
+EntityMgr: (Clear) Usuwanie obiektu: 141
+EntityMgr: (Clear) Usuwanie obiektu: 142
+EntityMgr: (Clear) Usuwanie obiektu: 143
+EntityMgr: (Clear) Usuwanie obiektu: 144
+EntityMgr: (Clear) Usuwanie obiektu: 145
+EntityMgr: (Clear) Usuwanie obiektu: 146
+EntityMgr: (Clear) Usuwanie obiektu: 147
+EntityMgr: (Clear) Usuwanie obiektu: 148
+EntityMgr: (Clear) Usuwanie obiektu: 149
+EntityMgr: (Clear) Usuwanie obiektu: 15
+EntityMgr: (Clear) Usuwanie obiektu: 150
+EntityMgr: (Clear) Usuwanie obiektu: 16
+EntityMgr: (Clear) Usuwanie obiektu: 17
+EntityMgr: (Clear) Usuwanie obiektu: 17PhysX
+EntityMgr: (Clear) Usuwanie obiektu: 18
+EntityMgr: (Clear) Usuwanie obiektu: 19
+EntityMgr: (Clear) Usuwanie obiektu: 1smiglo
+EntityMgr: (Clear) Usuwanie obiektu: 1wiatrak
+EntityMgr: (Clear) Usuwanie obiektu: 2
+EntityMgr: (Clear) Usuwanie obiektu: 20
+EntityMgr: (Clear) Usuwanie obiektu: 21
+EntityMgr: (Clear) Usuwanie obiektu: 22
+EntityMgr: (Clear) Usuwanie obiektu: 23
+EntityMgr: (Clear) Usuwanie obiektu: 24
+EntityMgr: (Clear) Usuwanie obiektu: 25
+EntityMgr: (Clear) Usuwanie obiektu: 26
+EntityMgr: (Clear) Usuwanie obiektu: 27
+EntityMgr: (Clear) Usuwanie obiektu: 28
+EntityMgr: (Clear) Usuwanie obiektu: 29
+EntityMgr: (Clear) Usuwanie obiektu: 29PhysX
+EntityMgr: (Clear) Usuwanie obiektu: 2smiglo
+EntityMgr: (Clear) Usuwanie obiektu: 2wiatrak
+EntityMgr: (Clear) Usuwanie obiektu: 3
+EntityMgr: (Clear) Usuwanie obiektu: 30
+EntityMgr: (Clear) Usuwanie obiektu: 30PhysX
+EntityMgr: (Clear) Usuwanie obiektu: 31
+EntityMgr: (Clear) Usuwanie obiektu: 32
+EntityMgr: (Clear) Usuwanie obiektu: 33
+EntityMgr: (Clear) Usuwanie obiektu: 34
+EntityMgr: (Clear) Usuwanie obiektu: 35
+EntityMgr: (Clear) Usuwanie obiektu: 36
+EntityMgr: (Clear) Usuwanie obiektu: 36PhysX
+EntityMgr: (Clear) Usuwanie obiektu: 37
+EntityMgr: (Clear) Usuwanie obiektu: 38
+EntityMgr: (Clear) Usuwanie obiektu: 39
+EntityMgr: (Clear) Usuwanie obiektu: 3smiglo
+EntityMgr: (Clear) Usuwanie obiektu: 3wiatrak
+EntityMgr: (Clear) Usuwanie obiektu: 4
+EntityMgr: (Clear) Usuwanie obiektu: 40
+EntityMgr: (Clear) Usuwanie obiektu: 41
+EntityMgr: (Clear) Usuwanie obiektu: 42
+EntityMgr: (Clear) Usuwanie obiektu: 43
+EntityMgr: (Clear) Usuwanie obiektu: 44
+EntityMgr: (Clear) Usuwanie obiektu: 45
+EntityMgr: (Clear) Usuwanie obiektu: 46
+EntityMgr: (Clear) Usuwanie obiektu: 47
+EntityMgr: (Clear) Usuwanie obiektu: 48
+EntityMgr: (Clear) Usuwanie obiektu: 49
+EntityMgr: (Clear) Usuwanie obiektu: 5
+EntityMgr: (Clear) Usuwanie obiektu: 50
+EntityMgr: (Clear) Usuwanie obiektu: 51
+EntityMgr: (Clear) Usuwanie obiektu: 52
+EntityMgr: (Clear) Usuwanie obiektu: 53
+EntityMgr: (Clear) Usuwanie obiektu: 54
+EntityMgr: (Clear) Usuwanie obiektu: 55
+EntityMgr: (Clear) Usuwanie obiektu: 56
+EntityMgr: (Clear) Usuwanie obiektu: 57
+EntityMgr: (Clear) Usuwanie obiektu: 58
+EntityMgr: (Clear) Usuwanie obiektu: 59
+EntityMgr: (Clear) Usuwanie obiektu: 6
+EntityMgr: (Clear) Usuwanie obiektu: 60
+EntityMgr: (Clear) Usuwanie obiektu: 61
+EntityMgr: (Clear) Usuwanie obiektu: 62
+EntityMgr: (Clear) Usuwanie obiektu: 63
+EntityMgr: (Clear) Usuwanie obiektu: 63PhysX
+EntityMgr: (Clear) Usuwanie obiektu: 64
+EntityMgr: (Clear) Usuwanie obiektu: 64PhysX
+EntityMgr: (Clear) Usuwanie obiektu: 65
+EntityMgr: (Clear) Usuwanie obiektu: 66
+EntityMgr: (Clear) Usuwanie obiektu: 67
+EntityMgr: (Clear) Usuwanie obiektu: 68
+EntityMgr: (Clear) Usuwanie obiektu: 69
+EntityMgr: (Clear) Usuwanie obiektu: 7
+EntityMgr: (Clear) Usuwanie obiektu: 70
+EntityMgr: (Clear) Usuwanie obiektu: 71
+EntityMgr: (Clear) Usuwanie obiektu: 72
+EntityMgr: (Clear) Usuwanie obiektu: 73
+EntityMgr: (Clear) Usuwanie obiektu: 74
+EntityMgr: (Clear) Usuwanie obiektu: 75
+EntityMgr: (Clear) Usuwanie obiektu: 76
+EntityMgr: (Clear) Usuwanie obiektu: 77
+EntityMgr: (Clear) Usuwanie obiektu: 78
+EntityMgr: (Clear) Usuwanie obiektu: 79
+EntityMgr: (Clear) Usuwanie obiektu: 79PhysX
+EntityMgr: (Clear) Usuwanie obiektu: 8
+EntityMgr: (Clear) Usuwanie obiektu: 80
+EntityMgr: (Clear) Usuwanie obiektu: 80PhysX
+EntityMgr: (Clear) Usuwanie obiektu: 81
+EntityMgr: (Clear) Usuwanie obiektu: 82
+EntityMgr: (Clear) Usuwanie obiektu: 82PhysX
+EntityMgr: (Clear) Usuwanie obiektu: 83
+EntityMgr: (Clear) Usuwanie obiektu: 84
+EntityMgr: (Clear) Usuwanie obiektu: 85
+EntityMgr: (Clear) Usuwanie obiektu: 86
+EntityMgr: (Clear) Usuwanie obiektu: 87
+EntityMgr: (Clear) Usuwanie obiektu: 88
+EntityMgr: (Clear) Usuwanie obiektu: 89
+EntityMgr: (Clear) Usuwanie obiektu: 9
+EntityMgr: (Clear) Usuwanie obiektu: 90
+EntityMgr: (Clear) Usuwanie obiektu: 91
+EntityMgr: (Clear) Usuwanie obiektu: 92
+EntityMgr: (Clear) Usuwanie obiektu: 93
+EntityMgr: (Clear) Usuwanie obiektu: 94
+EntityMgr: (Clear) Usuwanie obiektu: 95
+EntityMgr: (Clear) Usuwanie obiektu: 95PhysX
+EntityMgr: (Clear) Usuwanie obiektu: 96
+EntityMgr: (Clear) Usuwanie obiektu: 97
+EntityMgr: (Clear) Usuwanie obiektu: 98
+EntityMgr: (Clear) Usuwanie obiektu: 99
+EntityMgr: (Clear) Usuwanie obiektu: KulaDrewno
+EntityMgr: (Clear) Usuwanie obiektu: KulaKamien
+EntityMgr: (Clear) Usuwanie obiektu: KulaPapier
+EntityMgr: (Clear) Usuwanie obiektu: KulaPapierPhysX
+EntityMgr: (Clear) Usuwanie obiektu: bariera1
+EntityMgr: (Clear) Usuwanie obiektu: bariera2
+EntityMgr: (Clear) Usuwanie obiektu: msgKoniec
+EntityMgr: (Clear) Usuwanie obiektu: tmpEnd
+EntityMgr: (Clear) Usuwanie obiektu: zmianaDrewno1
+EntityMgr: (Clear) Usuwanie obiektu: zmianaDrewno2
+EntityMgr: (Clear) Usuwanie obiektu: zmianaDrewno3
+EntityMgr: (Clear) Usuwanie obiektu: zmianaKamien1
+EntityMgr: (Clear) Usuwanie obiektu: zmianaPapier1
+EntityMgr: (Clear) Usuwanie obiektu: zmianaPapier2
+MediaMgr: (Clear) Niszczenie obiektu.
+MediaMgr: (Clear) Usuwanie tekstury: 125bc3.jpg
+MediaMgr: (Clear) Usuwanie tekstury: 125bc4.jpg
+MediaMgr: (Clear) Usuwanie tekstury: 128c.jpg
+MediaMgr: (Clear) Usuwanie tekstury: 506c3.jpg
+MediaMgr: (Clear) Usuwanie tekstury: 653c.jpg
+MediaMgr: (Clear) Usuwanie tekstury: alum.jpg
+MediaMgr: (Clear) Usuwanie tekstury: fire01.jpg
+MediaMgr: (Clear) Usuwanie tekstury: inne.jpg
+MediaMgr: (Clear) Usuwanie tekstury: inne2.jpg
+MediaMgr: (Clear) Usuwanie tekstury: inne3.jpg
+MediaMgr: (Clear) Usuwanie tekstury: kula_drewno.jpg
+MediaMgr: (Clear) Usuwanie tekstury: kula_drewno_nrm.jpg
+MediaMgr: (Clear) Usuwanie tekstury: kula_kamien.jpg
+MediaMgr: (Clear) Usuwanie tekstury: kula_kamien_nrm.jpg
+MediaMgr: (Clear) Usuwanie tekstury: kula_papier.jpg
+MediaMgr: (Clear) Usuwanie tekstury: metal.jpg
+MediaMgr: (Clear) Usuwanie tekstury: metal_nrm.jpg
+MediaMgr: (Clear) Usuwanie tekstury: skrzynia.jpg
+MediaMgr: (Clear) Usuwanie tekstury: skrzynia_nrm.jpg
+MediaMgr: (Clear) Usuwanie tekstury: wood-texture_beiz.jp_l07282.jpg
+MediaMgr: (Clear) Usuwanie tekstury: wood-texture_beiz.jp_s07347.jpg
+MediaMgr: (Clear) Usuwanie mesha: box.x
+MediaMgr: (Clear) Usuwanie mesha: boxskoswcieciemaly.x
+MediaMgr: (Clear) Usuwanie mesha: boxwciecie.x
+MediaMgr: (Clear) Usuwanie mesha: boxwcieciestart.x
+MediaMgr: (Clear) Usuwanie mesha: gwiazda.x
+MediaMgr: (Clear) Usuwanie mesha: krata.x
+MediaMgr: (Clear) Usuwanie mesha: kuladrewno.x
+MediaMgr: (Clear) Usuwanie mesha: kulakamien.x
+MediaMgr: (Clear) Usuwanie mesha: kulapapier.x
+MediaMgr: (Clear) Usuwanie mesha: kulapapierconvex.x
+MediaMgr: (Clear) Usuwanie mesha: platforma.x
+MediaMgr: (Clear) Usuwanie mesha: platformabok1.x
+MediaMgr: (Clear) Usuwanie mesha: platformabok2.x
+MediaMgr: (Clear) Usuwanie mesha: platformarog.x
+MediaMgr: (Clear) Usuwanie mesha: platformazmiana.x
+MediaMgr: (Clear) Usuwanie mesha: podjazdplaski.x
+MediaMgr: (Clear) Usuwanie mesha: porecz1.x
+MediaMgr: (Clear) Usuwanie mesha: poreczrog.x
+MediaMgr: (Clear) Usuwanie mesha: skrzynia.x
+MediaMgr: (Clear) Usuwanie mesha: tor.x
+MediaMgr: (Clear) Usuwanie mesha: torswider.x
+MediaMgr: (Clear) Usuwanie mesha: wiatrak.x
+PhysxMgr: (Clear) Niszczenie obiektu.
+SoundMgr: (Clear) Czyszczenie obiektu.
+SoundMgr: (Clear) Usuwanie obiektu dzwieku: ballWoodBackground
+SoundMgr: (Clear) Usuwanie obiektu dzwieku: menuBackground
+CScript: (Clear) Czyszczenie obiektu.
+CLevelMgr: (Clear) Usuwanie skryptu: config
+CLevelMgr: (Clear) Usuwanie skryptu: introduction
+CDirectx: (Clear) Czyszczenie obiektu!

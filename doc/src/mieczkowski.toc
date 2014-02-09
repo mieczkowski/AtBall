@@ -1,0 +1,116 @@
+\changetocdepth {4}
+\changetocdepth {4}
+\contentsline {chapter}{Spis tre\'sci}{2}{section*.1}
+\contentsline {chapter}{\chapternumberline {1}Wst\k ep}{6}{chapter.1}
+\contentsline {section}{\numberline {1.1}Temat pracy}{6}{section.1.1}
+\contentsline {section}{\numberline {1.2}Cel pracy}{7}{section.1.2}
+\contentsline {section}{\numberline {1.3}Zakres pracy}{7}{section.1.3}
+\contentsline {chapter}{\chapternumberline {2}Teoria}{8}{chapter.2}
+\contentsline {section}{\numberline {2.1}Wprowadzenie}{8}{section.2.1}
+\contentsline {section}{\numberline {2.2}Gry komputerowe}{8}{section.2.2}
+\contentsline {subsection}{\numberline {2.2.1}Czym jest gra komputerowa?}{8}{subsection.2.2.1}
+\contentsline {subsection}{\numberline {2.2.2}Historia gier komputerowych}{11}{subsection.2.2.2}
+\contentsline {subsection}{\numberline {2.2.3}Proces tworzenia gry komputerowej}{13}{subsection.2.2.3}
+\contentsline {section}{\numberline {2.3}Podstawowe poj\k ecia dotycz\k ace wy\'swietlania grafiki w 3D}{14}{section.2.3}
+\contentsline {subsection}{\numberline {2.3.1}Wektor}{14}{subsection.2.3.1}
+\contentsline {subsection}{\numberline {2.3.2}Macierz}{15}{subsection.2.3.2}
+\contentsline {subsection}{\numberline {2.3.3}Kwaternion}{15}{subsection.2.3.3}
+\contentsline {subsection}{\numberline {2.3.4}Wierzcho\IeC {\l }ek}{16}{subsection.2.3.4}
+\contentsline {section}{\numberline {2.4}Technologia DirectX}{16}{section.2.4}
+\contentsline {subsection}{\numberline {2.4.1}Historia}{16}{subsection.2.4.1}
+\contentsline {subsection}{\numberline {2.4.2}DirectX Graphics}{17}{subsection.2.4.2}
+\contentsline {subsection}{\numberline {2.4.3}DirectX Input}{18}{subsection.2.4.3}
+\contentsline {subsection}{\numberline {2.4.4}DirectX Audio}{18}{subsection.2.4.4}
+\contentsline {subsection}{\numberline {2.4.5}DirectX Play}{19}{subsection.2.4.5}
+\contentsline {section}{\numberline {2.5}Proces renderingu}{19}{section.2.5}
+\contentsline {subsection}{\numberline {2.5.1}Wst\k ep}{19}{subsection.2.5.1}
+\contentsline {subsection}{\numberline {2.5.2}Przekszta\IeC {\l }canie wierzcho\IeC {\l }k\'ow}{19}{subsection.2.5.2}
+\contentsline {subsubsection}{\numberline {2.5.2.1}Macierz \'swiata}{19}{subsubsection.2.5.2.1}
+\contentsline {subsubsection}{\numberline {2.5.2.2}Macierz widoku}{22}{subsubsection.2.5.2.2}
+\contentsline {subsubsection}{\numberline {2.5.2.3}Macierz projekcji}{22}{subsubsection.2.5.2.3}
+\contentsline {subsection}{\numberline {2.5.3}Fixed-function/Programmable Pipeline}{23}{subsection.2.5.3}
+\contentsline {subsection}{\numberline {2.5.4}Rasteryzacja}{24}{subsection.2.5.4}
+\contentsline {subsection}{\numberline {2.5.5}Pixel shader}{26}{subsection.2.5.5}
+\contentsline {subsection}{\numberline {2.5.6}Post-Processing}{26}{subsection.2.5.6}
+\contentsline {subsection}{\numberline {2.5.7}Optymalizacja}{27}{subsection.2.5.7}
+\contentsline {subsubsection}{\numberline {2.5.7.1}Frustrum Culling}{27}{subsubsection.2.5.7.1}
+\contentsline {subsubsection}{\numberline {2.5.7.2}Occlusion Culling}{28}{subsubsection.2.5.7.2}
+\contentsline {section}{\numberline {2.6}Techniki wy\'swietlania obrazu}{29}{section.2.6}
+\contentsline {subsection}{\numberline {2.6.1}O\'swietlenie}{29}{subsection.2.6.1}
+\contentsline {subsubsection}{\numberline {2.6.1.1}Wst\k ep}{29}{subsubsection.2.6.1.1}
+\contentsline {subsubsection}{\numberline {2.6.1.2}\'Zr\'od\IeC {\l }a \'swiat\IeC {\l }a}{29}{subsubsection.2.6.1.2}
+\contentsline {subsubsection}{\numberline {2.6.1.3}Cieniowanie p\IeC {\l }askie}{30}{subsubsection.2.6.1.3}
+\contentsline {subsubsection}{\numberline {2.6.1.4}Cieniowanie Gourauda}{30}{subsubsection.2.6.1.4}
+\contentsline {subsubsection}{\numberline {2.6.1.5}Cieniowanie Phonga}{30}{subsubsection.2.6.1.5}
+\contentsline {subsection}{\numberline {2.6.2}Teksturowanie}{31}{subsection.2.6.2}
+\contentsline {subsubsection}{\numberline {2.6.2.1}Nak\IeC {\l }adanie tekstur}{31}{subsubsection.2.6.2.1}
+\contentsline {subsubsection}{\numberline {2.6.2.2}Filtrowanie tekstur}{32}{subsubsection.2.6.2.2}
+\contentsline {subsubsection}{\numberline {2.6.2.3}Mapowanie normalnych}{33}{subsubsection.2.6.2.3}
+\contentsline {section}{\numberline {2.7}Fizyka w grach komputerowych - biblioteka PhysX}{34}{section.2.7}
+\contentsline {subsection}{\numberline {2.7.1}Wst\k ep}{34}{subsection.2.7.1}
+\contentsline {subsection}{\numberline {2.7.2}Scena}{35}{subsection.2.7.2}
+\contentsline {subsection}{\numberline {2.7.3}Aktorzy}{35}{subsection.2.7.3}
+\contentsline {subsection}{\numberline {2.7.4}Wykrywanie kolizji}{36}{subsection.2.7.4}
+\contentsline {subsection}{\numberline {2.7.5}Sterowanie obiektami}{37}{subsection.2.7.5}
+\contentsline {subsection}{\numberline {2.7.6}Debugowanie symulacji}{38}{subsection.2.7.6}
+\contentsline {subsection}{\numberline {2.7.7}Podsumowanie}{38}{subsection.2.7.7}
+\contentsline {section}{\numberline {2.8}Logika gry - skrypty}{39}{section.2.8}
+\contentsline {subsection}{\numberline {2.8.1}Wst\k ep}{39}{subsection.2.8.1}
+\contentsline {subsection}{\numberline {2.8.2}J\k ezyk Lua}{39}{subsection.2.8.2}
+\contentsline {subsection}{\numberline {2.8.3}Sk\IeC {\l }adnia j\k ezyka}{39}{subsection.2.8.3}
+\contentsline {subsection}{\numberline {2.8.4}Integracja z j\k ezykiem C++}{41}{subsection.2.8.4}
+\contentsline {subsubsection}{\numberline {2.8.4.1}ToLua++}{42}{subsubsection.2.8.4.1}
+\contentsline {subsubsection}{\numberline {2.8.4.2}LuaBind}{42}{subsubsection.2.8.4.2}
+\contentsline {chapter}{\chapternumberline {3}Praktyka}{43}{chapter.3}
+\contentsline {section}{\numberline {3.1}Architektura silnika}{43}{section.3.1}
+\contentsline {subsection}{\numberline {3.1.1}Wst\k ep}{43}{subsection.3.1.1}
+\contentsline {subsubsection}{\numberline {3.1.1.1}Narz\k edzia}{43}{subsubsection.3.1.1.1}
+\contentsline {subsection}{\numberline {3.1.2}Inicjalizacja}{44}{subsection.3.1.2}
+\contentsline {subsubsection}{\numberline {3.1.2.1}Game - g\IeC {\l }\'owny obiekt gry}{44}{subsubsection.3.1.2.1}
+\contentsline {subsubsection}{\numberline {3.1.2.2}Stany}{45}{subsubsection.3.1.2.2}
+\contentsline {subsubsection}{\numberline {3.1.2.3}P\k etla gry}{46}{subsubsection.3.1.2.3}
+\contentsline {subsubsection}{\numberline {3.1.2.4}Uaktualnianie logiki}{47}{subsubsection.3.1.2.4}
+\contentsline {subsubsection}{\numberline {3.1.2.5}Wy\'swietlanie obrazu}{48}{subsubsection.3.1.2.5}
+\contentsline {subsection}{\numberline {3.1.3}Grafika 2D - Interfejs u\.zytkownika}{49}{subsection.3.1.3}
+\contentsline {subsubsection}{\numberline {3.1.3.1}G\IeC {\l }\'owne menu}{49}{subsubsection.3.1.3.1}
+\contentsline {subsubsection}{\numberline {3.1.3.2}Okno wiadomo\'sci}{51}{subsubsection.3.1.3.2}
+\contentsline {subsection}{\numberline {3.1.4}Zasoby}{51}{subsection.3.1.4}
+\contentsline {subsubsection}{\numberline {3.1.4.1}Mened\.zer zasob\'ow}{51}{subsubsection.3.1.4.1}
+\contentsline {subsection}{\numberline {3.1.5}Obiekty w grze}{52}{subsection.3.1.5}
+\contentsline {subsubsection}{\numberline {3.1.5.1}Podstawowy obiekt - CEntity}{52}{subsubsection.3.1.5.1}
+\contentsline {subsubsection}{\numberline {3.1.5.2}Aktor w symulacji sceny PhysX - CEntityEx}{53}{subsubsection.3.1.5.2}
+\contentsline {subsubsection}{\numberline {3.1.5.3}Sterowanie}{53}{subsubsection.3.1.5.3}
+\contentsline {subsubsection}{\numberline {3.1.5.4}Obs\IeC {\l }uga kolizji}{54}{subsubsection.3.1.5.4}
+\contentsline {subsubsection}{\numberline {3.1.5.5}\IeC {\L }\k aczenie obiekt\'ow}{54}{subsubsection.3.1.5.5}
+\contentsline {subsubsection}{\numberline {3.1.5.6}Zarz\k adzanie obiektami}{55}{subsubsection.3.1.5.6}
+\contentsline {subsection}{\numberline {3.1.6}Scena}{55}{subsection.3.1.6}
+\contentsline {subsubsection}{\numberline {3.1.6.1}Symulacja fizyczna}{55}{subsubsection.3.1.6.1}
+\contentsline {subsubsection}{\numberline {3.1.6.2}Wy\'swietlanie obiekt\'ow}{56}{subsubsection.3.1.6.2}
+\contentsline {subsection}{\numberline {3.1.7}Kamera}{56}{subsection.3.1.7}
+\contentsline {subsubsection}{\numberline {3.1.7.1}Statyczna}{56}{subsubsection.3.1.7.1}
+\contentsline {subsubsection}{\numberline {3.1.7.2}Dynamiczna}{57}{subsubsection.3.1.7.2}
+\contentsline {subsection}{\numberline {3.1.8}Obs\IeC {\l }uga d\'zwi\k eku}{57}{subsection.3.1.8}
+\contentsline {subsubsection}{\numberline {3.1.8.1}D\'zwi\k ek 3D}{58}{subsubsection.3.1.8.1}
+\contentsline {subsection}{\numberline {3.1.9}Zarz\k adzanie czasem - Timery}{58}{subsection.3.1.9}
+\contentsline {subsubsection}{\numberline {3.1.9.1}Tworzenie}{58}{subsubsection.3.1.9.1}
+\contentsline {subsubsection}{\numberline {3.1.9.2}Wykonywanie akcji}{59}{subsubsection.3.1.9.2}
+\contentsline {subsubsection}{\numberline {3.1.9.3}Timery systemowe}{59}{subsubsection.3.1.9.3}
+\contentsline {subsection}{\numberline {3.1.10}Obs\IeC {\l }uga skrypt\'ow}{60}{subsection.3.1.10}
+\contentsline {subsubsection}{\numberline {3.1.10.1}Rejestrowanie metod}{60}{subsubsection.3.1.10.1}
+\contentsline {subsubsection}{\numberline {3.1.10.2}Wywo\IeC {\l }ywanie metod skryptowych}{61}{subsubsection.3.1.10.2}
+\contentsline {section}{\numberline {3.2}Tworzenie gry AtBall}{61}{section.3.2}
+\contentsline {subsection}{\numberline {3.2.1}Opis gry}{62}{subsection.3.2.1}
+\contentsline {subsection}{\numberline {3.2.2}Wst\k epna konfiguracja}{62}{subsection.3.2.2}
+\contentsline {subsubsection}{\numberline {3.2.2.1}Zmienne konfiguracyjne}{62}{subsubsection.3.2.2.1}
+\contentsline {subsubsection}{\numberline {3.2.2.2}Obs\IeC {\l }uga zmiany stanu gry}{63}{subsubsection.3.2.2.2}
+\contentsline {subsection}{\numberline {3.2.3}Tworzenie sceny}{63}{subsection.3.2.3}
+\contentsline {subsection}{\numberline {3.2.4}Poziomy gry}{64}{subsection.3.2.4}
+\contentsline {subsection}{\numberline {3.2.5}Elementy rozgrywki}{65}{subsection.3.2.5}
+\contentsline {subsubsection}{\numberline {3.2.5.1}Platforma zmiany typu kuli}{65}{subsubsection.3.2.5.1}
+\contentsline {subsubsection}{\numberline {3.2.5.2}Wiatrak}{66}{subsubsection.3.2.5.2}
+\contentsline {subsubsection}{\numberline {3.2.5.3}Zbieranie obiekt\'ow}{67}{subsubsection.3.2.5.3}
+\contentsline {chapter}{\chapternumberline {4}Podsumowanie}{69}{chapter.4}
+\contentsline {section}{\numberline {4.1}Ocena projektu}{69}{section.4.1}
+\contentsline {chapter}{\chapternumberline {5}BIBLIOGRAFIA}{70}{chapter.5}
+\contentsline {chapter}{Spis rysunk\'ow}{71}{section*.2}
+\contentsline {chapter}{Spis wydruk\'ow}{73}{section*.3}

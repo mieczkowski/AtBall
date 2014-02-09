@@ -1,0 +1,13 @@
+Uruchomienie systemu logujacego...
+WinMain: START
+CScript: (Load) Pomyslnie dodano skrypt: config
+SoundMgr: (Init) Pomyslnie zainicjowano system dzwieku! 
+SoundMgr: (Init) Pomyslnie zainicjowano system dzwieku! 
+CWindow: (Init) Pomyslnie zainicjowano okno!
+CDirectx: (Init) Pomyslnie zainicjowano DirectX!
+<< ERROR >> PhysxMgr: (Init) Nie mozna utworzyc obiektu PhysxSDK!
+<< ERROR >> Game: (Init) Nie mozna zainicjowac PhysX!
+CScript: (Clear) Czyszczenie obiektu.
+CLevelMgr: (Clear) Usuwanie skryptu: config
+SoundMgr: (Clear) Czyszczenie obiektu.
+CDirectx: (Clear) Czyszczenie obiektu!
